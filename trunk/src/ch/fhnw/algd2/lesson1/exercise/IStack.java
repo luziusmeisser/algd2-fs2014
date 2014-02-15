@@ -5,19 +5,19 @@ package ch.fhnw.algd2.lesson1.exercise;
 import java.util.EmptyStackException;
 
 /**
- * Exercise 1: Write a stack that implements this interface and test it with TestStack.
+ * Exercise 1.1: Write a stack that implements this interface and test it with TestStack.
  */
-public interface IStack {
+public interface IStack<T> {
 
 	/**
 	 * Pushes an object o onto the stack.
 	 */
-	public void push(Object o);
+	public void push(T o);
 	
 	/**
 	 * Removes the top element from the stack.
 	 * Throws an EmptyStackException if there is no element left.
 	 */
-	public Object pop() throws EmptyStackException;
+	public T pop() throws EmptyStackException;
 	
 }

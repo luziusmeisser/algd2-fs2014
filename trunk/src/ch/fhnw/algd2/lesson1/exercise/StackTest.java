@@ -13,22 +13,22 @@ import ch.fhnw.algd2.Util;
 /**
  * Test class for your stack implementation.
  */
-public class TestStack {
+public class StackTest {
 
-	private ArrayList<IStack> stacks;
+	private ArrayList<IStack<String>> stacks;
 
 	@Before
 	public void setUp() throws Exception {
 		stacks = new ArrayList<>();
-		stacks.add(new ch.fhnw.algd2.luzius.Stack());
+		stacks.add(new ch.fhnw.algd2.luzius.Stack<String>());
 //		stacks.add(new ch.fhnw.algd2.YOURNAME.Stack()); add your own stack implementation here
 	}
 
 	@Test
 	public void testPushPop() {
-		for (IStack stack : stacks) {
+		for (IStack<String> stack : stacks) {
 			stack.push("A");
-			Object o1 = "B";
+			String o1 = "B";
 			stack.push(o1);
 			stack.push("C");
 			stack.pop();
@@ -38,7 +38,7 @@ public class TestStack {
 
 	@Test
 	public void testSpeed() {
-		for (IStack stack : stacks) {
+		for (IStack<String> stack : stacks) {
 			long t0 = System.nanoTime();
 			String object = "asdasd";
 			for (int i = 0; i < 100000; i++) {
@@ -55,7 +55,7 @@ public class TestStack {
 
 	@Test
 	public void testError() {
-		for (IStack stack : stacks) {
+		for (IStack<String> stack : stacks) {
 			try {
 				stack.pop();
 				assert false : stack.getClass().getName() + " must throw an EmptyStackException when popping empty";

@@ -6,15 +6,15 @@ import java.util.EmptyStackException;
 
 import ch.fhnw.algd2.lesson1.exercise.IStack;
 
-public class Stack implements IStack {
+public class Stack<T> implements IStack<T> {
 
 	private Entry current;
 
-	public void push(Object o) {
+	public void push(T o) {
 		current = new Entry(current, o);
 	}
 
-	public Object pop() {
+	public T pop() {
 		if (current == null) {
 			throw new EmptyStackException();
 		} else {
@@ -28,9 +28,9 @@ public class Stack implements IStack {
 
 	class Entry {
 		Entry prev;
-		Object value;
+		T value;
 
-		public Entry(Entry current, Object o) {
+		Entry(Entry current, T o) {
 			this.prev = current;
 			this.value = o;
 		}
