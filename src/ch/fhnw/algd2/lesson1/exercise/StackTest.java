@@ -2,6 +2,8 @@
 
 package ch.fhnw.algd2.lesson1.exercise;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 
@@ -22,7 +24,8 @@ public class StackTest {
 		stacks = new ArrayList<>();
 		stacks.add(new ch.fhnw.algd2.luzius.Stack<String>());
 		stacks.add(new ch.fhnw.algd2.christianguedel.Stack<String>());
-		stacks.add(new ch.fhnw.algd2.romangribi.Stack<String>());
+        stacks.add(new ch.fhnw.algd2.romangribi.Stack<String>());
+        stacks.add(new ch.fhnw.algd2.stephanbrunner.Stack<String>());
 		stacks.add(new ch.fhnw.algd2.florianfankhauser.Stack<String>());
 		stacks.add(new ch.fhnw.algd2.emanuelmistretta.Stack<String>());
 		stacks.add(new ch.fhnw.algd2.stephenrandles.Stack<String>());
@@ -38,7 +41,7 @@ public class StackTest {
 			stack.push(o1);
 			stack.push("C");
 			stack.pop();
-			assert stack.pop() == o1;
+			assertEquals(o1, stack.pop());
 		}
 	}
 
@@ -60,11 +63,11 @@ public class StackTest {
 	}
 
 	@Test
-	public void testError() {
+	public void testError() throws Exception {
 		for (IStack<String> stack : stacks) {
 			try {
 				stack.pop();
-				assert false : stack.getClass().getName() + " must throw an EmptyStackException when popping empty";
+				throw new Exception(stack.getClass().getName() + " must throw an EmptyStackException when popping empty");
 			} catch (EmptyStackException e) {
 			}
 		}
