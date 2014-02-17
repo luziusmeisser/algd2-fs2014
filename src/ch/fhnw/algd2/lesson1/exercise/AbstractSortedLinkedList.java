@@ -3,8 +3,13 @@
 package ch.fhnw.algd2.lesson1.exercise;
 
 /**
+ * Exercise 1.3
+ * 
  * A linked list that is sorted.
  * When adding an item, it is automatically inserted at the right position.
+ * 
+ * You can assume that there are no null values in the list.
+ * 
  */
 public abstract class AbstractSortedLinkedList<T extends Comparable<T>> extends AbstractLinkedList<T> {
 	
