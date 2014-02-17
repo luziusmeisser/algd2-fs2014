@@ -49,6 +49,8 @@ public class MyStack<T> implements IStack<T> {
 
 	@Override
 	public T pop() throws EmptyStackException {
+		
+		
 		if (current != null) {
 			Element tmp = current.getNext();
 			Element tmp2 = current;
@@ -57,10 +59,8 @@ public class MyStack<T> implements IStack<T> {
 			return (T) tmp2.getValue();
 			
 		} else {
-			return null;
+			throw new EmptyStackException();
 		}
 	}
-
-
 
 }
