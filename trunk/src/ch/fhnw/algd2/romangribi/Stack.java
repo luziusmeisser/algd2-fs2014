@@ -2,25 +2,36 @@
 
 package ch.fhnw.algd2.romangribi;
 
-import java.util.ArrayList;
 import java.util.EmptyStackException;
 
 import ch.fhnw.algd2.lesson1.exercise.IStack;
 
 public class Stack<T> implements IStack<T> {
-    private final ArrayList<T> _list = new ArrayList<T>();
+    private Entry<T> _current = null;
 
     @Override
     public void push(T o) {
-        _list.add(o);
+        Entry<T> e = new Entry<T>(o);
+        e.next = _current;
+        _current = e;
     }
 
     @Override
     public T pop() throws EmptyStackException {
-        if (_list.size() == 0)
+        if (_current == null)
             throw new EmptyStackException();
-        
-        return _list.remove(_list.size() - 1);
+
+        Entry<T> e = _current;
+        _current = _current.next;
+        return e.value;
     }
 
+    private static class Entry<T> {
+        private Entry<T> next;
+        private final T value;
+
+        public Entry(T value) {
+            this.value = value;
+        }
+    }
 }

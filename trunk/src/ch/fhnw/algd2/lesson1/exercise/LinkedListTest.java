@@ -19,7 +19,7 @@ public class LinkedListTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		lists = new ArrayList<>();
+		lists.add(new ch.fhnw.algd2.romangribi.LinkedList<Integer>());
         lists.add(new ch.fhnw.algd2.christianguedel.LinkedList<Integer>()); // add your own LinkedList implementation here
 //      lists.add(new ch.fhnw.algd2.luzius.LinkedList<Integer>()); // add your own LinkedList implementation here
 	}
