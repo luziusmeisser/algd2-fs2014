@@ -22,8 +22,9 @@ public class LinkedListTest {
 		lists = new ArrayList<>();
 		lists.add(new ch.fhnw.algd2.florianfankhauser.LinkedList<Integer>());
 		lists.add(new ch.fhnw.algd2.romangribi.LinkedList<Integer>());
-        lists.add(new ch.fhnw.algd2.christianguedel.LinkedList<Integer>());
-//      lists.add(new ch.fhnw.algd2.luzius.LinkedList<Integer>()); // add your own LinkedList implementation here
+		lists.add(new ch.fhnw.algd2.christianguedel.LinkedList<Integer>());
+		lists.add(new ch.fhnw.algd2.emanuelmistretta.LinkedList<Integer>());
+		lists.add(new ch.fhnw.algd2.luzius.LinkedList<Integer>()); // add your own LinkedList implementation here
 	}
 	
 	@Test
