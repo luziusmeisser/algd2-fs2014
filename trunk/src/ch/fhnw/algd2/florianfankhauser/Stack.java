@@ -7,11 +7,11 @@ import java.util.EmptyStackException;
 import ch.fhnw.algd2.lesson1.exercise.IStack;
 
 public class Stack<T> implements IStack<T> {
-	private Entity<T> currentEntity = null;
+	private Entry<T> currentEntity = null;
 
 	@Override
 	public void push(T o) {
-		currentEntity = new Entity<T>(o, currentEntity);
+		currentEntity = new Entry<T>(o, currentEntity);
 	}
 
 	@Override
@@ -25,11 +25,11 @@ public class Stack<T> implements IStack<T> {
 		}
 	}
 	
-	private class Entity<X> {
+	private class Entry<X> {
 		private X value;
-		private Entity<X> previous;
+		private Entry<X> previous;
 		
-		private Entity(X value, Entity<X> previous) {
+		private Entry(X value, Entry<X> previous) {
 			this.value = value;
 			this.previous = previous;
 		}
