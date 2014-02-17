@@ -25,10 +25,10 @@ public void push(Object o) {
 }
 
 @Override
-public Object pop() throws EmptyStackException {
+public T pop() throws EmptyStackException {
 	Node<T> tmp = new Node<T>(head.val);
 	head = head.next;
-	return (Object)tmp.val;
+	return (T)tmp.val;
 }
 
 }
