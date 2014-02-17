@@ -19,6 +19,7 @@ public class LinkedListTest {
 	
 	@Before
 	public void setUp() throws Exception {
+	    lists  = new ArrayList<>();
 		lists.add(new ch.fhnw.algd2.romangribi.LinkedList<Integer>());
         lists.add(new ch.fhnw.algd2.christianguedel.LinkedList<Integer>()); // add your own LinkedList implementation here
 //      lists.add(new ch.fhnw.algd2.luzius.LinkedList<Integer>()); // add your own LinkedList implementation here
@@ -43,7 +44,7 @@ public class LinkedListTest {
 				list.remove((Integer)i);
 			}
 			c2.stop();
-			assert c1.tookMuchLongerThan(c2) || c2.tookMuchLongerThan(c1);
+			assert c1.tookMuchLongerThan(c2) || c2.tookMuchLongerThan(c1) : list.getClass().getName();
 		}
 	}
 	

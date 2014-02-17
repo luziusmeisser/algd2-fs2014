@@ -7,22 +7,22 @@ import java.util.EmptyStackException;
 import ch.fhnw.algd2.lesson1.exercise.IStack;
 
 public class Stack<T> implements IStack<T> {
-    private Entry<T> _current = null;
+    private Entry<T> current = null;
 
     @Override
     public void push(T o) {
         Entry<T> e = new Entry<T>(o);
-        e.next = _current;
-        _current = e;
+        e.next = current;
+        current = e;
     }
 
     @Override
     public T pop() throws EmptyStackException {
-        if (_current == null)
+        if (current == null)
             throw new EmptyStackException();
 
-        Entry<T> e = _current;
-        _current = _current.next;
+        Entry<T> e = current;
+        current = current.next;
         return e.value;
     }
 
