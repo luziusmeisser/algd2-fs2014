@@ -108,5 +108,25 @@ public class SortedLinkedListTest {
 			assert list.isEmpty();
 		}
 	}
+	
+	@Test
+	public void testSpecialCases() throws InstantiationException, IllegalAccessException {
+		for (AbstractSortedLinkedList<Integer> list : lists) {
+			assert list.size() == 0;
+			list.merge(list);
+			assert list.size() == 0;
+			list.add(7);
+			list.merge(list);
+			assert list.size() == 2;
+			AbstractSortedLinkedList<Integer> other = list.getClass().newInstance();
+			list.merge(other);
+			assert list.size() == 2;
+			other.merge(list);
+			assert other.size() == 2;
+			other.merge(other);
+			other.merge(other);
+			assert other.size() == 8;
+		}
+	}
 
 }
