@@ -2,26 +2,38 @@
 
 package ch.fhnw.algd2.christianguedel;
 
-import java.util.ArrayList;
 import java.util.EmptyStackException;
 
 import ch.fhnw.algd2.lesson1.exercise.*;
 
 public class Stack<T> implements IStack<T> {
 
-    private final ArrayList<T> list = new ArrayList<T>();
-
+    private Entry top;
+    
     @Override
     public void push(T o) {
-        list.add(o);
+        top = new Entry(top, o);
     }
 
     @Override
     public T pop() throws EmptyStackException {
-        if (list.size() == 0)
+        if (top == null)
             throw new EmptyStackException();
 
-        return list.remove(list.size() - 1);
+        T value = top.value;
+        top = top.prev;
+        
+        return value;
     }
 
+    private class Entry {
+        private T value;
+        private Entry prev;
+        
+        public Entry(Entry prev, T value)
+        {
+            this.value = value;
+            this.prev = prev;
+        }
+    }
 }
