@@ -45,12 +45,14 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 
             @Override
             public void remove() {
-                if (previous == null)
+                if (previous != null)
+                {
+                    previous.next = current.next;
+                    current = previous;
+                    previous = null;
+                } else {
                     throw new IllegalStateException();
-
-                previous.next = current.next;
-                current = previous;
-                previous = null;
+                }
             }
         };
     }
