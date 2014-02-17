@@ -10,12 +10,12 @@ import ch.fhnw.algd2.lesson1.exercise.AbstractLinkedList;
 public class LinkedList<T> extends AbstractLinkedList<T> {
 
     private Entry head = new Entry(null);
-    
+
     @Override
     public boolean add(T e) {
-        head.SetValue(e);
+        head.value = e;
         head = new Entry(head);
-        
+
         return true;
     }
 
@@ -25,7 +25,7 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 
             private Entry current = head;
             private Entry previous;
-            
+
             @Override
             public boolean hasNext() {
                 return current.next != null;
@@ -33,46 +33,33 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 
             @Override
             public T next() {
-                if (!hasNext())
+                if (hasNext())
+                {
+                    previous = current;
+                    current = previous.next;
+                    return current.value;
+                } else {
                     throw new NoSuchElementException();
-                
-                previous = current;
-                current = previous.next;
-                return current.GetValue();
+                }
             }
 
             @Override
             public void remove() {
-                if (current == null)
+                if (previous == null)
                     throw new IllegalStateException();
-                
-                previous.SetNext(current.next);
+
+                previous.next = current.next;
                 current = previous;
+                previous = null;
             }
         };
     }
 
     private class Entry {
-        private T value;
-        private Entry next;
-        
-        public Entry(Entry next)
-        {
-            this.next = next;
-        }
-        
-        public T GetValue()
-        {
-            return this.value;
-        }
-        
-        public void SetValue(T value)
-        {
-            this.value = value;
-        }
-        
-        public void SetNext(Entry next)
-        {
+        T value;
+        Entry next;
+
+        public Entry(Entry next) {
             this.next = next;
         }
     }
