@@ -26,6 +26,7 @@ public class StackTest {
 		stacks.add(new ch.fhnw.algd2.florianfankhauser.Stack<String>());
 		stacks.add(new ch.fhnw.algd2.emanuelmistretta.Stack<String>());
 		stacks.add(new ch.fhnw.algd2.stephenrandles.Stack<String>());
+		stacks.add(new ch.fhnw.algd2.larskessler.Stack<String>());
 //		stacks.add(new ch.fhnw.algd2.YOURNAME.Stack()); add your own stack implementation here
 	}
 
