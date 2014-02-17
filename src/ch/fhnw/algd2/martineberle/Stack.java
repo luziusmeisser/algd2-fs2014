@@ -27,8 +27,13 @@ public void push(Object o) {
 @Override
 public T pop() throws EmptyStackException {
 	Node<T> tmp = new Node<T>(head.val);
-	head = head.next;
-	return (T)tmp.val;
+	if(head.next == null){
+		throw new EmptyStackException();
+	}
+	else{
+		head = head.next;
+		return (T)tmp.val;
+	}
 }
 
 }
