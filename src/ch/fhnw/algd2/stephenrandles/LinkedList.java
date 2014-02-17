@@ -24,9 +24,32 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 	}
 
 	@Override
-	public Iterator<T> iterator() {
-		
-		return null;
+	public Iterator<T> iterator() {		
+		return new Iterator<T>() {
+			LinkedListItem<T> previous = null;
+			LinkedListItem<T> current = start;
+			
+			@Override
+			public boolean hasNext() {	
+				return (current.getNext() != null);
+			}
+
+			@Override
+			public T next() {
+				if (this.hasNext()) {
+					previous = current;
+					current = current.getNext();
+				}
+				return current.getContents();
+			}
+
+			@Override
+			public void remove() {
+				previous.setNext(current.getNext());
+				current = previous;
+			}
+			
+		};
 	}
 	
 
