@@ -11,8 +11,12 @@ public class Stack<T> implements IStack<T> {
 	final private int DEFAULT_SIZE = 100;
 	final private double GROWTH_RATE = 2;
 	
-	private Object[] stack = new Object[DEFAULT_SIZE];
+	private Object[] stack;
 	private int pointer;
+	
+	public Stack() {
+		stack = new Object[DEFAULT_SIZE];
+	}
 	
 	@Override
 	public void push(T o) {
