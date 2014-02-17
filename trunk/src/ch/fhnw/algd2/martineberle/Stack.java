@@ -1,3 +1,5 @@
+// Created by Martin Eberle on 17.02.2014
+
 package ch.fhnw.algd2.martineberle;
 
 import java.util.EmptyStackException;
@@ -8,13 +10,12 @@ public class Stack<T> implements IStack<T>{
 Node<T> head;
 
 public Stack(){
-	this.head = new Node<T>();
 	
 }
 
 @Override
 public void push(Object o) {
-	if(head.next == null){
+	if(head == null){
 		this.head = new Node<T>(o);
 	}
 	else{
@@ -26,14 +27,14 @@ public void push(Object o) {
 
 @Override
 public T pop() throws EmptyStackException {
-	Node<T> tmp = new Node<T>(head.val);
-	if(head.next == null){
+	if(head == null){
 		throw new EmptyStackException();
 	}
-	else{
-		head = head.next;
-		return (T)tmp.val;
+	Node<T> tmp = new Node<T>(head.val);
+//	if(head.next == null){
+//		throw new EmptyStackException();
+//	}
+	head = head.next;
+	return (T)tmp.val;
 	}
-}
-
 }
