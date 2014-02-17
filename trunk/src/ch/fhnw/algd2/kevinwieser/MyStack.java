@@ -8,15 +8,16 @@ import ch.fhnw.algd2.lesson1.exercise.IStack;
 
 public class MyStack<T> implements IStack<T> {
 	
-	private Element current;
+	private Element current = null;
 
 	private class Element<T> {
 		private Element next;
 		private T value;
 		
 		
-		public Element(T o) {
+		public Element(T o, Element next) {
 			this.value = o;
+			this.next = next;
 		}
 		
 		public void setValue(T value) {
@@ -38,14 +39,7 @@ public class MyStack<T> implements IStack<T> {
 	
 	@Override
 	public void push(T o) {
-		if (current != null) {
-			Element tmp = current.getNext();
-			current = new Element(o);
-			current.setNext(tmp);
-		} else {
-			current = new Element(o);
-		}
-		
+			current = new Element(o, current);
 	}
 
 	@Override
@@ -53,19 +47,18 @@ public class MyStack<T> implements IStack<T> {
 
 		if (current == null) {
 			throw new EmptyStackException();
-		} else {
-			Element tmp = current.getNext();
-			Element tmp2 = current;
+		} 
+		
+		Element tmp = current.getNext();
+		Element tmp2 = current;
 	
-			if (tmp == null) {
-				current = null;
-			} else {
-				current = tmp;
-			}
-			
-			return (T) tmp2.getValue();
+		if (tmp == null) {
+			current = null;
+		} else {
+			current = tmp;
 		}
 			
+		return (T) tmp2.getValue();	
 		}
 }
 
