@@ -1,4 +1,4 @@
-package larskessler;
+package ch.fhnw.algd2.larskessler;
 
 import java.util.EmptyStackException;
 
