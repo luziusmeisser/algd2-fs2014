@@ -21,6 +21,7 @@ public class StackTest {
 	public void setUp() throws Exception {
 		stacks = new ArrayList<>();
 		stacks.add(new ch.fhnw.algd2.luzius.Stack<String>());
+		stacks.add(new ch.fhnw.algd2.christianguedel.Stack<String>());
 		stacks.add(new ch.fhnw.algd2.romangribi.Stack<String>());
 //		stacks.add(new ch.fhnw.algd2.YOURNAME.Stack()); add your own stack implementation here
 	}
