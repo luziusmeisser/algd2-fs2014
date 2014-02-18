@@ -55,7 +55,6 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 					throw new IllegalStateException("remove() has been called before next() or has already been called on the current item.");
 				}
 				if (previous == null) {
-					// Removing first element, change start
 					start = current.getNext();
 				} else {
 					previous.setNext(next);
