@@ -30,6 +30,7 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 	public Iterator<T> iterator() {
 		return new Iterator<T>() {
 			LinkedListItem<T> previous = null;
+			LinkedListItem<T> current = null;
 			LinkedListItem<T> next = start;
 			
 			@Override
@@ -40,22 +41,26 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 			@Override
 			public T next() {
 				if (this.hasNext()) {
-					previous = next;
-					next = next.getNext();
-					return previous.getContents();
+					previous = current;
+					current = next;
+					next = current.getNext();
+					return current.getContents();
 				}
 				throw new NoSuchElementException();
 			}
 
 			@Override
 			public void remove() {
-				if (previous == null){
-					throw new IllegalStateException("remove() was called before next() or has already been called on current item.");
+				if (current == null){
+					throw new IllegalStateException("remove() has been called before next() or has already been called on the current item.");
 				}
-				
-				previous.setNext(next.getNext());
-				next = previous.getNext();
-				previous = null;
+				if (previous == null) {
+					// Removing first element, change start
+					start = current.getNext();
+				} else {
+					previous.setNext(next);
+				}
+				current = null;
 			}
 			
 		};
