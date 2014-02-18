@@ -10,9 +10,15 @@ public class MyLinkedListTest {
 		list.add("B");
 		list.add("C");
 		list.add("D");
+		list.add("E");
+		list.add("F");
 		
 		printLinkedList(list);
+		list.remove("A");
+		printLinkedList(list);
 		list.remove("D");
+		printLinkedList(list);
+		list.remove("F");
 		printLinkedList(list);
 	}
 	
