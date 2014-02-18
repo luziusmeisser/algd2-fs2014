@@ -7,14 +7,14 @@ import java.util.EmptyStackException;
 
 import ch.fhnw.algd2.lesson1.exercise.IStack;
 
-public class Stack<T> implements IStack<T> {
+public class StackWithArray<T> implements IStack<T> {
 	final private int DEFAULT_SIZE = 100;
 	final private double GROWTH_RATE = 2;
 	
 	private Object[] stack;
 	private int pointer;
 	
-	public Stack() {
+	public StackWithArray() {
 		stack = new Object[DEFAULT_SIZE];
 	}
 	
