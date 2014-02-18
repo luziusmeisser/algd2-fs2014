@@ -3,6 +3,8 @@
 package ch.fhnw.algd2.stephenrandles;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import ch.fhnw.algd2.lesson1.exercise.AbstractLinkedList;
 
 public class LinkedList<T> extends AbstractLinkedList<T> {
@@ -15,6 +17,7 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 
 		if (start == null) {
 			start = next;
+			end = next;
 		} else {
 			end.setNext(next);
 			end = next;
@@ -24,29 +27,35 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 	}
 
 	@Override
-	public Iterator<T> iterator() {		
+	public Iterator<T> iterator() {
 		return new Iterator<T>() {
 			LinkedListItem<T> previous = null;
-			LinkedListItem<T> current = start;
+			LinkedListItem<T> next = start;
 			
 			@Override
-			public boolean hasNext() {	
-				return (current.getNext() != null);
+			public boolean hasNext() {
+				return (next != null);
 			}
 
 			@Override
 			public T next() {
 				if (this.hasNext()) {
-					previous = current;
-					current = current.getNext();
+					previous = next;
+					next = next.getNext();
+					return previous.getContents();
 				}
-				return current.getContents();
+				throw new NoSuchElementException();
 			}
 
 			@Override
 			public void remove() {
-				previous.setNext(current.getNext());
-				current = previous;
+				if (previous == null){
+					throw new IllegalStateException("remove() was called before next() or has already been called on current item.");
+				}
+				
+				previous.setNext(next.getNext());
+				next = previous.getNext();
+				previous = null;
 			}
 			
 		};
