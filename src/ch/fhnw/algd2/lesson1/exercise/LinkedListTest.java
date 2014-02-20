@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,6 +23,7 @@ public class LinkedListTest {
 		lists.add(new ch.fhnw.algd2.christianguedel.LinkedList<Integer>());
 		lists.add(new ch.fhnw.algd2.emanuelmistretta.LinkedList<Integer>());
 		lists.add(new ch.fhnw.algd2.stephenrandles.LinkedList<Integer>());
+		lists.add(new ch.fhnw.algd2.yannickaugstburger.LinkedList<Integer>());
 		lists.add(new ch.fhnw.algd2.luzius.LinkedList<Integer>()); // add your own LinkedList implementation here
 	}
 	
@@ -36,7 +35,7 @@ public class LinkedListTest {
 			}
 			Clock c1 = new Clock();
 			for (int i=9999; i>=0; i--){
-				list.remove((Integer)i);
+				list.remove(i);
 			}
 			c1.stop();
 			for (int i=0; i<10000; i++){
@@ -44,7 +43,7 @@ public class LinkedListTest {
 			}
 			Clock c2 = new Clock();
 			for (int i=0; i<10000; i++){
-				list.remove((Integer)i);
+				list.remove(i);
 			}
 			c2.stop();
 			assert c1.tookMuchLongerThan(c2) || c2.tookMuchLongerThan(c1) : list.getClass().getName();
