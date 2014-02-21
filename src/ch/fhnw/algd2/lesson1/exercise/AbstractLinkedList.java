@@ -22,7 +22,6 @@ public abstract class AbstractLinkedList<T> extends AbstractCollection<T> {
 		int count = 0;
 		while (iter.hasNext()) {
 			count++;
-			iter.next();
 		}
 		return count;
 	}

@@ -22,17 +22,18 @@ public class StackTest {
 	@Before
 	public void setUp() throws Exception {
 		stacks = new ArrayList<>();
-		stacks.add(new ch.fhnw.algd2.luzius.Stack<String>());
-		stacks.add(new ch.fhnw.algd2.christianguedel.Stack<String>());
-        stacks.add(new ch.fhnw.algd2.romangribi.Stack<String>());
-        stacks.add(new ch.fhnw.algd2.stephanbrunner.Stack<String>());
-		stacks.add(new ch.fhnw.algd2.florianfankhauser.Stack<String>());
-		stacks.add(new ch.fhnw.algd2.emanuelmistretta.Stack<String>());
-		stacks.add(new ch.fhnw.algd2.kevinwieser.MyStack<String>());
-		stacks.add(new ch.fhnw.algd2.martineberle.Stack<String>());
-		stacks.add(new ch.fhnw.algd2.stephenrandles.StackWithArray<String>());
-		stacks.add(new ch.fhnw.algd2.stephenrandles.StackWithNodes<String>());
-		stacks.add(new ch.fhnw.algd2.yannickaugstburger.MyStack<String>());
+//		stacks.add(new ch.fhnw.algd2.luzius.Stack<String>());
+//		stacks.add(new ch.fhnw.algd2.christianguedel.Stack<String>());
+//        stacks.add(new ch.fhnw.algd2.romangribi.Stack<String>());
+//        stacks.add(new ch.fhnw.algd2.stephanbrunner.Stack<String>());
+//		stacks.add(new ch.fhnw.algd2.florianfankhauser.Stack<String>());
+//		stacks.add(new ch.fhnw.algd2.emanuelmistretta.Stack<String>());
+//		stacks.add(new ch.fhnw.algd2.kevinwieser.MyStack<String>());
+//		stacks.add(new ch.fhnw.algd2.martineberle.Stack<String>());
+//		stacks.add(new ch.fhnw.algd2.stephenrandles.StackWithArray<String>());
+//		stacks.add(new ch.fhnw.algd2.stephenrandles.StackWithNodes<String>());
+//		stacks.add(new ch.fhnw.algd2.yannickaugstburger.MyStack<String>());
+		stacks.add(new ch.fhnw.algd2.mariusdubach.Stack<String>());
 //		stacks.add(new ch.fhnw.algd2.YOURNAME.Stack()); add your own stack implementation here
 	}
 
