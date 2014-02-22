@@ -20,6 +20,7 @@ public class SortedLinkedListTest {
 	@Before
 	public void setUp() throws Exception {
 		lists = new ArrayList<>();
+		lists.add(new ch.fhnw.algd2.romangribi.SortedLinkedList<Integer>());
 		lists.add(new ch.fhnw.algd2.florianfankhauser.SortedLinkedList<Integer>());
 		// add your own LinkedList implementation here
 //		lists.add(new ch.fhnw.algd2.luzius.SortedLinkedList<Integer>());
