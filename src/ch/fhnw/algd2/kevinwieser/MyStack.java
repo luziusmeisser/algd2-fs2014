@@ -45,10 +45,10 @@ public class MyStack<T> implements IStack<T> {
 		if (current.getNext() == null) {
 			current = null;
 		} else {
-			current = tmp;
+			current = current.getNext();
 		}
 
-		return (T) tmp2.getValue();
+		return (T) old_element.getValue();
 
 	}
 }
