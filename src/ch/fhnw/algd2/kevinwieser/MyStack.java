@@ -10,24 +10,6 @@ public class MyStack<T> implements IStack<T> {
 
 	private Element<T> current = null;
 
-	private class Element<T> {
-		private Element<T> next;
-		private T value;
-
-		public Element(T o, Element<T> next) {
-			this.value = o;
-			this.next = next;
-		}
-
-		public Element<T> getNext() {
-			return next;
-		}
-
-		public T getValue() {
-			return value;
-		}
-	}
-
 	@Override
 	public void push(T o) {
 		current = new Element<T>(o, current);
