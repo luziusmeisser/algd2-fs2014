@@ -9,24 +9,28 @@ import ch.fhnw.algd2.lesson1.exercise.AbstractLinkedList;
 
 public class LinkedList<T> extends AbstractLinkedList<T> {
 
-    private Item<T> first = new Item<T>(null);
-    
+    private Item<T> head = new Item<>(null);
+
     @Override
     public boolean add(T e) {
         Item<T> i = new Item<T>(e);
-        i.next = first;
-        first = i;
+        i.next = head.next;
+        head.next = i;
         
         return true;
+    }
+    
+    public T first() {
+        return head.item;
     }
 
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
 
-            private Item<T> current = first;
+            private Item<T> current = head;
             private Item<T> previous = null;
-            
+
             @Override
             public boolean hasNext() {
                 return current.next != null;
@@ -34,7 +38,7 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 
             @Override
             public T next() {
-                if(!hasNext()) {
+                if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
                 previous = current;
@@ -44,7 +48,7 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 
             @Override
             public void remove() {
-                if(previous == null) {
+                if (previous == null) {
                     throw new IllegalStateException();
                 } else {
                     previous.next = current.next;
@@ -54,14 +58,14 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
             }
         };
     }
-    
+
     private static class Item<T> {
         private final T item;
-        
+
         public Item(T item) {
             this.item = item;
         }
-        
-        private Item<T> next;
+
+        private Item<T> next = null;
     }
 }
