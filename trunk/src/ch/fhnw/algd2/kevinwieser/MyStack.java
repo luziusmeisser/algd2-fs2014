@@ -8,11 +8,11 @@ import ch.fhnw.algd2.lesson1.exercise.IStack;
 
 public class MyStack<T> implements IStack<T> {
 
-	private Element<T> current = null;
+	private CollectionElement<T> current = null;
 
 	@Override
 	public void push(T o) {
-		current = new Element<T>(o, current);
+		current = new CollectionElement<T>(o, current);
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class MyStack<T> implements IStack<T> {
 			throw new EmptyStackException();
 		}
 
-		Element<T> old_element = current;
+		CollectionElement<T> old_element = current;
 
 		if (current.getNext() == null) {
 			current = null;
