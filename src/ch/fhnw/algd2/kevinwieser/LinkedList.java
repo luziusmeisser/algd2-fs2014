@@ -10,11 +10,23 @@ import ch.fhnw.algd2.lesson1.exercise.AbstractLinkedList;
 public class LinkedList<T> extends AbstractLinkedList<T> {
 	
 	// Head = Anker -> Mit Dummy Element
-	private Element<T> head = new Element(null,null); 
+	private Element<T> head = new Element<T>(null); 
+	
+	
+	class Element<T> {
+    	Element<T> next;
+    	T value;
+
+    	public Element(Element<T> head) {
+    		this.next = head;
+    	}
+    }
+	
 	
 	@Override
 	public boolean add(T e) {
-		head = new Element<T>(e, head);
+		head = new Element<T>(head);
+		head.value = e;
 		return true;
 	}
 
@@ -27,36 +39,29 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 			
 			@Override
 			public boolean hasNext() {
-					if (m_current != null) {
-					return m_current.getNext() != null;
-					} else {
-						return false;
-					}
+					return m_current.next != null;
 			}
 
 			@Override
 			public T next() {
-				if (hasNext()) {
-					m_returned = m_current;
-					m_current = m_current.getNext();
-					return m_returned.getValue();
-				} else {
+				if (!hasNext()) {
 					throw new NoSuchElementException();
 				}
+					m_returned = m_current;
+					m_current = m_current.next;
+					return m_returned.value;	
 			}
 
 			@Override
 			public void remove() {
-				if (m_returned == null || m_current == null) {
+				if (m_returned == null) {
 					throw new IllegalStateException();
-				} else {
+				} 
 					// löscht das momentane current
-					m_returned.setNext(m_current.getNext());
+					m_returned.next = m_current.next;
 					m_current = m_returned;
 					m_returned = null;
 				}
-				
-			}	
 		};
 	}
 
