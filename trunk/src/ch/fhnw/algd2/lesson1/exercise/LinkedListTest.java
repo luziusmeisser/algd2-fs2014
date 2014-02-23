@@ -30,6 +30,7 @@ public class LinkedListTest {
         lists.add(new ch.fhnw.algd2.yannickaugstburger.LinkedList<Integer>());
         lists.add(new ch.fhnw.algd2.mariusdubach.LinkedList<Integer>());
         lists.add(new ch.fhnw.algd2.stephanbrunner.LinkedList<Integer>());
+        lists.add(new ch.fhnw.algd2.larskessler.LinkedList<Integer>());
         lists.add(new ch.fhnw.algd2.luzius.LinkedList<Integer>()); 
         lists.add(new ch.fhnw.algd2.kevinwieser.LinkedList<Integer>());// add your own LinkedList implementation here
     }
