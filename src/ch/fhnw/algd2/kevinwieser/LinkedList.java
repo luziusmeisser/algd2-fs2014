@@ -10,14 +10,14 @@ import ch.fhnw.algd2.lesson1.exercise.AbstractLinkedList;
 public class LinkedList<T> extends AbstractLinkedList<T> {
 	
 	// Head = Anker -> Mit Dummy Element
-	private Element<T> head = new Element<T>(null); 
+	private Element head = new Element(null); 
 	
 	
-	class Element<T> {
-    	Element<T> next;
+	class Element {
+    	Element next;
     	T value;
 
-    	public Element(Element<T> head) {
+    	public Element(Element head) {
     		this.next = head;
     	}
     }
@@ -25,7 +25,7 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 	
 	@Override
 	public boolean add(T e) {
-		head = new Element<T>(head);
+		head = new Element(head);
 		head.value = e;
 		return true;
 	}
@@ -34,8 +34,8 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 	public Iterator<T> iterator() {
 		return new Iterator<T>() {
 			
-			private Element<T> m_current = head;
-			private Element<T> m_returned = null;
+			private Element m_current = head;
+			private Element m_returned = null;
 			
 			@Override
 			public boolean hasNext() {

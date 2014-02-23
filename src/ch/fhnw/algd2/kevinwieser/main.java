@@ -17,7 +17,7 @@ public class main {
          }
          Clock c1 = new Clock();
          for (int i=9999; i>=0; i--){
-             list.remove(i); // dauert länger -.-
+             list.remove(i); 
          }
          c1.stop();
          System.out.println(c1.toString());
@@ -32,12 +32,6 @@ public class main {
          System.out.println(c2.toString());
          
          System.out.println(c1.tookMuchLongerThan(c2) || c2.tookMuchLongerThan(c1));
-		
-		
-//		Iterator<Integer> it = list.iterator();
-//		while(it.hasNext()) {
-//			System.out.println(it.next());
-//		}
 
 	}
 
