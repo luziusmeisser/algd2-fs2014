@@ -31,18 +31,22 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 		return true;
 	}
 	
+	// returns the size
 	public int size() {
 		return this.size;
 	}
 	
+	// decrements the size
 	public void decrement() {
 		this.size--;
 	}
 	
+	// returns true if the list is empty
 	public boolean isEmpty() {
 		return (first == null) && (last == null); 
 	}
 	
+	// clears the list
 	public void clear() {
 		this.first = null;
 		this.last = null;
@@ -64,25 +68,27 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 					current = next;
 					next = current.next;
 					return current.value;
-				} 
-				throw new NoSuchElementException();			
+				}
+				throw new NoSuchElementException();
 			}
 			
 			public void remove() {
 				// nothing to remove if list is empty
-				// else there was only one element
+				// elseif there was only one element
+				// else set prev next to next
 				if (current == null) {
 					throw new IllegalStateException("Nothing to remove...");
-				} else if(current.prev == null) {
-					first = current.next;
+				} else if(prev == null) {
+					first = current;
 					decrement();
 				} else {
 					prev.next = next;
 					decrement();
 				}
-				current = null;
+				current = null;				
 			}
 			
+			// check if a next element is available
 			public boolean hasNext() {
 				return next != null;
 			}
@@ -104,6 +110,7 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 			return this.next != null;
 		}
 		
+		// returns true if there is a prev element
 		public boolean hasPrev() {
 			return this.prev != null;
 		}
