@@ -10,23 +10,12 @@ import ch.fhnw.algd2.lesson1.exercise.AbstractLinkedList;
 public class LinkedList<T> extends AbstractLinkedList<T> {
 	
 	// Head = Anker -> Mit Dummy Element
-	private Element head = new Element(null); 
+	private CollectionElement<T> head = new CollectionElement<T>(null); 
 	
-	
-	class Element {
-    	Element next;
-    	T value;
 
-    	public Element(Element head) {
-    		this.next = head;
-    	}
-    }
-	
-	
 	@Override
 	public boolean add(T e) {
-		head = new Element(head);
-		head.value = e;
+		head = new CollectionElement<T>(e,head);
 		return true;
 	}
 
@@ -34,12 +23,11 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 	public Iterator<T> iterator() {
 		return new Iterator<T>() {
 			
-			private Element m_current = head;
-			private Element m_returned = null;
-			
+			private CollectionElement<T> m_current = head;
+			private CollectionElement<T> m_returned;
 			@Override
 			public boolean hasNext() {
-					return m_current.next != null;
+					return m_current.getNext() != null;
 			}
 
 			@Override
@@ -48,8 +36,8 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 					throw new NoSuchElementException();
 				}
 					m_returned = m_current;
-					m_current = m_current.next;
-					return m_returned.value;	
+					m_current = m_current.getNext();
+					return m_current.getValue();	// habe hier m_previous.value zurückgegeben
 			}
 
 			@Override
@@ -58,12 +46,10 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 					throw new IllegalStateException();
 				} 
 					// löscht das momentane current
-					m_returned.next = m_current.next;
+					m_returned.setNext(m_current.getNext());
 					m_current = m_returned;
 					m_returned = null;
 				}
 		};
 	}
-
-
 }
