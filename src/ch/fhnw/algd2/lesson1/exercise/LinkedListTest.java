@@ -54,6 +54,7 @@ public class LinkedListTest {
             }
             c2.stop();
             assertTrue(list.getClass().getName(), c1.tookMuchLongerThan(c2) || c2.tookMuchLongerThan(c1));
+            
         }
     }
     
