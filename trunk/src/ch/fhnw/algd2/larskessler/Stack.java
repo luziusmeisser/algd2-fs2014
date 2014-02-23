@@ -6,34 +6,45 @@ import ch.fhnw.algd2.lesson1.exercise.IStack;
 
 public class Stack<T> implements IStack<T> {
 	
-	private Element element;
-	
+	// save reference in stack
+	private StackElement top = null;
+
 	@Override
 	public void push(T o) {
-		// push element to list
-		element = new Element(element, o);
+		// add element
+		top = new StackElement(top, o);
 	}
 
 	@Override
 	public T pop() throws EmptyStackException {
-		// check if stack is popable
-		if(element == null) {
+		// return top element
+		if(isEmpty() == true) {
 			throw new EmptyStackException();
-		}
-		
-		T tmp = element.current;
-		this.element = element.last;
-		return tmp;
-	}
-
-	public class Element {
-		
-		Element last;
-		T current;
-
-		public Element(Element current, T next) {
-			this.last = current;
-			this.current = next;
+		} else {
+			T toReturn = top.value;
+			this.top = this.top.prev;
+			
+			return toReturn;
 		}
 	}
+	
+	public boolean isEmpty() {
+		return this.top == null;
+	}
+	
+	// inner class StackElement
+	class StackElement {
+		protected StackElement prev;
+		protected T value;
+		
+		// constructor
+		public StackElement(StackElement element, T value) {
+			// set StackElement to previous Element
+			this.prev = element;
+			
+			// set value to new value
+			this.value = value;
+		}
+	}
+	
 }
