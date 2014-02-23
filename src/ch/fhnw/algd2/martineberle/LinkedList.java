@@ -66,7 +66,6 @@ Node2 tail;
 					tail = null;
 					}
 			}
-			
 		};
 	}
 
