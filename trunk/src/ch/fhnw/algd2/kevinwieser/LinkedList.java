@@ -9,35 +9,26 @@ import ch.fhnw.algd2.lesson1.exercise.AbstractLinkedList;
 
 public class LinkedList<T> extends AbstractLinkedList<T> {
 	
-	private Element<T> head = null; // head = anker
-	private Element<T> tail = null; 
+	// Head = Anker -> Mit Dummy Element
+	private Element<T> head = new Element(null,null); 
 	
 	@Override
 	public boolean add(T e) {
-		if (head == null) {
-			head = new Element<T>(e,null);
-			tail = head;
-			return true;
-		} else {
-			// setze beim letzten als next den neuen Wert
-			tail.setNext(new Element<T>(e,null));
-			// das neue Tail ist nun getNext()
-			tail = tail.getNext();
-			return true;
-		}
+		head = new Element<T>(e, head);
+		return true;
 	}
 
 	@Override
 	public Iterator<T> iterator() {
 		return new Iterator<T>() {
 			
-			private Element<T> m_next = head;
+			private Element<T> m_current = head;
 			private Element<T> m_returned = null;
 			
 			@Override
 			public boolean hasNext() {
-					if (m_next != null) {
-					return m_next.getNext() != null;
+					if (m_current != null) {
+					return m_current.getNext() != null;
 					} else {
 						return false;
 					}
@@ -46,8 +37,8 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 			@Override
 			public T next() {
 				if (hasNext()) {
-					m_returned = m_next;
-					m_next = m_next.getNext();
+					m_returned = m_current;
+					m_current = m_current.getNext();
 					return m_returned.getValue();
 				} else {
 					throw new NoSuchElementException();
@@ -56,12 +47,12 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 
 			@Override
 			public void remove() {
-				if (m_returned == null || m_next == null) {
+				if (m_returned == null || m_current == null) {
 					throw new IllegalStateException();
 				} else {
 					// löscht das momentane current
-					m_returned.setNext(m_next.getNext());
-					m_next = m_returned;
+					m_returned.setNext(m_current.getNext());
+					m_current = m_returned;
 					m_returned = null;
 				}
 				
