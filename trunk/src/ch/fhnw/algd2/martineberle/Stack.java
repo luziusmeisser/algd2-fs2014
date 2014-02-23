@@ -31,9 +31,6 @@ public T pop() throws EmptyStackException {
 		throw new EmptyStackException();
 	}
 	Node<T> tmp = new Node<T>(head.val);
-//	if(head.next == null){
-//		throw new EmptyStackException();
-//	}
 	head = head.next;
 	return (T)tmp.val;
 	}
