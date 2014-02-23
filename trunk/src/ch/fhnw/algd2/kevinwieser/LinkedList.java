@@ -31,20 +31,24 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 	public Iterator<T> iterator() {
 		return new Iterator<T>() {
 			
-			private Element<T> current = head;
-			private Element<T> previous = null;
+			private Element<T> m_next = head;
+			private Element<T> m_returned = null;
 			
 			@Override
 			public boolean hasNext() {
-					return current.getNext() != null;
+					if (m_next != null) {
+					return m_next.getNext() != null;
+					} else {
+						return false;
+					}
 			}
 
 			@Override
 			public T next() {
 				if (hasNext()) {
-					previous = current;
-					current = current.getNext();
-					return previous.getValue();
+					m_returned = m_next;
+					m_next = m_next.getNext();
+					return m_returned.getValue();
 				} else {
 					throw new NoSuchElementException();
 				}
@@ -52,13 +56,13 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 
 			@Override
 			public void remove() {
-				if (previous == null || current == null) {
+				if (m_returned == null || m_next == null) {
 					throw new IllegalStateException();
 				} else {
 					// löscht das momentane current
-					previous.setNext(current.getNext());
-					current = previous;
-					previous = null;
+					m_returned.setNext(m_next.getNext());
+					m_next = m_returned;
+					m_returned = null;
 				}
 				
 			}	
