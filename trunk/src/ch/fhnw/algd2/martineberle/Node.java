@@ -1,3 +1,5 @@
+// Created by Martin Eberle on 17.02.2014
+
 package ch.fhnw.algd2.martineberle;
 
 public class Node<T> {
