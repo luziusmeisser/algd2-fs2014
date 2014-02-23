@@ -36,11 +36,6 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 		return this.size;
 	}
 	
-	// decrements the size
-	public void decrement() {
-		this.size--;
-	}
-	
 	// returns true if the list is empty
 	public boolean isEmpty() {
 		return (first == null) && (last == null); 
@@ -80,10 +75,10 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 					throw new IllegalStateException("Nothing to remove...");
 				} else if(prev == null) {
 					first = current;
-					decrement();
+					size--;
 				} else {
 					prev.next = next;
-					decrement();
+					size--;
 				}
 				current = null;				
 			}
