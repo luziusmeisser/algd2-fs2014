@@ -74,7 +74,7 @@ public class SkipListTest {
             	max = Math.max(max, steps);
             }
             System.out.println(Util.getAuthor(list) + "'s SkipList traversed " + (total / tests) + " steps at average, at most " + max);
-            assertTrue(total < tests * 20);
+            assertTrue(total > tests && total < tests * 20);
         }
     }
     
