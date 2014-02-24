@@ -1,6 +1,6 @@
 // Created by Florian Fankhauser on Feb 17, 2014
 
-package ch.fhnw.algd2.florianfankhauser;
+package ch.fhnw.algd2.florianfankhauser.lesson1;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
