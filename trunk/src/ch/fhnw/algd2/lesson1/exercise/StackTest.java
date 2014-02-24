@@ -26,7 +26,7 @@ public class StackTest {
 		stacks.add(new ch.fhnw.algd2.christianguedel.Stack<String>());
         stacks.add(new ch.fhnw.algd2.romangribi.Stack<String>());
         stacks.add(new ch.fhnw.algd2.stephanbrunner.Stack<String>());
-		stacks.add(new ch.fhnw.algd2.florianfankhauser.Stack<String>());
+		stacks.add(new ch.fhnw.algd2.florianfankhauser.lesson1.Stack<String>());
 		stacks.add(new ch.fhnw.algd2.emanuelmistretta.Stack<String>());
 		stacks.add(new ch.fhnw.algd2.kevinwieser.MyStack<String>());
 		stacks.add(new ch.fhnw.algd2.martineberle.Stack<String>());
