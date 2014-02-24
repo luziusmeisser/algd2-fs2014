@@ -6,8 +6,6 @@ public interface ISkipList<T extends Comparable<T>> {
 
 	public void add(T item);
 	
-	public void remove(T item);
-	
 	public T removeFirst();
 	
 	/**
