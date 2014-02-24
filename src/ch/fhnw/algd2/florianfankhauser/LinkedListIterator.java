@@ -6,16 +6,20 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class LinkedListIterator<T> implements Iterator<T> {
+	private boolean first;
 	private LinkedListEntry<T> entry = null;
 	private LinkedList<T> list;
 
 	protected LinkedListIterator(LinkedList<T> linkedList) {
 		this.list = linkedList;
+		first = true;
 	}
 
 	@Override
 	public boolean hasNext() {
-		if (entry != null) {
+		if (first) {
+			return list.firstEntry != null;
+		} else if (entry != null) {
 			return entry.hasNext();
 		}
 		return false;
@@ -23,11 +27,10 @@ public class LinkedListIterator<T> implements Iterator<T> {
 
 	@Override
 	public T next() {
-		if (entry == null) {
-			entry = (LinkedListEntry<T>) list.firstEntry;
-		} else if (entry.next == null) {
-			throw new NoSuchElementException();
-		} else {
+		if (first) {
+			entry = list.firstEntry;
+			first = false;
+		} else if (entry.next != null) {
 			entry = entry.next;
 		}
 		if (entry != null) {
