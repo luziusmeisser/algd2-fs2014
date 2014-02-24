@@ -22,6 +22,7 @@ public class LinkedListTest {
     @Before
     public void setUp() throws Exception {
         lists = new ArrayList<>();
+        lists.add(new ch.fhnw.algd2.larskessler.LinkedList<Integer>());
         lists.add(new ch.fhnw.algd2.florianfankhauser.LinkedList<Integer>());
         lists.add(new ch.fhnw.algd2.romangribi.LinkedList<Integer>());
         lists.add(new ch.fhnw.algd2.christianguedel.LinkedList<Integer>());

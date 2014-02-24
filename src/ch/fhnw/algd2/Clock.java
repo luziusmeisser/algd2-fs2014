@@ -4,7 +4,7 @@ package ch.fhnw.algd2;
 
 public class Clock {
 	
-	private static final long MUCH = 10;
+	private static final long MUCH = 5;
 	
 	private long start, end;
 	
