@@ -65,5 +65,35 @@ public class LinkedList<T> extends AbstractLinkedList<T> {
 		};
 	}
 	
+	class LinkedListItem<E> {
+		private LinkedListItem<E> next;
+		private E contents;
 
+		public LinkedListItem(E contents) {
+			this(contents, null);
+		}
+		
+		public LinkedListItem(E contents, LinkedListItem<E> next) {
+			this.contents = contents;
+			this.next = next;
+		}
+		
+		public E getContents() {
+			return contents;
+		}
+		
+		public LinkedListItem<E> getNext() {
+			return next;
+		}
+		
+		public void setContents(E contents) {
+			this.contents = contents;
+		}
+		
+		public void setNext(LinkedListItem<E> next) {
+			this.next = next;
+		}
+
+	}
+	
 }
