@@ -27,6 +27,7 @@ public class SkipListTest {
         lists.add(new ch.fhnw.algd2.luzius.SkipList<Integer>());// add your own LinkedList implementation here
         lists.add(new ch.fhnw.algd2.florianfankhauser.lesson2.SkipList<Integer>());
         lists.add(new ch.fhnw.algd2.yannickaugstburger.SkipList<Integer>());
+        lists.add(new ch.fhnw.algd2.stephanbrunner.SkipList<Integer>());
     }
     
     @Test
