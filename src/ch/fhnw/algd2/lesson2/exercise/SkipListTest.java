@@ -15,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.fhnw.algd2.Util;
+import ch.fhnw.algd2.mariusdubach.lesson2.SkipList;
 
 public class SkipListTest {
     
@@ -23,6 +24,7 @@ public class SkipListTest {
     @Before
     public void setUp() throws Exception {
         lists = new ArrayList<>();
+        lists.add(new ch.fhnw.algd2.mariusdubach.lesson2.SkipList<Integer>());
         lists.add(new ch.fhnw.algd2.romangribi.SkipList<Integer>());
         lists.add(new ch.fhnw.algd2.luzius.SkipList<Integer>());// add your own LinkedList implementation here
         lists.add(new ch.fhnw.algd2.florianfankhauser.lesson2.SkipList<Integer>());
