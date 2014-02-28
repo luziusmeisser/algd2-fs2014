@@ -17,6 +17,12 @@ public class MySkipListTest {
 		list.printList();
 		list.add(8);
 		list.printList();
+		list.add(2);
+		list.printList();
+		list.add(1);
+		list.printList();
+		list.add(10);
+		list.printList();
 
 	}
 
