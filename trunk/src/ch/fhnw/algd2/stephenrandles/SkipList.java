@@ -38,10 +38,11 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 		
 		trace = new Stack<>();
 		
+		// TODO fix loop conditions: item order is incorrect
 		while (currentLevel >= 0) {
 			nextNode = currentNode.getNext(currentLevel);
 			
-			while (nextNode.getContents() != null && item.compareTo(nextNode.getContents()) > 0) {				
+			while (nextNode.getContents() != null && item.compareTo(nextNode.getContents()) >= 0) {				
 				trace.add(new History<>(currentNode, currentLevel));
 				
 				currentNode = nextNode;
@@ -50,7 +51,7 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 			currentLevel--;
 		}
 		
-		if (currentLevel == -1 && trace.isEmpty())
+		if (trace.isEmpty())
 			trace.push(new History<>(start, 0));
 		
 		Node<T> newNode = new Node<>(item, defineNodeLevel());
@@ -89,7 +90,8 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 		int topLevel = newNode.getLevel();
 		
 		for (History<Node<T>> history : trace) {
-			for (int level = topLevel; level >= history.getLastLevel(); level--) {
+			int level = topLevel > history.getVisitedNode().getLevel() ? history.getVisitedNode().getLevel() : topLevel; 
+			for (; level >= history.getLastLevel(); level--) {
 				newNode.setNext(level, history.getVisitedNode().getNext(level));
 				history.getVisitedNode().setNext(level, newNode);
 			}
@@ -102,6 +104,7 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 		while(node.hasNext()) {
 			System.out.print("[ ");
 			System.out.print(node.getContents().toString());
+			System.out.print(" (" + node.getLevel() +")");
 			System.out.print(" ]");
 			System.out.print(" -> ");
 			
