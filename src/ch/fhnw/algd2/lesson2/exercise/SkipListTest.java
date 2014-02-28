@@ -30,6 +30,7 @@ public class SkipListTest {
         lists.add(new ch.fhnw.algd2.florianfankhauser.lesson2.SkipList<Integer>());
         lists.add(new ch.fhnw.algd2.yannickaugstburger.SkipList<Integer>());
         lists.add(new ch.fhnw.algd2.stephanbrunner.SkipList<Integer>());
+        lists.add(new ch.fhnw.algd2.kevinwieser.SkipListe<Integer>());
     }
     
     @Test
