@@ -38,7 +38,7 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 		
 		trace = new Stack<>();
 		
-		while (currentLevel > 0) {
+		while (currentLevel >= 0) {
 			nextNode = currentNode.getNext(currentLevel);
 			
 			while (nextNode.getContents() != null && item.compareTo(nextNode.getContents()) > 0) {				
@@ -49,6 +49,9 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 			}			
 			currentLevel--;
 		}
+		
+		if (currentLevel == -1 && trace.isEmpty())
+			trace.push(new History<>(start, 0));
 		
 		Node<T> newNode = new Node<>(item, defineNodeLevel());
 		
@@ -87,9 +90,7 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 		
 		for (History<Node<T>> history : trace) {
 			for (int level = topLevel; level >= history.getLastLevel(); level--) {
-				// TODO link new node to next nodes
 				newNode.setNext(level, history.getVisitedNode().getNext(level));
-				//TODO Link prior node to new node
 				history.getVisitedNode().setNext(level, newNode);
 			}
 		}
@@ -137,7 +138,7 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 		}
 		
 		public int getLevel() {
-			return targets.length;
+			return targets.length - 1;
 		}
 	}
 	
