@@ -19,7 +19,7 @@ public class MySkipListTest {
 		list.printList();
 		list.add(2);
 		list.printList();
-		list.add(1);
+		list.add(0);
 		list.printList();
 		list.add(10);
 		list.printList();
