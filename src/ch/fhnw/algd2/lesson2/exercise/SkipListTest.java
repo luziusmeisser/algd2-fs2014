@@ -15,7 +15,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.fhnw.algd2.Util;
-import ch.fhnw.algd2.mariusdubach.lesson2.SkipList;
 
 public class SkipListTest {
     
