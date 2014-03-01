@@ -2,6 +2,8 @@
 
 package ch.fhnw.algd2.stephenrandles;
 
+import java.util.NoSuchElementException;
+
 import ch.fhnw.algd2.lesson2.exercise.ISkipList;
 
 public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
@@ -38,9 +40,20 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 	}
 
 	@Override
+	/**
+	 * Removes first element from the list and 
+	 */
 	public T removeFirst() {
-		// TODO Auto-generated method stub
-		return null;
+		if (!start.hasNext())
+			throw new NoSuchElementException();
+		
+		Node<T> removedNode = start.getNext(0);
+		
+		for (int level = removedNode.getLevel(); level >= 0; level--) {
+			start.setNext(level, removedNode.getNext(level));
+		}		
+		
+		return removedNode.getContents();
 	}
 
 	// TODO Maybe implement more neatly as it's mostly duplicate code from the find() method
