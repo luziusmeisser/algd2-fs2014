@@ -19,12 +19,9 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 	
 	@Override
 	public void add(T item) {
-		Node<T> currentNode = this.start;
-		Node<T> nextNode;
-		
+		Node<T> currentNode = this.start;		
 		Node<T> newNode = new Node<>(item, defineNodeLevel());
 		
-		// TODO fix loop conditions: item order is incorrect
 		for (int level = MAX_LEVEL; level >= 0; level--) {
 			
 			// Follow next node as long as item is larger than node's contents
