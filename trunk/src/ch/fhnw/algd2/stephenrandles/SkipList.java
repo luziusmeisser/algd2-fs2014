@@ -43,10 +43,24 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 		return null;
 	}
 
+	// TODO Maybe implement more neatly as it's mostly duplicate code from the find() method
 	@Override
 	public int countStepsTo(T item) {
-		// TODO Auto-generated method stub
-		return 0;
+		int steps = 0;
+		
+		int level = MAX_LEVEL;
+		Node<T> currentNode = this.start;
+		
+		while (level >= 0) {
+			while (currentNode.getNext(level) != null && item.compareTo(currentNode.getNext(level).getContents()) >= 0) {				
+				currentNode = currentNode.getNext(level);
+				steps++;
+			}
+			steps++;
+			level--;
+		}
+		
+		return steps;
 	}
 	
 	/**
@@ -55,19 +69,14 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 	 * Otherwise, the closest match from the start of the list is returned.
 	 */
 	private Node<T> findNode(T item) {
-		
-		int currentLevel = MAX_LEVEL;
+		int level = MAX_LEVEL;
 		Node<T> currentNode = this.start;
-		Node<T> nextNode;
 		
-		while (currentLevel >= 0) {
-			nextNode = currentNode.getNext(currentLevel);
-			
-			while (nextNode.getContents() != null && item.compareTo(nextNode.getContents()) >= 0) {				
-				currentNode = nextNode;
-				nextNode = currentNode.getNext(currentLevel);
+		while (level >= 0) {			
+			while (currentNode.getNext(level) != null && item.compareTo(currentNode.getNext(level).getContents()) >= 0) {				
+				currentNode = currentNode.getNext(level);
 			}			
-			currentLevel--;
+			level--;
 		}
 
 		return currentNode;
