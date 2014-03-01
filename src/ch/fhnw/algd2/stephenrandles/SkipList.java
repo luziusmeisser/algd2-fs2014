@@ -69,7 +69,6 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 				currentNode = currentNode.getNext(level);
 				steps++;
 			}
-			steps++;
 			level--;
 		}
 		
