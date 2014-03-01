@@ -2,64 +2,42 @@
 
 package ch.fhnw.algd2.stephenrandles;
 
-import java.util.Stack;
-
 import ch.fhnw.algd2.lesson2.exercise.ISkipList;
 
 public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 	private final int MAX_LEVEL = 100;
 	
 	private Node<T> start;
-	private Node<T> end;
-	
-	private Stack<History<Node<T>>> trace;
-	
+		
 	public SkipList() {
-		this.start = new Node<T>(null, MAX_LEVEL);
-		this.end = new Node<T>(null, MAX_LEVEL);
-		
-		for (int i=0; i <= MAX_LEVEL; i++) {
-			this.start.setNext(i, end);
-		}
-		
+		this.start = new Node<T>(null, MAX_LEVEL);		
 	}
 	
-	public T find() {
-		
-		return null;
+	public T find(T item) {
+		return this.findNode(item).getContents();
 	}
-
+	
 	@Override
 	public void add(T item) {
-		
-		int currentLevel = MAX_LEVEL;
 		Node<T> currentNode = this.start;
 		Node<T> nextNode;
 		
-		trace = new Stack<>();
-		
-		// TODO fix loop conditions: item order is incorrect
-		while (currentLevel >= 0) {
-			nextNode = currentNode.getNext(currentLevel);
-			
-			while (nextNode.getContents() != null && item.compareTo(nextNode.getContents()) >= 0) {				
-				trace.add(new History<>(currentNode, currentLevel));
-				
-				currentNode = nextNode;
-				nextNode = currentNode.getNext(currentLevel);
-			}			
-			currentLevel--;
-		}
-		
-		if (trace.isEmpty())
-			trace.push(new History<>(start, 0));
-		
 		Node<T> newNode = new Node<>(item, defineNodeLevel());
 		
-		// Link all nodes from trace to the new node
-		// Link each level of the node to the next node at that level or higher
-		updateNodeLinks(trace, newNode);
-		
+		// TODO fix loop conditions: item order is incorrect
+		for (int level = MAX_LEVEL; level >= 0; level--) {
+			
+			// Follow next node as long as item is larger than node's contents
+			while (currentNode.getNext(level) != null && item.compareTo(currentNode.getNext(level).getContents()) >= 0) {				
+				currentNode = currentNode.getNext(level);
+			}
+			
+			// Relink nodes
+			if (level <= newNode.getLevel()) {
+				newNode.setNext(level, currentNode.getNext(level));
+				currentNode.setNext(level, newNode);
+			}
+		}		
 	}
 
 	@Override
@@ -74,6 +52,30 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 		return 0;
 	}
 	
+	/**
+	 * @param item
+	 * @return Returns the node containg <code>item</code> if it's contained in the list.
+	 * Otherwise, the closest match from the start of the list is returned.
+	 */
+	private Node<T> findNode(T item) {
+		
+		int currentLevel = MAX_LEVEL;
+		Node<T> currentNode = this.start;
+		Node<T> nextNode;
+		
+		while (currentLevel >= 0) {
+			nextNode = currentNode.getNext(currentLevel);
+			
+			while (nextNode.getContents() != null && item.compareTo(nextNode.getContents()) >= 0) {				
+				currentNode = nextNode;
+				nextNode = currentNode.getNext(currentLevel);
+			}			
+			currentLevel--;
+		}
+
+		return currentNode;
+	}
+	
 	private boolean getRandomBoolean() {
 		return Math.random() < 0.5;
 	}
@@ -86,29 +88,17 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 		return level;
 	}
 	
-	private void updateNodeLinks(Stack<History<Node<T>>> trace, Node<T> newNode) {
-		int topLevel = newNode.getLevel();
-		
-		for (History<Node<T>> history : trace) {
-			int level = topLevel > history.getVisitedNode().getLevel() ? history.getVisitedNode().getLevel() : topLevel; 
-			for (; level >= history.getLastLevel(); level--) {
-				newNode.setNext(level, history.getVisitedNode().getNext(level));
-				history.getVisitedNode().setNext(level, newNode);
-			}
-		}
-	}
-	
 	public void printList() {
-		Node<T> node = start.getNext(0);
+		Node<T> node = start;
 		System.out.println();
 		while(node.hasNext()) {
+			node = node.getNext(0);
+			
 			System.out.print("[ ");
 			System.out.print(node.getContents().toString());
 			System.out.print(" (" + node.getLevel() +")");
 			System.out.print(" ]");
-			System.out.print(" -> ");
-			
-			node = node.getNext(0);
+			System.out.print(" -> ");			
 		}
 		System.out.println();
 	}
@@ -143,24 +133,6 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 		public int getLevel() {
 			return targets.length - 1;
 		}
-	}
-	
-	class History<F extends Node<T>> {
-		private Node<T> visitedNode;
-		private int lastLevel;
-		
-		public History(Node<T> visitedNode, int lastLevel) {
-			this.visitedNode = visitedNode;
-			this.lastLevel = lastLevel;
-		}
-		
-		public Node<T> getVisitedNode() {
-			return this.visitedNode;
-		}
-		
-		public int getLastLevel() {
-			return this.lastLevel;
-		}		
 	}
 
 }
