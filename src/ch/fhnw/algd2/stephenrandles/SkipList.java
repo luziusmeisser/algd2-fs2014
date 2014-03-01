@@ -3,20 +3,38 @@
 package ch.fhnw.algd2.stephenrandles;
 
 import java.util.NoSuchElementException;
-
 import ch.fhnw.algd2.lesson2.exercise.ISkipList;
 
 public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 	private final int MAX_LEVEL = 100;
 	
 	private Node<T> start;
+	private int STEPS_FOR_LAST_FIND;
 		
 	public SkipList() {
 		this.start = new Node<T>(null, MAX_LEVEL);		
 	}
 	
+	/**
+	 * @param item
+	 * @return Returns <code>item</code> if it's contained in the list.
+	 * Otherwise, the closest match from the start of the list is returned.
+	 */
 	public T find(T item) {
-		return this.findNode(item).getContents();
+		STEPS_FOR_LAST_FIND = 0;
+		
+		int level = MAX_LEVEL;
+		Node<T> currentNode = this.start;
+		
+		while (level >= 0) {			
+			while (currentNode.getNext(level) != null && item.compareTo(currentNode.getNext(level).getContents()) >= 0) {				
+				currentNode = currentNode.getNext(level);
+				STEPS_FOR_LAST_FIND++;
+			}			
+			level--;
+		}
+
+		return currentNode.getContents();
 	}
 	
 	@Override
@@ -41,7 +59,7 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 
 	@Override
 	/**
-	 * Removes first element from the list and 
+	 * Removes first element from the list.
 	 */
 	public T removeFirst() {
 		if (!start.hasNext())
@@ -56,51 +74,15 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 		return removedNode.getContents();
 	}
 
-	// TODO Maybe implement more neatly as it's mostly duplicate code from the find() method
 	@Override
 	public int countStepsTo(T item) {
-		int steps = 0;
-		
-		int level = MAX_LEVEL;
-		Node<T> currentNode = this.start;
-		
-		while (level >= 0) {
-			while (currentNode.getNext(level) != null && item.compareTo(currentNode.getNext(level).getContents()) >= 0) {				
-				currentNode = currentNode.getNext(level);
-				steps++;
-			}
-			level--;
-		}
-		
-		return steps;
-	}
-	
-	/**
-	 * @param item
-	 * @return Returns the node containg <code>item</code> if it's contained in the list.
-	 * Otherwise, the closest match from the start of the list is returned.
-	 */
-	private Node<T> findNode(T item) {
-		int level = MAX_LEVEL;
-		Node<T> currentNode = this.start;
-		
-		while (level >= 0) {			
-			while (currentNode.getNext(level) != null && item.compareTo(currentNode.getNext(level).getContents()) >= 0) {				
-				currentNode = currentNode.getNext(level);
-			}			
-			level--;
-		}
-
-		return currentNode;
-	}
-	
-	private boolean getRandomBoolean() {
-		return Math.random() < 0.5;
+		find(item);
+		return STEPS_FOR_LAST_FIND;
 	}
 	
 	private int defineNodeLevel() {
 		int level = 0;
-		while (getRandomBoolean()) {
+		while (Math.random() < 0.5) {
 			level++;
 		}
 		return level;
@@ -120,7 +102,6 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 		}
 		System.out.println();
 	}
-	
 	
 	class Node<E> {
 		private Node<E>[] targets;
