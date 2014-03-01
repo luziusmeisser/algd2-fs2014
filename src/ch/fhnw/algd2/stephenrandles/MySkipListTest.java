@@ -2,6 +2,8 @@
 
 package ch.fhnw.algd2.stephenrandles;
 
+import java.util.Random;
+
 
 
 public class MySkipListTest {
@@ -10,20 +12,12 @@ public class MySkipListTest {
 		// TODO Auto-generated method stub
 		
 		SkipList<Integer> list = new SkipList<>();
+		Random rand = new Random();
 		
-		list.add(3);
-		list.printList();
-		list.add(1);
-		list.printList();
-		list.add(8);
-		list.printList();
-		list.add(2);
-		list.printList();
-		list.add(0);
-		list.printList();
-		list.add(10);
-		list.printList();
-
+		for (int i=0; i< 10; i++) {
+			list.add(rand.nextInt(100));
+			list.printList();
+		}
 	}
 
 }
