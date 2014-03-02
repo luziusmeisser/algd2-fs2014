@@ -10,7 +10,7 @@ public class SkipListe<T extends Comparable<T>> implements ISkipList<T> {
 
 	private Element<T> headAnchor;
 
-	private static int MAXLEVEL = 20;
+	private static int MAXLEVEL = 100;
 
 	private class Element<T> {
 		// Arrays von Pointer auf Elements:
