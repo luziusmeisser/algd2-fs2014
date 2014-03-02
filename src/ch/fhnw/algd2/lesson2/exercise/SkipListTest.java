@@ -23,14 +23,16 @@ public class SkipListTest {
     @Before
     public void setUp() throws Exception {
         lists = new ArrayList<>();
+
+        lists.add(new ch.fhnw.algd2.luzius.SkipList<Integer>());// add your own LinkedList implementation here
         lists.add(new ch.fhnw.algd2.mariusdubach.lesson2.SkipList<Integer>());
         lists.add(new ch.fhnw.algd2.romangribi.SkipList<Integer>());
-        lists.add(new ch.fhnw.algd2.luzius.SkipList<Integer>());// add your own LinkedList implementation here
         lists.add(new ch.fhnw.algd2.florianfankhauser.lesson2.SkipList<Integer>());
         lists.add(new ch.fhnw.algd2.yannickaugstburger.SkipList<Integer>());
         lists.add(new ch.fhnw.algd2.stephanbrunner.SkipList<Integer>());
         lists.add(new ch.fhnw.algd2.kevinwieser.SkipListe<Integer>());
         lists.add(new ch.fhnw.algd2.stephenrandles.SkipList<Integer>());
+        lists.add(new ch.fhnw.algd2.christianguedel.SkipList<Integer>());
     }
     
     @Test
