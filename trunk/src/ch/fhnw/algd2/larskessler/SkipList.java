@@ -8,6 +8,7 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 	
 	private SkipListElement<T> root = new SkipListElement<T>(null);
 	private final static int MAX_HEIGHT = 20;
+	private int STEPS;
 
 	@Override
 	public void add(T item) {
@@ -46,28 +47,19 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 		}
 
 		public int countStepsTo(Comparable<T> item) {
-			SkipListElement<T> next = this.links[0];
-			int count = 0;
-			
-			do {
-				// get height of first element
-				next = findNextHop(item, next);
-				// only count correct hops
-				count++;
-				
-			} while(item.compareTo(next.value) != 0);
-			
-			return count;
-		}
+			SkipListElement<T> next = this;
+			int level = MAX_HEIGHT-1;
+			STEPS = 0;
 
-		private SkipListElement<T> findNextHop(Comparable<T> item, SkipListElement<T> next) {
-			int count = 0;
-			for(int i = next.getMaxLevel(); i >= 0; i--) {
-				if(next.links[i] != null && item.compareTo(next.links[i].value) >= 0) {
-					next = next.links[i];
+			do {
+				while(next.links[level] != null && item.compareTo(next.links[level].value) >= 0) {
+					next = next.links[level];
+					STEPS++;
 				}
-			}
-			return next;
+				level--;
+			} while(level >= 0);
+			
+			return STEPS;
 		}
 
 		public SkipListElement<T> removeFirstElement() {
