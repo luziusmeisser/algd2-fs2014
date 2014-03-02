@@ -29,9 +29,9 @@ public class SkipListe<T extends Comparable<T>> implements ISkipList<T> {
 		}
 
 		private int getRandom() {
-			double p = 0.5;
+			double random_limit = 0.5;
 			int level = 1;
-			while (level < MAXLEVEL && Math.random() < p) {
+			while (level < MAXLEVEL && Math.random() < random_limit) {
 				level++;
 			}
 			return level;
