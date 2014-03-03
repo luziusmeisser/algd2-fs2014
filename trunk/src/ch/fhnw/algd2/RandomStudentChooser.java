@@ -12,12 +12,14 @@ public class RandomStudentChooser {
 			"Stephan Randles", "Yannick Augstburger" };
 
 	public static void main(String[] args) throws InterruptedException {
-		int wheelSteps = rand.nextInt(ALL.length) * 3 + ALL.length * 4;
-		for (int i=0; i<wheelSteps; i++){
-			System.out.println(ALL[i % ALL.length]);
-			Thread.sleep((i + 1) * (i + 1));
+		int steps = rand.nextInt(ALL.length);
+		int pause = 10;
+		for (int i=0; i<55; i++){
+			System.out.print("\n" + ALL[(i + steps) % ALL.length]);
+			Thread.sleep(pause);
+			pause = pause * 11 / 10;
 		}
-		System.out.println("Finished!");
+		System.out.println(" is the chosen one!");
 	}
 	
 }

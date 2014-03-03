@@ -92,7 +92,7 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 				}
 			}
 		}
-
+		
 		public int getHeight() {
 			return this.links.length;
 		}

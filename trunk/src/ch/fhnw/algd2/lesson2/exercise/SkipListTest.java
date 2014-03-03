@@ -34,9 +34,10 @@ public class SkipListTest {
         lists.add(new ch.fhnw.algd2.stephenrandles.SkipList<Integer>());
         lists.add(new ch.fhnw.algd2.christianguedel.SkipList<Integer>());
         lists.add(new ch.fhnw.algd2.larskessler.SkipList<Integer>());
-        lists.add(new ch.fhnw.algd2.marcogaiffi.SkipList<Integer>());
-        lists.add(new ch.fhnw.algd2.emanuelmistretta.SkipList<Integer>());
         lists.add(new ch.fhnw.algd2.lukasmusy.SkipList<Integer>());
+//        lists.add(new ch.fhnw.algd2.marcogaiffi.SkipList<Integer>());
+//        lists.add(new ch.fhnw.algd2.emanuelmistretta.SkipList<Integer>());
+//        lists.add(new ch.fhnw.algd2.martineberle.SkipList<Integer>());
     }
     
     @Test

@@ -4,18 +4,19 @@ package ch.fhnw.algd2.lesson3.exercise;
 
 public abstract class Node {
 
-	private Node[] neighbors;
+	protected Node[] neighbors;
 	private ThreadLocal marker = new ThreadLocal<>();
 
+	public Node(){
+		this.neighbors = new Node[]{};
+	}
+	
 	/**
 	 * Sets the marker. This can be any kind of object used by an external application.
 	 * It is not used by the node itself. The idea is that this could be used to mark nodes
 	 * as traversed or store other forms of external state.
 	 */
 	public final void setMarker(Object o){
-		if (this.marker == null){
-			this.marker = new ThreadLocal();
-		}
 		this.marker.set(o);
 	}
 
