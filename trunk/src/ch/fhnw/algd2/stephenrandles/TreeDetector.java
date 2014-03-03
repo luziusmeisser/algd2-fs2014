@@ -2,15 +2,17 @@
 
 package ch.fhnw.algd2.stephenrandles;
 
+import java.util.UUID;
+
 import ch.fhnw.algd2.lesson3.exercise.ITreeDetector;
 import ch.fhnw.algd2.lesson3.exercise.Node;
 
 public class TreeDetector implements ITreeDetector {
-	private long marker; 
+	private UUID marker; 
 
 	@Override
 	public boolean isTree(Node any) {
-		marker = (long)(Math.random() * Math.pow(10, Math.random()*10));
+		marker = UUID.randomUUID();
 		boolean isTree = visitNode(any, null);		
 		return isTree;
 	}
