@@ -100,25 +100,6 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 			return neighbors.length - 1;
 		}
 
-//		private void connect(Element next) {
-//			for (int i = 0; i < neighbors.length; i++) {
-//				this.neighbors[i] = next;
-//			}
-//		}
-
-//		private Element<T> nextNeighbor(int level) {
-//			int elementLevel = getLevel();
-//			if(level <= elementLevel){
-//				return this;
-//			}else{
-//				Element<T> neighbor = neighbors[elementLevel];
-//				if(neighbor != null){
-//					neighbor.nextNeighbor(level);
-//				}else{
-//					return null;
-//				}
-//			}
-//		}
 	}
 
 }
