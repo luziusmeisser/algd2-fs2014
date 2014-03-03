@@ -79,6 +79,7 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 		}
 		
 		@SuppressWarnings("unchecked")
+		//Const for diff levels
 		private Element(int level, T value) {
 			this.value = value;
 			this.neighbors = new Element[level];
