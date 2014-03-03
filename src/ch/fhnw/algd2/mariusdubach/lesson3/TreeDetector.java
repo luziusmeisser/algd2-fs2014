@@ -10,20 +10,17 @@ import ch.fhnw.algd2.lesson3.exercise.Node;
 public class TreeDetector implements ITreeDetector {
 	
 	java.util.UUID marker;
-	private int totalNodes = 1;
 
 	@Override
 	public boolean isTree(Node any) {
 		marker = UUID.randomUUID();
+		
 		if(any.getNeighbors().length == 0){
 			return true;
 		}
 		try{
-			isTreeRecursively(any, any);
+			isTreeRecursively(any, null);
 		}catch(NoTreeException e){
-			return false;
-		}
-		if(totalNodes == 2){
 			return false;
 		}
 		return true;
@@ -31,8 +28,6 @@ public class TreeDetector implements ITreeDetector {
 	
 	private boolean isTreeRecursively(Node any, Node origin) throws NoTreeException{
 		Node[] currentNeighbors = any.getNeighbors();
-		totalNodes++;
-		System.out.println(totalNodes);
 		try{
 			if(any.getMarker() == marker){
 				throw new NoTreeException();
