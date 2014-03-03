@@ -1,4 +1,5 @@
 // Created by Marco on 24.02.2014
+//Groupwork Marco Gaiffi & Emanuel Mistretta
 
 package ch.fhnw.algd2.marcogaiffi;
 
