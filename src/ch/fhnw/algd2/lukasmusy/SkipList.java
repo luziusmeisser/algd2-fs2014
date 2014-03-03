@@ -20,32 +20,31 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 		Element<T> current = head;
 		
 		for(int i = MAX_LEVEL - 1; i >= 0; i--){
-			while(current.pointsTo[i] != null && current.pointsTo[i].value.compareTo(item) < 0) {
-				current = current.pointsTo[i];
-			}
-			
+			while(current.pointers[i] != null && current.pointers[i].value.compareTo(item) < 0) {
+				current = current.pointers[i];
+			}			
 			updates[i] = current;
 		}
 		
 		Element<T> tmp = new Element<T>(item);
 		for (int i = 0; i < tmp.getSize(); i++) {
-			tmp.pointsTo[i] = updates[i].pointsTo[i];
-			updates[i].pointsTo[i] = tmp;
+			tmp.pointers[i] = updates[i].pointers[i];
+			updates[i].pointers[i] = tmp;
 		}
 		
 	}
 
 	@Override
 	public T removeFirst() {
-		if (head.pointsTo[0] == null)
+		if (head.pointers[0] == null)
 			throw new NoSuchElementException();
 		
-		Element<T> tmp = head.pointsTo[0];
+		Element<T> tmp = head.pointers[0];
 		
-		int next = head.pointsTo[0].getSize();
+		int next = head.pointers[0].getSize();
 		for (int i = 0; i < next; i++)
-			if(head.pointsTo[i] == tmp)
-				head.pointsTo[i] = tmp.pointsTo[i]; 
+			if(head.pointers[i] == tmp)
+				head.pointers[i] = tmp.pointers[i]; 
 		
 		return tmp.value;
 	}
@@ -55,8 +54,8 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
         Element<T> current = head;
         int count = 0;
         for (int i = MAX_LEVEL - 1; i >= 0; i--) {
-            while (current.pointsTo[i] != null && current.pointsTo[i].value.compareTo(item) < 0) {
-                current = current.pointsTo[i];
+            while (current.pointers[i] != null && current.pointers[i].value.compareTo(item) < 0) {
+                current = current.pointers[i];
                 count++;
             }
         }
@@ -66,10 +65,10 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 	@SuppressWarnings("unchecked")
 	static class Element<T> {
 		private T value;
-		private Element<T>[] pointsTo;
+		private Element<T>[] pointers;
 		
 		public Element(T value, int level){
-			this.pointsTo = new Element[level];
+			this.pointers = new Element[level];
             this.value = value;
 		}
 		
@@ -80,11 +79,11 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 			}
 			
 			this.value = value;
-			this.pointsTo = new Element[level];
+			this.pointers = new Element[level];
 		}
 		
 		public int getSize() {
-			return pointsTo.length;
+			return pointers.length;
 		}
 	}
 	
