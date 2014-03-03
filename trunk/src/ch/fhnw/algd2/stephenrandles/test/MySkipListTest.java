@@ -1,8 +1,10 @@
 // Created by Stephen Randles 28.02.2014
 
-package ch.fhnw.algd2.stephenrandles;
+package ch.fhnw.algd2.stephenrandles.test;
 
 import java.util.Random;
+
+import ch.fhnw.algd2.stephenrandles.SkipList;
 
 
 
