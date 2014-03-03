@@ -21,7 +21,8 @@ public class TreeDetectorTest {
 		lists = new ArrayList<>();
 
 		// add your own LinkedList implementation here
-		lists.add(new ch.fhnw.algd2.romangribi.TreeDetector());
+        lists.add(new ch.fhnw.algd2.romangribi.TreeDetector());
+        lists.add(new ch.fhnw.algd2.stephanbrunner.TreeDetector());
 		lists.add(new ch.fhnw.algd2.florianfankhauser.lesson3.TreeDetector()); 
 	}
 
