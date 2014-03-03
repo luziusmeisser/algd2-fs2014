@@ -9,20 +9,19 @@ public class TreeDetector implements ITreeDetector {
 
     @Override
     public boolean isTree(Node any) {
-        boolean ret = isTree(any, 0);
-        clean(any);
-        return ret;
+        return isTree(any, 0);
     }
     
 
     private boolean isTree(Node any, int level) {
         if (any.getMarker() == null) {
             // node not visited yet
-            any.setMarker(new Integer(level));
+            any.setMarker(level);
             boolean ret = true;
             for (Node n: any.getNeighbors()) {
                 ret = ret && isTree(n, level + 1);
             }
+            any.setMarker(null); // clean up
             return ret;
         }
         else if ((Integer)any.getMarker() == level - 2) {
@@ -31,18 +30,8 @@ public class TreeDetector implements ITreeDetector {
         }
         else {
             // node already visited -> not a tree
+            any.setMarker(null); // clean up
             return false;
-        }
-        
-    }
-
-    private void clean(Node any) {
-        int level = (Integer)any.getMarker();
-        any.setMarker(null);
-        for (Node n: any.getNeighbors()) {
-            if (n.getMarker() != null && (Integer)n.getMarker() > level) {
-                clean(n);
-            }
         }
     }
 }
