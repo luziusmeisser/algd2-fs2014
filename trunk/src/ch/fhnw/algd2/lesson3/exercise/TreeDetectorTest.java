@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.fhnw.algd2.Util;
+import ch.fhnw.algd2.florianfankhauser.lesson3.TreeDetector;
 
 public class TreeDetectorTest {
 
@@ -20,7 +21,7 @@ public class TreeDetectorTest {
 		lists = new ArrayList<>();
 
 		// add your own LinkedList implementation here
-		lists.add(new ch.fhnw.algd2.luzius.TreeDetector()); 
+		lists.add(new ch.fhnw.algd2.florianfankhauser.lesson3.TreeDetector()); 
 	}
 
 	@Test
