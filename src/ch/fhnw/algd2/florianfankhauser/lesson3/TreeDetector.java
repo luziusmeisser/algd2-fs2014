@@ -1,16 +1,15 @@
 package ch.fhnw.algd2.florianfankhauser.lesson3;
 
-import java.util.Random;
-
 import ch.fhnw.algd2.lesson3.exercise.ITreeDetector;
 import ch.fhnw.algd2.lesson3.exercise.Node;
 
 public class TreeDetector implements ITreeDetector {
+	private static long MARK_COUNTER = 0;
 	private long MARKER;
 
 	@Override
 	public boolean isTree(Node any) {
-		MARKER = (new Random()).nextLong();
+		MARKER = MARK_COUNTER++;
 		any.setMarker(MARKER);
 		try {
 			for (Node n : any.getNeighbors()) {
