@@ -9,11 +9,24 @@ public class TreeDetector implements ITreeDetector {
 
 	@Override
 	public boolean isTree(Node any) {
+		return visitNode(any, null);
+	}
+	
+	private boolean visitNode(Node node, Node source) {
 		
+		node.setMarker(source);
 		
+		for (Node neighbour : node.getNeighbors()) {
+			if (!neighbour.equals(source)) {
+				if (!neighbour.getMarker().equals(node)){
+					return false;
+				}
+				
+				visitNode(neighbour, node);
+			}
+		}
 		
-		
-		return false;
+		return true;
 	}
 
 }
