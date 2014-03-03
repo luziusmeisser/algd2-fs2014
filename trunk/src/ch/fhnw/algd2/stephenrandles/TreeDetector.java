@@ -9,16 +9,20 @@ public class TreeDetector implements ITreeDetector {
 
 	@Override
 	public boolean isTree(Node any) {
-		return visitNode(any, null);
+		boolean isTree = visitNode(any, null);
+		clearMarkers(any);
+		
+		return isTree;
 	}
 	
 	private boolean visitNode(Node node, Node source) {
 		
-		node.setMarker(source);
-		
+		node.setMarker(true);
+
 		for (Node neighbour : node.getNeighbors()) {
+
 			if (!neighbour.equals(source)) {
-				if (!neighbour.getMarker().equals(node)){
+				if (neighbour.getMarker() != null && neighbour.getMarker().equals(true)){
 					return false;
 				}
 				
@@ -27,6 +31,13 @@ public class TreeDetector implements ITreeDetector {
 		}
 		
 		return true;
+	}
+	
+	private void clearMarkers(Node start) {
+		for (Node neighbour : start.getNeighbors()) {
+			neighbour.setMarker(false);
+			clearMarkers(neighbour);
+		}
 	}
 
 }
