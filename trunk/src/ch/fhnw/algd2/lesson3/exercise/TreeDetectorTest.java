@@ -32,9 +32,6 @@ public class TreeDetectorTest {
 				assert tree == det.isTree(n1);
 				assert tree == det.isTree(n1);
 			}
-			TestNode tn = new TestNode();
-			tn.connect(tn);
-			assert !det.isTree(tn);
 		}
 	}
 
