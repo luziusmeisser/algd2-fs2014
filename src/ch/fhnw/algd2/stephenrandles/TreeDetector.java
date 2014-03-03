@@ -10,33 +10,31 @@ public class TreeDetector implements ITreeDetector {
 	@Override
 	public boolean isTree(Node any) {
 		boolean isTree = visitNode(any, null);
-		clearMarkers(any);
+		clearMarkers(any, null);
 		
 		return isTree;
 	}
 	
 	private boolean visitNode(Node node, Node source) {
-		
 		node.setMarker(true);
-
 		for (Node neighbour : node.getNeighbors()) {
 
 			if (!neighbour.equals(source)) {
 				if (neighbour.getMarker() != null && neighbour.getMarker().equals(true)){
 					return false;
 				}
-				
 				visitNode(neighbour, node);
 			}
 		}
-		
 		return true;
 	}
 	
-	private void clearMarkers(Node start) {
-		for (Node neighbour : start.getNeighbors()) {
-			neighbour.setMarker(false);
-			clearMarkers(neighbour);
+	private void clearMarkers(Node node, Node source) {
+		node.setMarker(false);
+		for (Node neighbour : node.getNeighbors()) {
+			if (!neighbour.equals(source)) {
+				clearMarkers(neighbour, node);
+			}
 		}
 	}
 
