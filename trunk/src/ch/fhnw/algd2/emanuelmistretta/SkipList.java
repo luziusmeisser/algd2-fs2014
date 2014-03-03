@@ -24,6 +24,7 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 			head = new Element<T>(MaxLevel, item);
 		}else{
 			//write update array content
+		    	//Go through each level and each item on level
 			for(int i = MaxLevel -1; i>=0; i--){
 				while(temp.neighbors[i] != null && temp.neighbors[i].value.compareTo(item) < 0){
 					temp = temp.neighbors[i];
@@ -55,6 +56,8 @@ public class SkipList<T extends Comparable<T>> implements ISkipList<T> {
 	}
 
 	@Override
+	//1. Goes through each level
+	//2. Checks if items is on level (while) -> updates counter
 	public int countStepsTo(T item) {
 		Element<T> temp = head;
 		int counter = 0;
