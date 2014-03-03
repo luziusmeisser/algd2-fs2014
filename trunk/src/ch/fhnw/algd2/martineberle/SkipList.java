@@ -44,7 +44,24 @@ public SkipList(){
 			head = tmp;
 			return;
 		}
-		//while(true){
+		/**pointerlvlmax
+		 * next > new
+		 * curr = next
+		 * loop until next < new
+		 * insert
+		 * pointerlvl--
+		 * loop until pointerlvl -1
+		 * finish
+		 */
+		//int i = 0;
+		//while(curr.pointer.length - i >= 0 && curr.pointer[curr.pointer.length - i].val.compareTo(newElement.val) < 0){ //while bottom lvl has not been reached && next Element on actual pointerlvl is bigger than newElement
+		//curr = curr.pointer[curr.pointer.length - i]; //goto next Element on current pointerlvl
+		//}
+		//leaving while loop: STATE: Curr < newElement || pointerlvl 0 || next == null
+		//if(curr.pointer[curr.pointer.length-i] == null){ //If end of list on actual pointerlevel -> Connect to newElement
+		//	curr.pointer[curr.pointer.length-i] = newElement;
+		//}
+		//j++;
 			if(curr.val.compareTo(newElement.val) < 0){ //if newElement is bigger or equal than actual compare position
 				int j = 1;
 				while(curr.pointer.length - j >= 0){
