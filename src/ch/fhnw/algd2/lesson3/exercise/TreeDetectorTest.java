@@ -34,6 +34,16 @@ public class TreeDetectorTest {
 			}
 		}
 	}
+	
+	@Test
+	public void testSelfPointer() {
+		for (ITreeDetector det : lists) {
+			TestNode tn = new TestNode();
+			assert det.isTree(tn);
+			tn.connect(tn);
+			assert !det.isTree(tn);
+		}
+	}
 
 	private Node createGraph(int nodes, boolean tree) {
 		if (tree) {
