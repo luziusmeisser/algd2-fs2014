@@ -1,6 +1,8 @@
 // Created by Stephen Randles 18.02.2014
 
-package ch.fhnw.algd2.stephenrandles;
+package ch.fhnw.algd2.stephenrandles.test;
+
+import ch.fhnw.algd2.stephenrandles.LinkedList;
 
 public class MyLinkedListTest {
 
