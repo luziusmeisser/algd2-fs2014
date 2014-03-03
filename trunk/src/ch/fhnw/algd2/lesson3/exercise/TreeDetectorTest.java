@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.fhnw.algd2.Util;
-import ch.fhnw.algd2.florianfankhauser.lesson3.TreeDetector;
 
 public class TreeDetectorTest {
 
@@ -21,9 +20,11 @@ public class TreeDetectorTest {
 		lists = new ArrayList<>();
 
 		// add your own LinkedList implementation here
+		//lists.add(new ch.fhnw.algd2.luzius.TreeDetector());
         lists.add(new ch.fhnw.algd2.romangribi.TreeDetector());
         lists.add(new ch.fhnw.algd2.stephanbrunner.TreeDetector());
-		lists.add(new ch.fhnw.algd2.florianfankhauser.lesson3.TreeDetector()); 
+		lists.add(new ch.fhnw.algd2.florianfankhauser.lesson3.TreeDetector());
+		lists.add(new ch.fhnw.algd2.christianguedel.TreeDetector());
 	}
 
 	@Test
@@ -32,6 +33,7 @@ public class TreeDetectorTest {
 			for (int i = 0; i < 100; i++) {
 				boolean tree = RAND.nextBoolean();
 				Node n1 = createGraph(RAND.nextInt(100), tree);
+
 				assert tree == det.isTree(n1);
 				assert tree == det.isTree(n1);
 			}
