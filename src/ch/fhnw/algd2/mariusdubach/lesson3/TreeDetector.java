@@ -27,15 +27,11 @@ public class TreeDetector implements ITreeDetector {
 	}
 	
 	private boolean isTreeRecursively(Node any, Node origin) throws NoTreeException{
-		Node[] currentNeighbors = any.getNeighbors();
-		try{
-			if(any.getMarker() == marker){
-				throw new NoTreeException();
-			}
-		}catch(NullPointerException e){
+		Node[] currentNeighbors = any.getNeighbors();		
+		if(any.getMarker() != null && any.getMarker() == marker){
+			throw new NoTreeException();
 		}
-		any.setMarker(marker);
-		
+		any.setMarker(marker);		
 		for(Node n : currentNeighbors){
 			if(n != origin){
 				isTreeRecursively(n, any);
@@ -44,8 +40,7 @@ public class TreeDetector implements ITreeDetector {
 		return true;
 	}
 	
-	class NoTreeException extends Exception{
-		
+	class NoTreeException extends Exception{		
 	}
 
 }
