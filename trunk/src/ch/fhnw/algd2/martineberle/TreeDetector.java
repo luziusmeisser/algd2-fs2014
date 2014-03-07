@@ -5,32 +5,27 @@ package ch.fhnw.algd2.martineberle;
 import ch.fhnw.algd2.lesson3.exercise.ITreeDetector;
 import ch.fhnw.algd2.lesson3.exercise.Node;
 
-//Get node
-	//get list of neighbors
-		//ignore parent
-			//check for already visited
-				//set already visited or abort
-
 public class TreeDetector implements ITreeDetector{
-static int count = 0;
+
 	@Override
 	public boolean isTree(Node any) {
-		Integer number = count++;
-		return testNodes(null, any, number);
+		Integer number = 1337; //To set marker to a recognizeable value...
+		return testNode(null, any, number);
 	}
-	public boolean testNodes(Node parent, Node current, Integer number){
+	
+	public boolean testNode(Node parent, Node current, Integer number){
 		Node[] next = current.getNeighbors();
 		boolean tree;
 		
 		if(checkVisited(current, number)){ //if current Node has already been visited return false
 			return false;
 		}
-		setVisited(current, number);
+		setVisited(current, number); //set current Node as visited
 		
 		for(int i = 0; i < next.length; i++){ //for each neighbor of current Node
-			if(next[i] != parent){ //if not link to itself or parent
-				tree = testNodes(current,next[i], number);
-				if(!tree){
+			if(next[i] != parent){ //if not link to parent
+				tree = testNode(current,next[i], number);//check if nodes(and subnodes) are visited
+				if(!tree){ //if testNode returns false once, return false for all
 					return false;
 				}
 			}
@@ -38,11 +33,11 @@ static int count = 0;
 				return false;
 			}			
 		}
-		return true;
+		return true; //if all nodes have been passed and no circle has been found return true
 	}
 
-	public void setVisited(Node any, Integer number) {
-		any.setMarker(number);
+	public void setVisited(Node visited, Integer number) {
+		visited.setMarker(number);
 	}
 	public boolean checkVisited(Node any, Integer number){
 		
