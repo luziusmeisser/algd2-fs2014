@@ -12,7 +12,7 @@ import ch.fhnw.algd2.Util;
 
 public class TreeDetectorTest {
 
-	private Random RAND = new Random(11);
+	private final Random RAND = new Random(11);
 	private ArrayList<ITreeDetector> lists;
 
 	@Before
@@ -27,8 +27,7 @@ public class TreeDetectorTest {
 		lists.add(new ch.fhnw.algd2.christianguedel.TreeDetector());
 		lists.add(new ch.fhnw.algd2.larskessler.TreeDetector());
 		lists.add(new ch.fhnw.algd2.stephenrandles.TreeDetector());
-		lists.add(new ch.fhnw.algd2.kevinwieser.TreeDetector());
-		lists.add(new ch.fhnw.algd2.martineberle.TreeDetector());
+		lists.add(new ch.fhnw.algd2.yannickaugstburger.TreeDetector());
 	}
 
 	@Test
