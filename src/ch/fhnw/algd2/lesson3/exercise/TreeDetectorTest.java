@@ -31,6 +31,8 @@ public class TreeDetectorTest {
 		lists.add(new ch.fhnw.algd2.emanuelmistretta.TreeDetector());
 		lists.add(new ch.fhnw.algd2.kevinwieser.TreeDetector());
 		lists.add(new ch.fhnw.algd2.marcogaiffi.TreeDetector());
+		lists.add(new ch.fhnw.algd2.lukasmusy.TreeDetector());
+
 	}
 
 	@Test
