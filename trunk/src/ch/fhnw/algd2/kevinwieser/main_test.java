@@ -11,6 +11,9 @@ public class main_test {
 		System.out.println(i);
 
 		System.out.println(s.countStepsTo(7));
+		
+		
+		
 	}
 
 }
