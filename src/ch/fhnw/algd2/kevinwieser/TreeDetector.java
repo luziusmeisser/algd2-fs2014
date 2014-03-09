@@ -30,6 +30,7 @@ public class TreeDetector implements ITreeDetector {
 					if (nodes[i] != null && nodes[i].getMarker() == marker) {
 						return false;
 					} else if(!visitTree(nodes[i], any)) {
+						// wenn true -> false (geht weiter) // wenn false -> true (return false)
 						return false;
 					}
 				}	
