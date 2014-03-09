@@ -20,6 +20,7 @@ public class TreeDetector implements ITreeDetector {
 			return true;
 		} else {
 			return visitTree(any, null);
+			
 		}
 	}
 
