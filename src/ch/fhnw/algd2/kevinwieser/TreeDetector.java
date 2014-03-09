@@ -17,10 +17,10 @@ public class TreeDetector implements ITreeDetector {
 		// marker bei jedem Durchgang neu setzen, sonst nimmt es immer die alten Werte
 		marker = UUID.randomUUID();
 		if (checkNodesNull(nodes)) {
+			System.out.println("gebe checkNodesTrue zurück");
 			return true;
 		} else {
-			return visitTree(any, null);
-			
+			return visitTree(any, null);	
 		}
 	}
 
@@ -30,7 +30,9 @@ public class TreeDetector implements ITreeDetector {
 		
 		for (int i = 0; i < nodes.length; i++) {
 				if (nodes[i] != source) {	
-					if (nodes[i] != null && nodes[i].getMarker() == marker && !visitTree(nodes[i], any)) {
+					if (nodes[i] != null && nodes[i].getMarker() == marker) {
+						return false;
+					} else if(!visitTree(nodes[i], any)) {
 						return false;
 					}
 				}	
