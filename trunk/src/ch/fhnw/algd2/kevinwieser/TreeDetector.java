@@ -9,13 +9,11 @@ import ch.fhnw.algd2.lesson3.exercise.Node;
 
 public class TreeDetector implements ITreeDetector {
 
-	private UUID marker;
+	private Object marker = new Object();
 
 	@Override
 	public boolean isTree(Node any) {
 		Node[] nodes = any.getNeighbors();
-		// marker bei jedem Durchgang neu setzen, sonst nimmt es immer die alten Werte
-		marker = UUID.randomUUID();
 		if (checkNodesNull(nodes)) {
 			return true;
 		} else {
@@ -36,6 +34,7 @@ public class TreeDetector implements ITreeDetector {
 					}
 				}	
 			}
+		any.setMarker(null);
 		return true;
 	}
 	
