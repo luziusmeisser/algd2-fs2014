@@ -17,7 +17,6 @@ public class TreeDetector implements ITreeDetector {
 		// marker bei jedem Durchgang neu setzen, sonst nimmt es immer die alten Werte
 		marker = UUID.randomUUID();
 		if (checkNodesNull(nodes)) {
-			System.out.println("gebe checkNodesTrue zurück");
 			return true;
 		} else {
 			return visitTree(any, null);	
