@@ -21,13 +21,14 @@ public class TreeDetectorTest {
 
 		// add your own LinkedList implementation here
 		//lists.add(new ch.fhnw.algd2.luzius.TreeDetector());
-        lists.add(new ch.fhnw.algd2.romangribi.TreeDetector());
-        lists.add(new ch.fhnw.algd2.stephanbrunner.TreeDetector());
+		lists.add(new ch.fhnw.algd2.romangribi.TreeDetector());
+		lists.add(new ch.fhnw.algd2.stephanbrunner.TreeDetector());
 		lists.add(new ch.fhnw.algd2.florianfankhauser.lesson3.TreeDetector());
 		lists.add(new ch.fhnw.algd2.christianguedel.TreeDetector());
 		lists.add(new ch.fhnw.algd2.larskessler.TreeDetector());
 		lists.add(new ch.fhnw.algd2.stephenrandles.TreeDetector());
 		lists.add(new ch.fhnw.algd2.yannickaugstburger.TreeDetector());
+		lists.add(new ch.fhnw.algd2.emanuelmistretta.TreeDetector());
 		lists.add(new ch.fhnw.algd2.kevinwieser.TreeDetector());
 		
 	}
