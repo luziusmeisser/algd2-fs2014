@@ -43,6 +43,22 @@ public class BinaryTreeTraverser implements IBinaryTreeTraverser {
     }
     
     private String traverseDepth(BinaryNode current){
-	return "evangelist";
+	String left;
+        String right;
+        
+        if (current.getLeftChild() == null){
+            left = "";
+        }
+        else{
+            left = this.traverseDepth(current.getLeftChild());
+        }
+        if (current.getRightChild() == null){
+            right = "";
+        }
+        else{
+            right = this.traverseDepth(current.getRightChild());
+        }
+            
+        return left + current.getValue() + right;
     }
 }
