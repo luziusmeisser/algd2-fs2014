@@ -1,4 +1,5 @@
 // Created by Emanuel Mistretta on 09.03.2014
+//Teamwork with Marco Gaiffi
 
 package ch.fhnw.algd2.emanuelmistretta;
 
