@@ -2,6 +2,9 @@
 
 package ch.fhnw.algd2.lesson4.exercise;
 
+/**
+ * Exercise 4.1: Implement IBinaryTreeTraverser
+ */
 public interface IBinaryTreeTraverser {
 
 	/**
