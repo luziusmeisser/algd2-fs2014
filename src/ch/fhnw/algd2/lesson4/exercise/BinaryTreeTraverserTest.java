@@ -20,6 +20,7 @@ public class BinaryTreeTraverserTest {
 		lists.add(new ch.fhnw.algd2.florianfankhauser.lesson4.BinaryTreeTraverser());
 		lists.add(new ch.fhnw.algd2.emanuelmistretta.BinaryTreeTraverser());
         lists.add(new ch.fhnw.algd2.stephanbrunner.BinaryTreeTraverser());
+        lists.add(new ch.fhnw.algd2.romangribi.BinaryTreeTraverser());
 	}
 
 	@Test
