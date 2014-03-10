@@ -9,54 +9,55 @@ import ch.fhnw.algd2.lesson1.exercise.AbstractLinkedList;
 
 public class LinkedList<T> extends AbstractLinkedList<T> {
 
-	private Entry root = new Entry(null);
-	
-	@Override
-	public boolean add(T e) {
-		root.value = e;
-		root = new Entry(root);
-		return true;
-	}
+    private Entry root = new Entry(null);
 
-	@Override
-	public Iterator<T> iterator() {
-		return new Iterator<T>() {
+    @Override
+    public boolean add(T e) {
+	root.value = e;
+	root = new Entry(root);
+	return true;
+    }
 
-			private Entry prev;
-			private Entry current = root;
+    @Override
+    public Iterator<T> iterator() {
+	return new Iterator<T>() {
 
-			public boolean hasNext() {
-				return current.next != null;
-			}
+	    private Entry prev;
+	    private Entry current = root;
 
-			public T next() {
-				if (hasNext()) {
-					prev = current;
-					current = current.next;
-					return current.value;
-				} else {
-					throw new NoSuchElementException();
-				}
-			}
+	    public boolean hasNext() {
+		return current.next != null;
+	    }
 
-			public void remove() {
-				if (prev == null){
-					throw new IllegalStateException();
-				} else {
-					prev.next = current.next;
-					current = prev;
-					prev = null;
-				}
-			}
-		};
-	}
-
-	class Entry {
-		Entry next;
-		T value;
-		public Entry(Entry root) {
-			this.next = root;
+	    public T next() {
+		if (hasNext()) {
+		    prev = current;
+		    current = current.next;
+		    return current.value;
+		} else {
+		    throw new NoSuchElementException();
 		}
+	    }
+
+	    public void remove() {
+		if (prev == null) {
+		    throw new IllegalStateException();
+		} else {
+		    prev.next = current.next;
+		    current = prev;
+		    prev = null;
+		}
+	    }
+	};
+    }
+
+    class Entry {
+	Entry next;
+	T value;
+
+	public Entry(Entry root) {
+	    this.next = root;
 	}
+    }
 
 }

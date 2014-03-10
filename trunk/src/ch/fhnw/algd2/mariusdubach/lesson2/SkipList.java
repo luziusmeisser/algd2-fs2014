@@ -3,14 +3,11 @@
 package ch.fhnw.algd2.mariusdubach.lesson2;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 import ch.fhnw.algd2.lesson2.exercise.ISkipList;
-import ch.fhnw.algd2.stephenrandles.MyLinkedListTest;
-
-import java.util.LinkedList;
 
 public class SkipList<T extends Comparable<T>> implements ISkipList<T>{
 	
