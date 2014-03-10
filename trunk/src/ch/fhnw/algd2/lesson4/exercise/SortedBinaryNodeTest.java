@@ -9,7 +9,6 @@ import java.util.TreeSet;
 import org.junit.Before;
 import org.junit.Test;
 
-import ch.fhnw.algd2.florianfankhauser.lesson4.SortedBinaryNode;
 import ch.fhnw.algd2.luzius.BinaryTreeTraverser;
 
 public class SortedBinaryNodeTest {
@@ -22,6 +21,7 @@ public class SortedBinaryNodeTest {
 
 		// add your own implementation here
 		lists.add(new ch.fhnw.algd2.florianfankhauser.lesson4.SortedBinaryNode("root"));
+		lists.add(new ch.fhnw.algd2.romangribi.SortedBinaryNode("root"));
 	}
 
 	@Test
