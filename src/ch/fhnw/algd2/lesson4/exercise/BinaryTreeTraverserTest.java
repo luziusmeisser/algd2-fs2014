@@ -15,6 +15,8 @@ public class BinaryTreeTraverserTest {
 	public void setUp() throws Exception {
 		lists = new ArrayList<>();
 		// add your own implementation here
+		//lists.add(new ch.fhnw.algd2.luzius.BinaryTreeTraverser());
+		//lists.add(new ch.fhnw.algd2.larskessler.BinaryTreeTraverser());
 		lists.add(new ch.fhnw.algd2.florianfankhauser.lesson4.BinaryTreeTraverser());
 		lists.add(new ch.fhnw.algd2.emanuelmistretta.BinaryTreeTraverser());
         lists.add(new ch.fhnw.algd2.stephanbrunner.BinaryTreeTraverser());
