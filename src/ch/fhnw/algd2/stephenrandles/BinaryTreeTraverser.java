@@ -21,9 +21,9 @@ public class BinaryTreeTraverser implements IBinaryTreeTraverser {
 	
 	private String assembleBreadthFirst(BinaryNode root) {
 		StringBuilder sb = new StringBuilder();
-		Queue<BinaryNode> q = new LinkedList<BinaryNode>();
 		BinaryNode node;
 		
+		Queue<BinaryNode> q = new LinkedList<BinaryNode>();
 		q.add(root);		
 		
 		while (!q.isEmpty()) {
@@ -42,7 +42,8 @@ public class BinaryTreeTraverser implements IBinaryTreeTraverser {
 	private String assembleDepthFirst(BinaryNode node) {
 		if (node != null) {
 			return assembleDepthFirst(node.getLeftChild()) + node.getValue() + assembleDepthFirst(node.getRightChild());
+		} else {
+			return "";
 		}
-		return "";
 	}
 }
