@@ -5,7 +5,7 @@ package ch.fhnw.algd2.lesson4.exercise;
 public class BinaryNode {
 
 	private String value;
-	private BinaryNode left, right;
+	protected BinaryNode left, right;
 	
 	public BinaryNode(String value, BinaryNode left, BinaryNode right){
 		this.value = value;
@@ -27,8 +27,6 @@ public class BinaryNode {
 	
 	public BinaryNode getRightChild(){
 		return right;
-		
-		
 	}
-	
+
 }
