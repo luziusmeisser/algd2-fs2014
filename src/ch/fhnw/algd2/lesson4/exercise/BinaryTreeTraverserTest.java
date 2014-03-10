@@ -24,7 +24,7 @@ public class BinaryTreeTraverserTest {
 		for (IBinaryTreeTraverser test: lists){
 			BinaryNode root = createTree();
 			assert test.assemble(root, true).equals("evangelist");
-			assert test.assemble(root, true).equals("evilsagent");
+			assert test.assemble(root, false).equals("evilsagent");
 		}
 	}
 
