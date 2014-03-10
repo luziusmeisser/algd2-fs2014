@@ -1,5 +1,6 @@
 // Created by Kevin Wieser on 03.03.2014
 
+
 package ch.fhnw.algd2.kevinwieser;
 
 import java.util.UUID;
@@ -27,6 +28,8 @@ public class TreeDetector implements ITreeDetector {
 		
 		for (int i = 0; i < nodes.length; i++) {
 				if (nodes[i] != source) {	
+					// ist die folgende Bedinung nicht wahr (dann prüfe rekursiv weiter, ansonsten
+					// führt er in einem zyklus visitTree endlos lang aus
 					if (nodes[i] != null && nodes[i].getMarker() == marker) {
 						return false;
 					} else if(!visitTree(nodes[i], any)) {
