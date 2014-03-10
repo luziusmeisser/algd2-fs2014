@@ -2,7 +2,7 @@
 
 package ch.fhnw.algd2.stephanbrunner;
 
-import java.util.ListIterator;
+import java.util.ArrayList;
 
 import ch.fhnw.algd2.lesson4.exercise.BinaryNode;
 import ch.fhnw.algd2.lesson4.exercise.IBinaryTreeTraverser;
@@ -19,15 +19,15 @@ public class BinaryTreeTraverser implements IBinaryTreeTraverser {
     
     private String assambleWide(BinaryNode root) {
         // init
-        java.util.LinkedList<BinaryNode> nextLevel = new java.util.LinkedList<BinaryNode>();
-        java.util.LinkedList<BinaryNode> thisLevel = nextLevel;
-        String ret = root.getValue();
-        nextLevel.add(root.getLeftChild());
-        nextLevel.add(root.getRightChild());
+        ArrayList<BinaryNode> nextLevel = new ArrayList<BinaryNode>();
+        if (root != null) 
+            nextLevel.add(root);
+        ArrayList<BinaryNode> thisLevel;
+        String ret = "";
         
-        while (nextLevel.size() > 0) {
+        do {
             // switch to next level
-            thisLevel = nextLevel;
+            thisLevel = new ArrayList<BinaryNode>(nextLevel);
             nextLevel.clear();
             
             // add values of this level to return value and create list of next levels nodes.
@@ -38,9 +38,8 @@ public class BinaryTreeTraverser implements IBinaryTreeTraverser {
                 if (b.getRightChild() != null)
                     nextLevel.add(b.getRightChild());
             }
-        }
+        } while (nextLevel.size() > 0);
         
-        System.out.println(ret);
         return ret;
     }
     
