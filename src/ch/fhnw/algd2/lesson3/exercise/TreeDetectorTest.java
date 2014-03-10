@@ -19,7 +19,7 @@ public class TreeDetectorTest {
 	public void setUp() throws Exception {
 		lists = new ArrayList<>();
 
-		// add your own LinkedList implementation here
+		// add your own implementation here
 		//lists.add(new ch.fhnw.algd2.luzius.TreeDetector());
 		lists.add(new ch.fhnw.algd2.romangribi.TreeDetector());
 		lists.add(new ch.fhnw.algd2.stephanbrunner.TreeDetector());
