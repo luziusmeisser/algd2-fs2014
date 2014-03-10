@@ -28,6 +28,7 @@ public abstract class AbstractSortedBinaryNode extends BinaryNode {
 
 	/**
 	 * Removes the value from the tree (if present).
+	 * For simplicity, we assume that the root node never gets removed.
 	 */
 	public abstract void remove(String value);
 

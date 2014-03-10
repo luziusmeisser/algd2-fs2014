@@ -8,7 +8,6 @@ import java.util.List;
 import ch.fhnw.algd2.lesson4.exercise.BinaryNode;
 import ch.fhnw.algd2.lesson4.exercise.IBinaryTreeTraverser;
 
-
 /**
  * Achtung: funktioniert so nicht. :)
  */
@@ -25,19 +24,32 @@ public class BinaryTreeTraverser implements IBinaryTreeTraverser {
 
 	private String traverseBreadthFirst(List<BinaryNode> currentLevel) {
 		String result = "";
-		List<BinaryNode> nextLevel = new java.util.LinkedList<BinaryNode>();
-		for (BinaryNode node : currentLevel) {
-			if (node.getLeftChild() != null) {
-				nextLevel.add(node.getLeftChild());
+		if (currentLevel.size() == 0) {
+			return result;
+		} else {
+			List<BinaryNode> nextLevel = new java.util.LinkedList<BinaryNode>();
+			for (BinaryNode node : currentLevel) {
+				if (node.getLeftChild() != null) {
+					nextLevel.add(node.getLeftChild());
+				}
+				if (node.getRightChild() != null) {
+					nextLevel.add(node.getRightChild());
+				}
+				result += node.getValue();
 			}
+			return result + traverseBreadthFirst(nextLevel);
 		}
-		return result + traverseBreadthFirst(nextLevel);
 	}
 
 	private String traverseDepthFirst(BinaryNode node) {
-		String left = traverseDepthFirst(node.getLeftChild());
-		String middle = node.getValue();
-		return left + middle;
+		if (node == null) {
+			return "";
+		} else {
+			String left = traverseDepthFirst(node.getLeftChild());
+			String middle = node.getValue();
+			String right = traverseDepthFirst(node.getRightChild());
+			return left + middle + right;
+		}
 	}
 
 }
