@@ -17,12 +17,14 @@ public class BinaryTreeTraverserTest {
 		// add your own implementation here
 		lists.add(new ch.fhnw.algd2.luzius.BinaryTreeTraverser());
 		//lists.add(new ch.fhnw.algd2.larskessler.BinaryTreeTraverser());
+		lists.add(new ch.fhnw.algd2.mariusdubach.lesson4.BinaryTreeTraverser());
 		lists.add(new ch.fhnw.algd2.florianfankhauser.lesson4.BinaryTreeTraverser());
 		lists.add(new ch.fhnw.algd2.emanuelmistretta.BinaryTreeTraverser());
         lists.add(new ch.fhnw.algd2.stephanbrunner.BinaryTreeTraverser());
         lists.add(new ch.fhnw.algd2.kevinwieser.BinaryTreeTraverser());
         lists.add(new ch.fhnw.algd2.romangribi.BinaryTreeTraverser());
         lists.add(new ch.fhnw.algd2.stephenrandles.BinaryTreeTraverser());
+        
 	}
 
 	@Test
