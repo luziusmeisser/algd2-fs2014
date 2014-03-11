@@ -3,11 +3,15 @@
 package ch.fhnw.algd2.mariusdubach.lesson4;
 
 import ch.fhnw.algd2.lesson4.exercise.AbstractSortedBinaryNode;
+import ch.fhnw.algd2.lesson4.exercise.BinaryNode;
 
 public class SortedBinaryNode extends AbstractSortedBinaryNode{
 	
+	private static SortedBinaryNode father=null;
+	
 	public SortedBinaryNode(String value) {
 		super(value);
+		if(father == null) father = this;		
 	}
 
 	@Override
@@ -30,10 +34,104 @@ public class SortedBinaryNode extends AbstractSortedBinaryNode{
 			}
 		}
 	}
+	
+	private int hasSons(){
+		int children=0;
+		if (left != null) children++;
+		if (right != null) children++;
+		return children;
+	}
+	
+	private SortedBinaryNode getHighestKey(SortedBinaryNode bn){
+		if(bn.getLeftChild() != null){
+			return getHighestKeyRec((SortedBinaryNode)bn.getLeftChild());
+		}else{
+			return bn;
+		}
+	}
+	
+	private SortedBinaryNode getHighestKeyRec(SortedBinaryNode bn){
+		while(bn.getRightChild() != null){
+			father = bn;
+			bn = (SortedBinaryNode) bn.getRightChild();
+		}
+		return bn;
+	}
 
 	@Override
 	public void remove(String value) {
-		// TODO Auto-generated method stub		
+		if(left != null && value.compareTo(getValue()) < 0){			
+			if(((SortedBinaryNode)left).hasSons() == 0 && left.getValue().equals(value)){
+				left = null;
+				return;
+			}else if(((SortedBinaryNode)left).hasSons() == 1 && left.getValue().equals(value)){
+				if(left.getLeftChild() != null){
+					this.left = left.getLeftChild();
+					return;
+				}
+				if(left.getRightChild() != null) {
+					this.left = left.getRightChild();
+					return;
+				}
+			}else if(((SortedBinaryNode)left).hasSons() == 2 && left.getValue().equals(value)){
+				SortedBinaryNode tbrFather = this;
+				SortedBinaryNode repl = getHighestKey((SortedBinaryNode)left);
+				SortedBinaryNode replFather = father;
+				
+				((SortedBinaryNode)repl).left = this.left.getLeftChild();
+				((SortedBinaryNode)repl).right = this.left.getRightChild();
+				
+				tbrFather.left = repl;
+				if(replFather.left == repl) {
+					replFather.left = null;
+					return;
+				}
+				if(replFather.right == repl){
+					replFather.right = null;
+					return;
+				}				
+			}
+			father = this;
+			((SortedBinaryNode)left).remove(value);
+			return;
+			
+		}else if(right != null && value.compareTo(getValue()) > 0){
+			if(((SortedBinaryNode)right).hasSons() == 0 && right.getValue().equals(value)){
+				right = null;
+				return;
+			}else if(((SortedBinaryNode)right).hasSons() == 1 && right.getValue().equals(value)){
+				if(right.getLeftChild() != null){
+					this.right = right.getLeftChild();
+					return;
+				}
+				if(right.getRightChild() != null){
+					this.right = right.getRightChild();
+					return;
+				}
+			}else if(((SortedBinaryNode)right).hasSons() == 2 && right.getValue().equals(value)){
+				SortedBinaryNode tbrFather = this;
+				SortedBinaryNode repl = getHighestKey((SortedBinaryNode)left);
+				SortedBinaryNode replFather = father;
+				
+				((SortedBinaryNode)repl).left = this.right.getLeftChild();
+				((SortedBinaryNode)repl).right = this.right.getRightChild();
+				
+				tbrFather.right = repl;
+				
+				if(replFather.left == repl) {
+					replFather.left = null;
+					return;
+				}
+				if(replFather.right == repl){
+					replFather.right = null;
+					return;
+				}
+			}
+			father = this;
+			((SortedBinaryNode)right).remove(value);
+			return;
+		}
+		
 	}
 
 }
