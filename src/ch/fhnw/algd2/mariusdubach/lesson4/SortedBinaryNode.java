@@ -74,22 +74,14 @@ public class SortedBinaryNode extends AbstractSortedBinaryNode{
 					return;
 				}
 			}else if(((SortedBinaryNode)left).hasSons() == 2 && left.getValue().equals(value)){
-				SortedBinaryNode tbrFather = this;
 				SortedBinaryNode repl = getHighestKey((SortedBinaryNode)left);
 				SortedBinaryNode replFather = father;
 				
 				((SortedBinaryNode)repl).left = this.left.getLeftChild();
-				((SortedBinaryNode)repl).right = this.left.getRightChild();
-				
-				tbrFather.left = repl;
-				if(replFather.left == repl) {
-					replFather.left = null;
-					return;
-				}
-				if(replFather.right == repl){
-					replFather.right = null;
-					return;
-				}				
+				((SortedBinaryNode)repl).right = this.left.getRightChild();				
+				this.left = repl;
+				deleteNodeFromFather(replFather, replFather);
+				return;			
 			}
 			father = this;
 			((SortedBinaryNode)left).remove(value);
@@ -109,29 +101,31 @@ public class SortedBinaryNode extends AbstractSortedBinaryNode{
 					return;
 				}
 			}else if(((SortedBinaryNode)right).hasSons() == 2 && right.getValue().equals(value)){
-				SortedBinaryNode tbrFather = this;
 				SortedBinaryNode repl = getHighestKey((SortedBinaryNode)left);
 				SortedBinaryNode replFather = father;
 				
 				((SortedBinaryNode)repl).left = this.right.getLeftChild();
-				((SortedBinaryNode)repl).right = this.right.getRightChild();
+				((SortedBinaryNode)repl).right = this.right.getRightChild();				
+				this.right = repl;				
+				deleteNodeFromFather(replFather, replFather);
+				return;
 				
-				tbrFather.right = repl;
-				
-				if(replFather.left == repl) {
-					replFather.left = null;
-					return;
-				}
-				if(replFather.right == repl){
-					replFather.right = null;
-					return;
-				}
 			}
 			father = this;
 			((SortedBinaryNode)right).remove(value);
 			return;
 		}
 		
+	}
+	
+	void deleteNodeFromFather(SortedBinaryNode replFather, SortedBinaryNode repl){
+		if(replFather.left == repl) {
+			replFather.left = null;
+			return;
+		}else{
+			replFather.right = null;
+			return;
+		}
 	}
 
 }
