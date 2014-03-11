@@ -20,7 +20,6 @@ public class BinaryTreeTraverser implements IBinaryTreeTraverser {
 			listFrom = new ArrayList<BinaryNode>();
 			listFrom.add(root);
 			s = assembleWide(listFrom);
-			System.out.println(s+"\n");
 		}
 		
 		return s;
