@@ -55,7 +55,7 @@ public class SortedBinaryNode extends AbstractSortedBinaryNode {
 			// Remove from the tree for now
 			nodeToMove.parent.left = null;
 		} else {
-			// No right tree:
+			// No right tree - Strategy #2
 			// Find highest value on left tree -> guaranteed to be bigger than all other left values, and smaller than all right values
 			nodeToMove = ((SortedBinaryNode) this.left).findHighestValueNode(); 
 			// Remove from the tree for now
@@ -63,18 +63,19 @@ public class SortedBinaryNode extends AbstractSortedBinaryNode {
 		}
 		
 		
-		// Replace this node with the found node
+		// Give nodeToMove same parent & children as this node
 		nodeToMove.parent = this.parent;
 		nodeToMove.left = this.left;
 		nodeToMove.right = this.right;
 		
-		if (this.parent != null) { // If not root
-			if (this.parent.getLeftChild() == this) {
-				this.parent.left = nodeToMove;
-			} else {
-				this.parent.right = nodeToMove;
-			}
+		
+		// Modify this' parent: Replace this node with nodeToMove
+		if (this.parent.getLeftChild() == this) {
+			this.parent.left = nodeToMove;
+		} else {
+			this.parent.right = nodeToMove;
 		}
+	
 	}
 
 	
