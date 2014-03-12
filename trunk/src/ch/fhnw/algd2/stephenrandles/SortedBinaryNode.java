@@ -44,10 +44,10 @@ public class SortedBinaryNode extends AbstractSortedBinaryNode {
 
 	@Override
 	public void remove(String value) {
-		// Find highest value on left tree -> guaranteed to be larger than all left values
-		SortedBinaryNode nodeToMove = ((SortedBinaryNode) this.left).findHighestValue(); 
+		// Find lowest value on right tree -> guaranteed to be smaller than all right values, ans bigger than all legt values
+		SortedBinaryNode nodeToMove = ((SortedBinaryNode) this.right).findLowestValue(); 
 		// Remove from the tree for now
-		nodeToMove.parent.right = null;
+		nodeToMove.parent.left = null;
 		
 		// Replace this node with the found node
 		nodeToMove.parent = this.parent;
