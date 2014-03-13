@@ -100,16 +100,15 @@ public class SortedBinaryNode extends AbstractSortedBinaryNode {
 	}
 	
 	private SortedBinaryNode find(String value) {
-		if (value.compareTo(this.getValue()) < 0 && left != null) {
-			return ((SortedBinaryNode)left).find(value);
-		} else if (value.compareTo(this.getValue()) > 0 && right != null) {
-			return ((SortedBinaryNode)right).find(value);
-		} else if (value.compareTo(this.getValue()) == 0) {
+		if (value.compareTo(this.getValue()) == 0) {
 			return this;
+		} else if (left != null && value.compareTo(this.getValue()) < 0) {
+			return ((SortedBinaryNode)left).find(value);
+		} else if (right != null && value.compareTo(this.getValue()) > 0) {
+			return ((SortedBinaryNode)right).find(value);
 		} else {
 			return null;
-		}
-		
+		}		
 	}
 
 }
