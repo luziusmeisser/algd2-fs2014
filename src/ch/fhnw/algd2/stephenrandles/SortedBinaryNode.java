@@ -44,36 +44,40 @@ public class SortedBinaryNode extends AbstractSortedBinaryNode {
 
 	@Override
 	public void remove(String value) {
-		if (this.parent == null) // Root
-			return;
-		
+		SortedBinaryNode nodeToDelete = find(value);
 		SortedBinaryNode nodeToMove;
 		
-		if (this.right != null) {
+		if (nodeToDelete == null || nodeToDelete.parent == null) // Not found, or root
+			return;
+		
+		
+		if (nodeToDelete.right != null) {
 			// Find lowest value on right tree -> guaranteed to be smaller than all right values, and bigger than all left values
-			nodeToMove = ((SortedBinaryNode) this.right).findLowestValueNode(); 
+			nodeToMove = ((SortedBinaryNode) nodeToDelete.right).findLowestValueNode(); 
 			// Remove from the tree for now
 			nodeToMove.parent.left = null;
-		} else {
+		} else if (nodeToDelete.left != null){
 			// No right tree - Strategy #2
 			// Find highest value on left tree -> guaranteed to be bigger than all other left values, and smaller than all right values
-			nodeToMove = ((SortedBinaryNode) this.left).findHighestValueNode(); 
+			nodeToMove = ((SortedBinaryNode) nodeToDelete.left).findHighestValueNode(); 
 			// Remove from the tree for now
 			nodeToMove.parent.right = null;
+		} else {
+			return;
 		}
 		
 		
-		// Give nodeToMove same parent & children as this node
-		nodeToMove.parent = this.parent;
-		nodeToMove.left = this.left;
-		nodeToMove.right = this.right;
+		// Give nodeToMove same parent & children as nodeToDelete node
+		nodeToMove.parent = nodeToDelete.parent;
+		nodeToMove.left = nodeToDelete.left;
+		nodeToMove.right = nodeToDelete.right;
 		
 		
-		// Modify this' parent: Replace this node with nodeToMove
-		if (this.parent.getLeftChild() == this) {
-			this.parent.left = nodeToMove;
+		// Modify nodeToDelete's parent: Replace nodeToDelete with nodeToMove
+		if (nodeToDelete.parent.getLeftChild() == nodeToDelete) {
+			nodeToDelete.parent.left = nodeToMove;
 		} else {
-			this.parent.right = nodeToMove;
+			nodeToDelete.parent.right = nodeToMove;
 		}
 	
 	}
@@ -93,6 +97,19 @@ public class SortedBinaryNode extends AbstractSortedBinaryNode {
 		} else {
 			return ((SortedBinaryNode)right).findHighestValueNode();
 		}
+	}
+	
+	private SortedBinaryNode find(String value) {
+		if (value.compareTo(this.getValue()) < 0 && left != null) {
+			return ((SortedBinaryNode)left).find(value);
+		} else if (value.compareTo(this.getValue()) > 0 && right != null) {
+			return ((SortedBinaryNode)right).find(value);
+		} else if (value.compareTo(this.getValue()) == 0) {
+			return this;
+		} else {
+			return null;
+		}
+		
 	}
 
 }
