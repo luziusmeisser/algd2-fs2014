@@ -1,6 +1,6 @@
 // Created by Stephen Randles 24.02.2014
 
-package ch.fhnw.algd2.stephenrandles;
+package ch.fhnw.algd2.stephenrandles.lesson02;
 
 import java.util.NoSuchElementException;
 import ch.fhnw.algd2.lesson2.exercise.ISkipList;

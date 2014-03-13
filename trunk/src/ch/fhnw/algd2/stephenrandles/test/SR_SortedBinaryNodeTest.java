@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.fhnw.algd2.lesson4.exercise.AbstractSortedBinaryNode;
-import ch.fhnw.algd2.stephenrandles.BinaryTreeTraverser;
+import ch.fhnw.algd2.stephenrandles.lesson04.BinaryTreeTraverser;
 
 public class SR_SortedBinaryNodeTest {
 
@@ -24,7 +24,7 @@ public class SR_SortedBinaryNodeTest {
 //		lists.add(new ch.fhnw.algd2.florianfankhauser.lesson4.SortedBinaryNode("root"));
 //		lists.add(new ch.fhnw.algd2.romangribi.SortedBinaryNode("root"));
 //		lists.add(new ch.fhnw.algd2.mariusdubach.lesson4.SortedBinaryNode("root"));
-		lists.add(new ch.fhnw.algd2.stephenrandles.SortedBinaryNode("root"));
+		lists.add(new ch.fhnw.algd2.stephenrandles.lesson04.SortedBinaryNode("root"));
 	}
 
 	@Test

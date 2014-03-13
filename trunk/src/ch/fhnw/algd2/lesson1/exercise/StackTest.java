@@ -30,8 +30,8 @@ public class StackTest {
 		stacks.add(new ch.fhnw.algd2.emanuelmistretta.Stack<String>());
 		stacks.add(new ch.fhnw.algd2.kevinwieser.MyStack<String>());
 		stacks.add(new ch.fhnw.algd2.martineberle.Stack<String>());
-		stacks.add(new ch.fhnw.algd2.stephenrandles.StackWithArray<String>());
-		stacks.add(new ch.fhnw.algd2.stephenrandles.StackWithNodes<String>());
+		stacks.add(new ch.fhnw.algd2.stephenrandles.lesson01.StackWithArray<String>());
+		stacks.add(new ch.fhnw.algd2.stephenrandles.lesson01.StackWithNodes<String>());
 		stacks.add(new ch.fhnw.algd2.yannickaugstburger.MyStack<String>());
 		stacks.add(new ch.fhnw.algd2.mariusdubach.Stack<String>());
 		stacks.add(new ch.fhnw.algd2.larskessler.Stack<String>());
