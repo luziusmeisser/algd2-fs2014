@@ -1,6 +1,6 @@
 // Created by Stephen Randles 03.03.2014
 
-package ch.fhnw.algd2.stephenrandles;
+package ch.fhnw.algd2.stephenrandles.lesson03;
 
 import java.util.UUID;
 

@@ -1,6 +1,6 @@
 // Created by Stephen Randles 17.02.2014
 
-package ch.fhnw.algd2.stephenrandles;
+package ch.fhnw.algd2.stephenrandles.lesson01;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

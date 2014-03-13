@@ -4,7 +4,7 @@ package ch.fhnw.algd2.stephenrandles.test;
 
 import java.util.Random;
 
-import ch.fhnw.algd2.stephenrandles.SkipList;
+import ch.fhnw.algd2.stephenrandles.lesson02.SkipList;
 
 
 

@@ -2,7 +2,7 @@
 
 package ch.fhnw.algd2.stephenrandles.test;
 
-import ch.fhnw.algd2.stephenrandles.LinkedList;
+import ch.fhnw.algd2.stephenrandles.lesson01.LinkedList;
 
 public class MyLinkedListTest {
 

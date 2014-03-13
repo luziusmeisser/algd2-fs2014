@@ -1,6 +1,6 @@
 // Created by Stephen Randles 10.03.2014
 
-package ch.fhnw.algd2.stephenrandles;
+package ch.fhnw.algd2.stephenrandles.lesson04;
 
 import java.util.Queue;
 import java.util.LinkedList;
