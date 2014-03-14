@@ -45,33 +45,25 @@ public class SortedBinaryNode extends AbstractSortedBinaryNode {
 	@Override
 	public void remove(String value) {
 		SortedBinaryNode nodeToDelete = find(value);
-		SortedBinaryNode nodeToMove;
+		SortedBinaryNode nodeToMove = null;
 		
 		if (nodeToDelete == null || nodeToDelete.parent == null) // Not found, or root
 			return;
 		
-		
-		if (nodeToDelete.right != null) {
-			// Find lowest value on right tree -> guaranteed to be smaller than all right values, and bigger than all left values
-			nodeToMove = ((SortedBinaryNode) nodeToDelete.right).findLowestValueNode(); 
-			// Remove from the tree for now
-			nodeToMove.parent.left = null;
-		} else if (nodeToDelete.left != null){
-			// No right tree - Strategy #2
-			// Find highest value on left tree -> guaranteed to be bigger than all other left values, and smaller than all right values
+		if (nodeToDelete.left != null){
 			nodeToMove = ((SortedBinaryNode) nodeToDelete.left).findHighestValueNode(); 
-			// Remove from the tree for now
 			nodeToMove.parent.right = null;
-		} else {
-			return;
-		}
+		} else if (nodeToDelete.right != null) {
+			nodeToMove = ((SortedBinaryNode) nodeToDelete.right).findLowestValueNode(); 
+			nodeToMove.parent.left = null;
+		} 
 		
-		
+		if (nodeToMove != null) {
 		// Give nodeToMove same parent & children as nodeToDelete node
-		nodeToMove.parent = nodeToDelete.parent;
-		nodeToMove.left = nodeToDelete.left;
-		nodeToMove.right = nodeToDelete.right;
-		
+			nodeToMove.parent = nodeToDelete.parent;
+			nodeToMove.left = nodeToDelete.left;
+			nodeToMove.right = nodeToDelete.right;
+		}
 		
 		// Modify nodeToDelete's parent: Replace nodeToDelete with nodeToMove
 		if (nodeToDelete.parent.getLeftChild() == nodeToDelete) {
