@@ -3,9 +3,12 @@
 package ch.fhnw.algd2.kevinwieser;
 
 import ch.fhnw.algd2.lesson4.exercise.AbstractSortedBinaryNode;
+import ch.fhnw.algd2.lesson4.exercise.BinaryNode;
 
 public class SortedBinaryNode extends AbstractSortedBinaryNode {
 
+	private BinaryNode root;
+	
 	public SortedBinaryNode(String value) {
 		super(value);
 		// TODO Auto-generated constructor stub
@@ -13,8 +16,11 @@ public class SortedBinaryNode extends AbstractSortedBinaryNode {
 
 	@Override
 	public int insert(String value) {
-		// TODO Auto-generated method stub
+		if (root == null) {
+			root = new BinaryNode(value, null,null);
+		} //else if ()
 		return 0;
+		
 	}
 
 	@Override
