@@ -18,7 +18,6 @@ public class SortedBinaryNodeTest {
 	@Before
 	public void setUp() throws Exception {
 		lists = new ArrayList<>();
-
 		// add your own implementation here
 		lists.add(new ch.fhnw.algd2.kevinwieser.SortedBinaryNode("root"));
 		lists.add(new ch.fhnw.algd2.florianfankhauser.lesson4.SortedBinaryNode("root"));
