@@ -8,120 +8,141 @@ import ch.fhnw.algd2.lesson4.exercise.BinaryNode;
 public class SortedBinaryNode extends AbstractSortedBinaryNode {
 
 	private SortedBinaryNode parent = null;
-	private int LEVEL = 0;
-	
+
 	public SortedBinaryNode(String value) {
 		super(value);
 	}
 
-	
+	public void setParent(SortedBinaryNode parent) {
+		this.parent = parent;
+	}
+
 	@Override
 	public int insert(String value) {
-		return insert(value, this);
+		return insert(value, 1);
 	}
-	
-	private int insert(String value, SortedBinaryNode parent) {
-		int compare = getValue().compareTo(value);
+
+	private int insert(String value, int level) {
+		int compare = value.compareTo(getValue());
 
 		if (compare == 0) {
-			int tmpLevel = LEVEL;
-			LEVEL = 0;
-			return tmpLevel;
+			return level;
 		}
 
 		if (compare < 0) {
 			// Mein Value ist kleiner als given value:
-			if (right == null) {
-				right = new SortedBinaryNode(value);
-				int tmpLevel = LEVEL++;
-				// ansonsten wird level bei jedem Insert erhöht
-				LEVEL = 0;
-				this.parent = parent;
-				return tmpLevel;
-			} else {
-				LEVEL++;
-				return ((SortedBinaryNode) right).insert(value);
-			}
-		} else if (compare > 0) {
 			if (left == null) {
 				left = new SortedBinaryNode(value);
-				int tmpLevel = LEVEL++;
-				// ansonsten wird level bei jedem Insert erhöht
-				LEVEL = 0;
-				this.parent = parent;
-				return tmpLevel;
+				((SortedBinaryNode) left).setParent(this);
+				return level;
 			} else {
-				LEVEL++;
-				return ((SortedBinaryNode) left).insert(value);
+				return ((SortedBinaryNode) left).insert(value, level++);
+			}
+		} else {
+			if (right == null) {
+				right = new SortedBinaryNode(value);
+				((SortedBinaryNode) right).setParent(this);
+				return level;
+			} else {
+				return ((SortedBinaryNode) right).insert(value, level++);
 			}
 		}
-		return 0;
 	}
 
 	@Override
 	public void remove(String value) {
-		int compare = getValue().compareTo(value);
-		
+		int compare = value.compareTo(getValue());
+
 		// ist es genau der wert, an dem ich löschen will:
 		if (compare == 0) {
 			if (left == null && right == null) {
 				// ersetze mich bei den Eltern um einen anderen Node
 				if (parent == null) {
 					return;
-				} else {
-					if (parent.left == this) {
-						parent.left = null;
-					}
-
-					if (parent.right == this) {
-						parent.right = null;
-					}
 				}
-			} else if (left == null) {
 				if (parent.left == this) {
-					parent.left = right;
+					parent.left = null;
+				} else if (parent.right == this) {
+					parent.right = null;
 				}
 
-				if (parent.right == this) {
+				// ist nur mein Linker leer:
+			} else if (left == null) {
+				if (parent == null) {
+					return;
+				}  
+				if (parent.left == this) {
+					// Setze bei den Eltern am Linken Ast meinen Rechten
+					parent.left = right;
+					((SortedBinaryNode) right).setParent(parent);
+
+					// Haben die Eltern mich als Rechter drin?
+				} else if (parent.right == this) {
 					parent.right = right;
+					((SortedBinaryNode) right).setParent(parent);
 				}
+
 			} else if (right == null) {
+				if (parent == null) {
+					return;
+				}
 				if (parent.left == this) {
 					parent.left = left;
+					((SortedBinaryNode) left).setParent(parent);
+
+				} else if (parent.right == this) {
+					parent.right = left;
+					((SortedBinaryNode) left).setParent(parent);
 				}
 
-				if (parent.right == this) {
-					parent.right = left;
-				}
-			} else if (right != null && left != null) {
-				// gehe nun in den rechten Subbaum und suche den "linkesten" Wert:
-				SortedBinaryNode tmpNode = this;
-				while(tmpNode != null) {
+			} else {
+				// gehe nun in den rechten Subbaum und suche den "linkesten"
+				// Wert:
+				SortedBinaryNode tmpNode = (SortedBinaryNode) right;
+
+				while (tmpNode.left != null) {
 					tmpNode = (SortedBinaryNode) tmpNode.left;
 				}
 				
-				// lösche den tmpNode
 				remove(tmpNode.getValue());
-				
+
+				// Setze die alten Kinder an den neuen Node:
+				tmpNode.left = left;
+				tmpNode.right = right;
+
+				// Muss die Childern vom alten Node noch auf die neue Eltern
+				// setzen:
+				((SortedBinaryNode) tmpNode.left).setParent(tmpNode);
+				((SortedBinaryNode) tmpNode.right).setParent(tmpNode);
+
+				// Ersetze ganz unten noch die Parents vom alten auf null
+				SortedBinaryNode parentNode = tmpNode.parent;
+				if (parentNode.left == tmpNode) {
+					parentNode.left = null;
+				} else if (parentNode.right == tmpNode) {
+					parentNode.right = null;
+				}
+
 				// Ersetze mich bei den Parents mit dem tmpNode
 				if (parent.left == this) {
 					parent.left = tmpNode;
-				}
+					((SortedBinaryNode) tmpNode).setParent(parent);
 
-				if (parent.right == this) {
+				} else if (parent.right == this) {
 					parent.right = tmpNode;
+					((SortedBinaryNode) tmpNode).setParent(parent);
 				}
-		
 			}
+			
 		} else if (compare < 0) {
 			if (left != null) {
-				((SortedBinaryNode)left).remove(value);
+				((SortedBinaryNode) left).remove(value);
+
 			}
 		} else {
 			if (right != null) {
-				((SortedBinaryNode)right).remove(value);
+				((SortedBinaryNode) right).remove(value);
 			}
 		}
 	}
-
 }
