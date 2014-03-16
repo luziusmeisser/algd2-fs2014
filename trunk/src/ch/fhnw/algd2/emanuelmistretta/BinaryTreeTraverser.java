@@ -24,6 +24,7 @@ public class BinaryTreeTraverser implements IBinaryTreeTraverser {
     private String traverseWidth(List<BinaryNode> nodes){
 	String result = "";
 	List<BinaryNode> nextNodes = new ArrayList<BinaryNode>();
+	
 	for(BinaryNode node : nodes){
 	    
 	    if(node.getLeftChild() != null){
@@ -42,7 +43,7 @@ public class BinaryTreeTraverser implements IBinaryTreeTraverser {
 	return result;
     }
     
-    private String traverseDepth(BinaryNode current){
+    public static String traverseDepth(BinaryNode current){
 	String left;
         String right;
         
@@ -50,13 +51,13 @@ public class BinaryTreeTraverser implements IBinaryTreeTraverser {
             left = "";
         }
         else{
-            left = this.traverseDepth(current.getLeftChild());
+            left = traverseDepth(current.getLeftChild());
         }
         if (current.getRightChild() == null){
             right = "";
         }
         else{
-            right = this.traverseDepth(current.getRightChild());
+            right = traverseDepth(current.getRightChild());
         }
             
         return left + current.getValue() + right;
