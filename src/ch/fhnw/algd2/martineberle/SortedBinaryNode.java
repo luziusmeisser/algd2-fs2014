@@ -93,10 +93,11 @@ int lastCompare;
 			}
 			//If two children, find lowest of right part, replace this with new node and delete original lowest
 			if(this.left != null && this.right != null){
-				SortedBinaryNode newNode = new SortedBinaryNode(this.getRightChild().findLowestValue());
+				String lowValue = this.getRightChild().findLowestValue();
+				SortedBinaryNode newNode = new SortedBinaryNode(lowValue);
 				newNode.left = this.left;
 				newNode.right = this.right;
-				newNode.getRightChild().remove(newNode.getValue());
+				((SortedBinaryNode)newNode.getRightChild()).removeIt(lowValue,newNode, 1);
 				if(lastCompare < 0){
 					parent.left = newNode;
 					return;
