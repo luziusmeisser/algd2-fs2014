@@ -20,6 +20,8 @@ public class SortedBinaryNodeTest {
 		lists = new ArrayList<>();
 
 		// add your own implementation here
+		lists.add(new ch.fhnw.algd2.luzius.SortedBinaryNode("root"));
+		lists.add(new ch.fhnw.algd2.emanuelmistretta.SortedBinaryNode("root"));
 		lists.add(new ch.fhnw.algd2.kevinwieser.SortedBinaryNode("root"));
 		lists.add(new ch.fhnw.algd2.florianfankhauser.lesson4.SortedBinaryNode("root"));
 		lists.add(new ch.fhnw.algd2.romangribi.SortedBinaryNode("root"));
