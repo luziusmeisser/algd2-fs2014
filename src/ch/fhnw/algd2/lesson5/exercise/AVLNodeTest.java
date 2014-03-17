@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ch.fhnw.algd2.luzius.BinaryTreeTraverser;
+import ch.fhnw.algd2.luzius.IVisitor;
 
 public class AVLNodeTest {
 
@@ -29,18 +30,28 @@ public class AVLNodeTest {
 			TreeSet<String> verification = new TreeSet<>();
 			verification.add("first");
 			Random rand = new Random(7);
-			for (int i = 0; i < 100; i++) {
-				String value = Integer.toString(rand.nextInt(1000));
+			final int count = 673;
+			for (int i = 0; i < count; i++) {
+				String value = Integer.toString(rand.nextInt(1000000));
 				verification.add(value);
 				node.insert(value);
 				node = node.ensureBalance();
+				System.out.println(i + " nodes, height: " + node.getHeight());
 			}
-			BinaryTreeTraverser trav = new BinaryTreeTraverser();
+			BinaryTreeTraverser<AbstractAVLNode> trav = new BinaryTreeTraverser<AbstractAVLNode>();
 			String assembled = trav.assemble(node, true);
 			for (String s : verification) {
 				assert assembled.startsWith(s);
 				assembled = assembled.substring(s.length());
 			}
+			trav.visit(new IVisitor<AbstractAVLNode>() {
+				
+				public void visit(AbstractAVLNode t) {
+					assert t.getBalance() >= -1;
+					assert t.getBalance() <= 1;
+					assert t.getHeight() <= 11;
+				}
+			}, node);
 		}
 	}
 
