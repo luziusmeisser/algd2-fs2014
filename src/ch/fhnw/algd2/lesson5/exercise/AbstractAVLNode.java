@@ -86,6 +86,8 @@ public abstract class AbstractAVLNode implements IBinaryNode {
 				} else {
 					left.insert(value);
 					setLeft(left.ensureBalance()); 
+					assert left.getBalance() >= -1;
+					assert left.getBalance() <= 1;
 				}
 			} else {
 				if (right == null) {
@@ -93,10 +95,10 @@ public abstract class AbstractAVLNode implements IBinaryNode {
 				} else {
 					right.insert(value);
 					setRight(right.ensureBalance());
+					assert right.getBalance() >= -1;
+					assert right.getBalance() <= 1;
 				}
 			}
-			assert getBalance() >= -1;
-			assert getBalance() <= 1;
 		}
 	}
 	
