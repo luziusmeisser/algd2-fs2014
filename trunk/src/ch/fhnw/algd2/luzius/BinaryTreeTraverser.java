@@ -6,14 +6,9 @@ import java.util.Collections;
 import java.util.List;
 
 import ch.fhnw.algd2.lesson4.exercise.IBinaryNode;
-import ch.fhnw.algd2.lesson4.exercise.IBinaryTreeTraverser;
 
-/**
- * Achtung: funktioniert so nicht. :)
- */
-public class BinaryTreeTraverser implements IBinaryTreeTraverser {
+public class BinaryTreeTraverser {
 
-	@Override
 	public String assemble(IBinaryNode root, boolean depthFirst) {
 		if (depthFirst) {
 			return traverseDepthFirst(root);
