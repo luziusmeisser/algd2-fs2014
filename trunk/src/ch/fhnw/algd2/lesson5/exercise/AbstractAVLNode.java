@@ -13,6 +13,7 @@ public abstract class AbstractAVLNode implements IBinaryNode {
 
 	public AbstractAVLNode(String value) {
 		this.value = value;
+		this.height = 1;
 	}
 	
 	public final String getValue(){
@@ -98,4 +99,10 @@ public abstract class AbstractAVLNode implements IBinaryNode {
 			assert getBalance() <= 1;
 		}
 	}
+	
+	@Override
+	public String toString(){
+		return "(" + getLeftChild() + ", " + getValue() + ", " + getRightChild() + ")";
+	}
+	
 }
