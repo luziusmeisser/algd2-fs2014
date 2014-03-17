@@ -21,7 +21,8 @@ public class AVLNodeTest {
 		lists = new ArrayList<>();
 
 		// add your own implementation here
-		lists.add(new ch.fhnw.algd2.luzius.AVLNode("first"));
+        lists.add(new ch.fhnw.algd2.luzius.AVLNode("first"));
+        lists.add(new ch.fhnw.algd2.stephanbrunner.AVLNode("first"));
 	}
 
 	@Test
