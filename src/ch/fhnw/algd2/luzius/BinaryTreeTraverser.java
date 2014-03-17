@@ -5,7 +5,7 @@ package ch.fhnw.algd2.luzius;
 import java.util.Collections;
 import java.util.List;
 
-import ch.fhnw.algd2.lesson4.exercise.BinaryNode;
+import ch.fhnw.algd2.lesson4.exercise.IBinaryNode;
 import ch.fhnw.algd2.lesson4.exercise.IBinaryTreeTraverser;
 
 /**
@@ -14,7 +14,7 @@ import ch.fhnw.algd2.lesson4.exercise.IBinaryTreeTraverser;
 public class BinaryTreeTraverser implements IBinaryTreeTraverser {
 
 	@Override
-	public String assemble(BinaryNode root, boolean depthFirst) {
+	public String assemble(IBinaryNode root, boolean depthFirst) {
 		if (depthFirst) {
 			return traverseDepthFirst(root);
 		} else {
@@ -22,13 +22,13 @@ public class BinaryTreeTraverser implements IBinaryTreeTraverser {
 		}
 	}
 
-	private String traverseBreadthFirst(List<BinaryNode> currentLevel) {
+	private String traverseBreadthFirst(List<IBinaryNode> currentLevel) {
 		String result = "";
 		if (currentLevel.size() == 0) {
 			return result;
 		} else {
-			List<BinaryNode> nextLevel = new java.util.LinkedList<BinaryNode>();
-			for (BinaryNode node : currentLevel) {
+			List<IBinaryNode> nextLevel = new java.util.LinkedList<IBinaryNode>();
+			for (IBinaryNode node : currentLevel) {
 				if (node.getLeftChild() != null) {
 					nextLevel.add(node.getLeftChild());
 				}
@@ -41,7 +41,7 @@ public class BinaryTreeTraverser implements IBinaryTreeTraverser {
 		}
 	}
 
-	private String traverseDepthFirst(BinaryNode node) {
+	private String traverseDepthFirst(IBinaryNode node) {
 		if (node == null) {
 			return "";
 		} else {
