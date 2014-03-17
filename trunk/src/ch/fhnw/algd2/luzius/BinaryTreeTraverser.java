@@ -7,7 +7,16 @@ import java.util.List;
 
 import ch.fhnw.algd2.lesson4.exercise.IBinaryNode;
 
-public class BinaryTreeTraverser {
+public class BinaryTreeTraverser<T extends IBinaryNode> {
+
+	@SuppressWarnings("unchecked")
+	public void visit(IVisitor<T> visitor, T root) {
+		if (root != null) {
+			visit(visitor, (T) root.getLeftChild());
+			visitor.visit(root);
+			visit(visitor, (T) root.getRightChild());
+		}
+	}
 
 	public String assemble(IBinaryNode root, boolean depthFirst) {
 		if (depthFirst) {
