@@ -2,7 +2,7 @@
 
 package ch.fhnw.algd2.lesson4.exercise;
 
-public class BinaryNode {
+public class BinaryNode implements IBinaryNode {
 
 	private String value;
 	protected BinaryNode left, right;

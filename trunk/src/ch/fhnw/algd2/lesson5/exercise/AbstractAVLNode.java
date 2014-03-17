@@ -2,9 +2,9 @@
 
 package ch.fhnw.algd2.lesson5.exercise;
 
-import ch.fhnw.algd2.luzius.AVLNode;
+import ch.fhnw.algd2.lesson4.exercise.IBinaryNode;
 
-public abstract class AbstractAVLNode {
+public abstract class AbstractAVLNode implements IBinaryNode {
 
 	private String value;
 
@@ -19,7 +19,7 @@ public abstract class AbstractAVLNode {
 		return value;
 	}
 	
-	public AbstractAVLNode getLeft() {
+	public AbstractAVLNode getLeftChild() {
 		return left;
 	}
 
@@ -28,7 +28,7 @@ public abstract class AbstractAVLNode {
 		this.height = calculateHeight(); // update height on every change
 	}
 
-	public AbstractAVLNode getRight() {
+	public AbstractAVLNode getRightChild() {
 		return right;
 	}
 
@@ -73,7 +73,7 @@ public abstract class AbstractAVLNode {
 	}
 
 	public final void insert(String value) {
-		int comp = value.compareTo(value);
+		int comp = value.compareTo(getValue());
 		if (comp == 0) {
 			// same value, ignore
 		} else {
