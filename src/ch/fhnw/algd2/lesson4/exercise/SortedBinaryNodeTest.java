@@ -28,7 +28,8 @@ public class SortedBinaryNodeTest {
 		lists.add(new ch.fhnw.algd2.mariusdubach.lesson4.SortedBinaryNode("root"));
 		lists.add(new ch.fhnw.algd2.larskessler.SortedBinaryNode("root"));
 		lists.add(new ch.fhnw.algd2.stephenrandles.lesson04.SortedBinaryNode("root"));
-		lists.add(new ch.fhnw.algd2.christianguedel.SortedBinaryNode("root"));
+        lists.add(new ch.fhnw.algd2.christianguedel.SortedBinaryNode("root"));
+        lists.add(new ch.fhnw.algd2.stephanbrunner.SortedBinaryNode("root"));
 		lists.add(new ch.fhnw.algd2.marcogaiffi.SortedBinaryNode("root"));
 		lists.add(new ch.fhnw.algd2.martineberle.SortedBinaryNode("root"));
 	}
