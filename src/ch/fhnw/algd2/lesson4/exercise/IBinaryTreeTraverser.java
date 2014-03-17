@@ -11,6 +11,6 @@ public interface IBinaryTreeTraverser {
 	 * Traverses the tree from the given root and assembles all
 	 * encountered values (Strings). Null values should be ignored.
 	 */
-	public String assemble(IBinaryNode root, boolean depthFirst);
+	public String assemble(BinaryNode root, boolean depthFirst);
 	
 }
