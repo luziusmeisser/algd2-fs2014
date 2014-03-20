@@ -23,6 +23,7 @@ public class AVLNodeTest {
 		// add your own implementation here
         lists.add(new ch.fhnw.algd2.luzius.AVLNode("first"));
         lists.add(new ch.fhnw.algd2.stephanbrunner.AVLNode("first"));
+        lists.add(new ch.fhnw.algd2.yannickaugstburger.AVLNode("first"));
 	}
 
 	@Test
@@ -47,6 +48,7 @@ public class AVLNodeTest {
 			}
 			trav.visit(new IVisitor<AbstractAVLNode>() {
 				
+				@Override
 				public void visit(AbstractAVLNode t) {
 					assert t.getBalance() >= -1;
 					assert t.getBalance() <= 1;
