@@ -26,26 +26,24 @@ public class AVLNode extends AbstractAVLNode {
 		
 		int balance = getBalance();
 		if (balance > 1) {
-			if (getRightChild().getBalance() > -1) {
-				return rotateLeft();
-			} else if (getRightChild().getBalance() == -1) {
-				getRightChild().rotateRight();
-				return rotateLeft();
+			if (getLeftChild().getBalance() > -1) {
+				return rotateRight();
+			} else if (getLeftChild().getBalance() == -1) {
+				setLeft(getLeftChild().rotateLeft());
+				return rotateRight();
 			}
 		} else if (balance < -1) {
-			if (getLeftChild().getBalance() < 1) {
-				AbstractAVLNode node = getLeftChild().getRightChild();
-				this.setLeft(node);
-				return rotateRight();
-			} else if (getLeftChild().getBalance() == 1) {
-				getLeftChild().rotateLeft();
+			if (getRightChild().getBalance() < 1) {
+				return rotateLeft();
+			} else if (getRightChild().getBalance() == 1) {
+				setRight(getRightChild().rotateRight());
 				return rotateLeft();
 			}
 		}
 		
 		
 		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 	@Override
@@ -65,7 +63,7 @@ public class AVLNode extends AbstractAVLNode {
 		if (node == null) {
 			return null;
 		}
-		this.setRight(node.getRightChild());
+		this.setLeft(node.getRightChild());
 		node.setRight(this);;
 		return node;
 	}
