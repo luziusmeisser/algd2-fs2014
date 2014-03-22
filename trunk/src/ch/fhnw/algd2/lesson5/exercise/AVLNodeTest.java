@@ -27,6 +27,7 @@ public class AVLNodeTest {
         lists.add(new ch.fhnw.algd2.mariusdubach.lesson5.AVLNode("first"));
         lists.add(new ch.fhnw.algd2.kevinwieser.AVLNode("first"));
         lists.add(new ch.fhnw.algd2.florianfankhauser.lesson5.AVLNode("first"));
+        lists.add(new ch.fhnw.algd2.stephenrandles.lesson05.AVLNode("first"));
 	}
 
 	@Test
