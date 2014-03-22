@@ -2,6 +2,11 @@ package ch.fhnw.algd2.florianfankhauser.lesson4;
 
 import ch.fhnw.algd2.lesson4.exercise.AbstractSortedBinaryNode;
 
+/**
+ * SVN Test
+ * @author flofa_000
+ *
+ */
 public class SortedBinaryNode extends AbstractSortedBinaryNode {
 	public SortedBinaryNode(String value) {
 		super(value);
