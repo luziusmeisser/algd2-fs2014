@@ -8,13 +8,11 @@ public class AVLNode extends AbstractAVLNode {
 
 	public AVLNode(String value) {
 		super(value);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected AbstractAVLNode createNode(String value) {
-		// TODO Auto-generated method stub
-		return null;
+		return new AVLNode(value);
 	}
 
 	@Override
@@ -25,26 +23,26 @@ public class AVLNode extends AbstractAVLNode {
 
 	@Override
 	protected AbstractAVLNode ensureBalance() {
-		int factor = this.getLeftHeight() - this.getRightHeight();
-		if (factor > 1) {			// Left-heavy 
-			if (this.getLeftChild().getBalance() < -1 ) {	// Left-right case
-				this.getLeftChild().rotateLeft();
+		if (getBalance() > 1) {			// Left-heavy 
+			if (this.getLeftChild().getBalance() <= -1 ) {	// Left-right case
+				this.setLeft(this.getLeftChild().rotateLeft());
 			}			
 			return rotateRight();
-		} else if (factor < -1) {	// Right-heavy
-			if (this.getRightChild().getBalance() > 1) {	// Right-left case
-				this.getRightChild().rotateRight();
+		} else if (getBalance() < -1) {	// Right-heavy
+			if (this.getRightChild().getBalance() >= 1) {	// Right-left case
+				this.setRight(this.getRightChild().rotateRight());
 			}
 			return rotateLeft();
+		} else {
+			return this;
 		}
-		return null;
 	}
 
 	@Override
 	public AbstractAVLNode rotateLeft() {
 		AbstractAVLNode newRoot = this.getRightChild(); 
+		this.setRight(newRoot.getLeftChild());
 		newRoot.setLeft(this);
-		this.setRight(null);
 		
 		return newRoot;
 	}
@@ -52,8 +50,8 @@ public class AVLNode extends AbstractAVLNode {
 	@Override
 	public AbstractAVLNode rotateRight() {
 		AbstractAVLNode newRoot = this.getLeftChild(); 
+		this.setLeft(newRoot.getRightChild());
 		newRoot.setRight(this);
-		this.setLeft(null);
 		
 		return newRoot;
 	}
