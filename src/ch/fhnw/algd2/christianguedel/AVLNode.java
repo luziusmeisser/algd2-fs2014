@@ -20,7 +20,7 @@ public class AVLNode extends AbstractAVLNode {
         int leftHeight = this.getLeftHeight();
         int rightHeight = this.getRightHeight();
         
-        return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
+        return leftHeight > rightHeight ? leftHeight : rightHeight;
     }
 
     @Override
