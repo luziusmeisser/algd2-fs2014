@@ -6,11 +6,6 @@ import ch.fhnw.algd2.lesson5.exercise.AbstractAVLNode;
 
 
 public class AVLNode extends AbstractAVLNode{
-	
-	public AVLNode root = new AVLNode(null);
-	public String value;
-	public int height;
-	public AVLNode left, right;
 
 	//initial height = 1
 	public AVLNode(String value) {
@@ -61,7 +56,7 @@ public class AVLNode extends AbstractAVLNode{
 	public AbstractAVLNode rotateRight() {
 		AbstractAVLNode left = getLeftChild();
 		this.setRight(getRightChild().getLeftChild());
-		right.setLeft(this);
-		return right;
+		left.setRight(this);
+		return left;
 	}
 }
