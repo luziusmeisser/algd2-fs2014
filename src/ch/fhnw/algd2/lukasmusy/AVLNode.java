@@ -17,7 +17,7 @@ public class AVLNode extends AbstractAVLNode {
 
 	@Override
 	protected int calculateHeight() {
-		int height = Math.max(getLeftHeight(), getRightHeight());
+		int height = Math.max(getLeftHeight()+1, getRightHeight()+1);
 		return height;
 	}
 
