@@ -32,6 +32,7 @@ public class AVLNodeTest {
         lists.add(new ch.fhnw.algd2.christianguedel.AVLNode("first"));
         lists.add(new ch.fhnw.algd2.romangribi.AVLNode("first"));
         lists.add(new ch.fhnw.algd2.larskessler.AVLNode("first"));
+        lists.add(new ch.fhnw.algd2.lukasmusy.AVLNode("first"));
 	}
 
 	@Test
