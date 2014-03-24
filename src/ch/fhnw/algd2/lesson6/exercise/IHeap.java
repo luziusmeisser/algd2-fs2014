@@ -22,7 +22,7 @@ public interface IHeap {
 	
 	/**
 	 * Removes and returns the first item.
-	 * Throws NoSuchElementException when no element left.
+	 * Returns null if there is no element left.
 	 */
 	public String poll();
 	

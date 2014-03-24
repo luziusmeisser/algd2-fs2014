@@ -16,11 +16,11 @@ public class HeapTest {
 		lists = new ArrayList<>();
 
 		// add your own implementation here
-		// lists.add(new ch.fhnw.algd2.luzius.Heap("first"));
+		 lists.add(new ch.fhnw.algd2.luzius.Heap());
 	}
 
 	@Test
-	public void test1(){
+	public void test1() throws InterruptedException{
 		for (IHeap heap: lists){
 			HeapFeeder feeder1 = new HeapFeeder(heap);
 			HeapFeeder feeder2 = new HeapFeeder(heap);
@@ -28,9 +28,14 @@ public class HeapTest {
 			feeder1.start();
 			feeder2.start();
 			feeder3.start();
-			for (int i=0; i<HeapFeeder.ITERATIONS; i++){
-				heap.poll();
+			for (int i=0; i<HeapFeeder.ITERATIONS*3; i++){
+				String item = heap.poll();
+				if (item == null){
+					i--;
+					Thread.sleep(1);
+				}
 			}
+			assert heap.peek() == null;
 		}
 	}
 	
