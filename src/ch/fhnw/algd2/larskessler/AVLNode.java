@@ -45,7 +45,7 @@ public class AVLNode extends AbstractAVLNode {
 			AbstractAVLNode right = this.getRightChild();
 			
 			// left side of right child is too damn high!
-			if(right.getBalance() == -1) {
+			if(right.getBalance() == 1) {
 				setRight(right.rotateRight());
 			}
 			
