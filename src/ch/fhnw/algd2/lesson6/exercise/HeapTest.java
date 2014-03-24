@@ -22,8 +22,12 @@ public class HeapTest {
 	@Test
 	public void test1(){
 		for (IHeap heap: lists){
-			HeapFeeder feeder = new HeapFeeder(heap);
-			feeder.start();
+			HeapFeeder feeder1 = new HeapFeeder(heap);
+			HeapFeeder feeder2 = new HeapFeeder(heap);
+			HeapFeeder feeder3 = new HeapFeeder(heap);
+			feeder1.start();
+			feeder2.start();
+			feeder3.start();
 			for (int i=0; i<HeapFeeder.ITERATIONS; i++){
 				heap.pop();
 			}
