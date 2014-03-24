@@ -8,6 +8,7 @@ import ch.fhnw.algd2.lesson6.exercise.IHeap;
 
 public class Heap implements IHeap {
 	
+	// Not an acceptable implementation! For testing puposes only.
 	private PriorityBlockingQueue<String> queue;
 
 	public Heap(){
