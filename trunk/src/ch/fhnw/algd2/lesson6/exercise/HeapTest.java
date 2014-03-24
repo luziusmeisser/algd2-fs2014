@@ -29,7 +29,7 @@ public class HeapTest {
 			feeder2.start();
 			feeder3.start();
 			for (int i=0; i<HeapFeeder.ITERATIONS; i++){
-				heap.pop();
+				heap.poll();
 			}
 		}
 	}
@@ -39,9 +39,9 @@ public class HeapTest {
 		for (IHeap heap: lists){
 			HeapFeeder feeder = new HeapFeeder(heap);
 			feeder.run();
-			String latest = heap.pop();
+			String latest = heap.poll();
 			while (heap.peek() != null){
-				String next = heap.pop();
+				String next = heap.poll();
 				assert latest.compareTo(next) <= 0;
 				latest = next;
 			}

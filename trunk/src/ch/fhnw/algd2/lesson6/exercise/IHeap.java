@@ -24,6 +24,6 @@ public interface IHeap {
 	 * Removes and returns the first item.
 	 * Throws NoSuchElementException when no element left.
 	 */
-	public String pop();
+	public String poll();
 	
 }
