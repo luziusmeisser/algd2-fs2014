@@ -18,6 +18,7 @@ public class HeapTest {
 		// add your own implementation here
         lists.add(new ch.fhnw.algd2.luzius.Heap());
         lists.add(new ch.fhnw.algd2.stephanbrunner.Heap());
+        lists.add(new ch.fhnw.algd2.florianfankhauser.lesson6.MyHeap());
 	}
 
 	@Test
