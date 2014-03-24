@@ -16,11 +16,13 @@ public interface IHeap {
 	
 	/**
 	 * Returns the first item without removing it.
+	 * Returns null if there is no element left.
 	 */
 	public String peek();
 	
 	/**
 	 * Removes and returns the first item.
+	 * Throws NoSuchElementException when no element left.
 	 */
 	public String pop();
 	
