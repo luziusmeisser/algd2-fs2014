@@ -22,6 +22,8 @@ public class HeapTest {
         lists.add(new ch.fhnw.algd2.mariusdubach.lesson6.Heap());
         lists.add(new ch.fhnw.algd2.stephenrandles.lesson06.Heap());
         lists.add(new ch.fhnw.algd2.lukasmusy.Heap());
+        lists.add(new ch.fhnw.algd2.yannickaugstburger.Heap());
+
 
 	}
 
