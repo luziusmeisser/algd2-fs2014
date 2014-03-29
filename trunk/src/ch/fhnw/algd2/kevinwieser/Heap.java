@@ -19,20 +19,13 @@ public class Heap implements IHeap {
 	 * Adds an item to the heap.
 	 */
 	@Override
-	public void offer(String s) {
-		if (pos_free == 0) {
-			heap[pos_free] = s;
-			pos_free++;
-		} else {
-			if (pos_free < heap.length) {
-				heap[pos_free] = s;
-				siftUp(pos_free);
-				pos_free++;
-			} else {
-				resizeArray();
-				offer(s);
-			}
+	public synchronized void offer(String s) {
+		if (pos_free > heap.length ) {
+			resizeArray();
 		}
+		heap[pos_free] = s;
+		siftUp(pos_free);
+		pos_free++;
 	}
 
 	
@@ -51,13 +44,14 @@ public class Heap implements IHeap {
 	 * Returns null if there is no element left.
 	 */
 	@Override
-	public String poll() {
+	public synchronized String poll() {
 		String tmp = null;
-		if (pos_free > 0) {
-			tmp = heap[0];
-			heap[0] = heap[pos_free-1];
-			siftDown(0);
+		if (heap[0] != null) {
 			pos_free--;
+			tmp = heap[0];
+			heap[0] = heap[pos_free];
+			heap[pos_free] = null;
+			siftDown(0);
 		}
 		
 		return tmp;
@@ -65,59 +59,73 @@ public class Heap implements IHeap {
 	
 	
 	private void siftDown(int pos) {
-		String child_left = null;
-		String child_right = null;
-		int pos_left = pos * 2 + 1;
-		int pos_right = pos * 2 + 2;
 		
-		if (!checkIndexOutOfBound(pos_left)) {
-			child_left = heap[pos * 2 + 1];
-		}
-		if (!checkIndexOutOfBound(pos_right)) {
-			child_right = heap[pos * 2 + 2];
-		}
+		int child_left = pos * 2 + 1;
+		int child_right = pos * 2 + 2;
 		
-		if(child_left != null && child_right != null) {
-			// bestimme nun den grösseren Sohn:
-			if (child_left.compareTo(child_right) > 0) {
-				// ist akutelle pos kleiner als linker sohn? 
-				if(heap[pos].compareTo(child_left) < 0) {
-					swap(pos, pos * 2 + 1);
-					siftDown(pos * 2 + 1);
-				}
+		if (heap[child_left] != null) {
+			if (heap[child_right] == null || heap[child_left].compareTo(heap[child_right]) < 0) {
+				swap(pos, child_left);
+				siftDown(child_left);
 			} else {
-				// ist akutelle pos kleiner als rechter sohn? 
-				if(heap[pos].compareTo(child_right) < 0) {
-					swap(pos, pos * 2 + 2);
-					siftDown(pos * 2 + 2);
-				}
-			}
-		} else if (child_left != null) {
-			if(heap[pos].compareTo(child_left) < 0) {
-				swap(pos, pos * 2 + 1);
-				//siftDown(pos * 2 + 1);
-			}
-		
-		} else if (child_right != null) {
-			// Darf gar nie vorkommen....
-			if(heap[pos].compareTo(child_right) < 0) {
-				swap(pos, pos * 2 + 2);
-				// siftDown(pos * 2 + 2);
+				swap(pos, child_right);
+				siftDown(child_right);
 			}
 		}
+		
+//		System.out.println("bin im siftDown");
+//		String child_left = null;
+//		String child_right = null;
+//		int pos_left = pos * 2 + 1;
+//		int pos_right = pos * 2 + 2;
+//
+//		if (!checkIndexOutOfBound(pos_left)) {
+//			child_left = heap[pos * 2 + 1];
+//		}
+//		if (!checkIndexOutOfBound(pos_right)) {
+//			child_right = heap[pos * 2 + 2];
+//		}
+//
+//		if (heap[pos] != null) {
+//			System.out.println("siftDown: not Null");
+//			if (child_left != null && child_right != null) {
+//				System.out.println("siftDown: both not Null");
+//				// bestimme nun den grösseren Sohn:
+//				if (child_left.compareTo(child_right) >= 0) {
+//					// ist akutelle pos kleiner als linker sohn?
+//					if (heap[pos].compareTo(child_left) <= 0) {
+//						System.out.println("siftDown: current pos is smaller than left");
+//						swap(pos, (pos * 2) + 1);
+//						siftDown((pos * 2) + 1);
+//					}
+//				} else {
+//					// ist akutelle pos kleiner als rechter sohn?
+//					if (heap[pos].compareTo(child_right) <= 0) {
+//						System.out.println("siftDown: current pos is smaller than right");
+//						swap(pos, (pos * 2) + 2);
+//						siftDown((pos * 2) + 2);
+//					}
+//				}
+//				System.out.println("rage");
+//			} else if (child_right != null) {
+//				System.out.println("bin im Child_right nor nulll");
+//				if (heap[pos].compareTo(child_right) < 0) {
+//					swap(pos, (pos * 2) + 2);
+//					// siftDown(pos * 2 + 2);
+//				}
+//			}
+//		} 
 	}
 	
 	private void siftUp(int pos) {
 		// pos muss grösser sein als 0, da sonst IndexOutOfBound
 		if (pos > 0) {
-			String parent = heap[(pos - 1) / 2];
-			if (parent != null) {
-				if (heap[pos].compareTo(parent) > 0) {
+			int parent = (pos - 1) / 2;
+			if (heap[parent].compareTo(heap[pos]) > 0) {
 					// Aktuelle pos ist grösser als parent -> swap
-					swap(pos, (pos - 1) / 2);
-					siftUp((pos - 1) / 2); // siftUp bei Parent
+					swap(pos, parent);
+					siftUp(parent); // siftUp bei Parent
 				}
-			}
 		}
 	}
 	
@@ -134,14 +142,17 @@ public class Heap implements IHeap {
 		// pos1 mit pos2 vertauschen
 		String tmp = heap[pos1];
 		heap[pos1] = heap[pos2];
-		heap[pos2] = tmp;
+		heap[pos2] = heap[pos1];
 	}
 	
 	private boolean checkIndexOutOfBound(int pos) {
 		try {
+			
 			String s = heap[pos];
+			System.out.println("bin im non exp");
 			return false;
 		} catch (IndexOutOfBoundsException e) {
+			System.out.println("bin im exp");
 			return true;
 		}
 	}
