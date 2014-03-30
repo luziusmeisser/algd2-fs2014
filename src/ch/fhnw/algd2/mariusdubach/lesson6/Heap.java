@@ -18,7 +18,7 @@ public class Heap implements IHeap{
 
 	@Override
 	synchronized public String peek() {
-		return storage[0];
+		return storage[0];		
 	}
 
 	@Override
@@ -28,9 +28,6 @@ public class Heap implements IHeap{
 			storage[0] = storage[elements-1];
 			storage[elements-1] = null;
 			elements--;
-			if(ret.equals("I")){
-				System.out.println("bp");
-			}
 			siftDown(0);	
 			return ret;
 		}
@@ -42,7 +39,6 @@ public class Heap implements IHeap{
 			int compFactor = storage[getLeftChild(rootIndex)].compareTo(storage[getRightChild(rootIndex)]); 
 			if(compFactor < 0 ){
 				if(storage[rootIndex].compareTo(storage[getLeftChild(rootIndex)]) > 0){
-					System.out.println("left_b");
 					String tmp = storage[getLeftChild(rootIndex)];
 					storage[getLeftChild(rootIndex)] = storage[rootIndex];
 					storage[rootIndex] = tmp;
@@ -53,7 +49,6 @@ public class Heap implements IHeap{
 				}
 			}else if(compFactor > 0){
 				if(storage[rootIndex].compareTo(storage[getRightChild(rootIndex)]) > 0){
-					System.out.println("right_b");
 					String tmp = storage[getRightChild(rootIndex)];
 					storage[getRightChild(rootIndex)] = storage[rootIndex];
 					storage[rootIndex] = tmp;
@@ -66,7 +61,6 @@ public class Heap implements IHeap{
 		}		
 		if(storage[getLeftChild(rootIndex)] != null){
 			if(storage[rootIndex].compareTo(storage[getLeftChild(rootIndex)]) > 0){
-				System.out.println("left");
 				String tmp = storage[getLeftChild(rootIndex)];
 				storage[getLeftChild(rootIndex)] = storage[rootIndex];
 				storage[rootIndex] = tmp;
@@ -74,7 +68,6 @@ public class Heap implements IHeap{
 			}
 		}else if(storage[getRightChild(rootIndex)] != null){
 			if(storage[rootIndex].compareTo(storage[getRightChild(rootIndex)]) > 0){
-				System.out.println("right");
 				String tmp = storage[getRightChild(rootIndex)];
 				storage[getRightChild(rootIndex)] = storage[rootIndex];
 				storage[rootIndex] = tmp;
