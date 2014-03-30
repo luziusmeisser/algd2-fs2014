@@ -24,6 +24,7 @@ public class HeapTest {
         lists.add(new ch.fhnw.algd2.lukasmusy.Heap());
         lists.add(new ch.fhnw.algd2.larskessler.Heap());
         lists.add(new ch.fhnw.algd2.kevinwieser.Heap(500));
+        lists.add(new ch.fhnw.algd2.emanuelmistretta.Heap());
         lists.add(new ch.fhnw.algd2.yannickaugstburger.Heap());
         lists.add(new ch.fhnw.algd2.christianguedel.Heap());
         lists.add(new ch.fhnw.algd2.romangribi.Heap(500));
