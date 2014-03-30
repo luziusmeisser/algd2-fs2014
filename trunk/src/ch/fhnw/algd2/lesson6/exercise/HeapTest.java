@@ -16,16 +16,17 @@ public class HeapTest {
 		lists = new ArrayList<>();
 
 		// add your own implementation here
-		lists.add(new ch.fhnw.algd2.luzius.Heap());
+        lists.add(new ch.fhnw.algd2.luzius.Heap());
         lists.add(new ch.fhnw.algd2.stephanbrunner.Heap());
         lists.add(new ch.fhnw.algd2.florianfankhauser.lesson6.MyHeap());
         lists.add(new ch.fhnw.algd2.mariusdubach.lesson6.Heap());
         lists.add(new ch.fhnw.algd2.stephenrandles.lesson06.Heap());
         lists.add(new ch.fhnw.algd2.lukasmusy.Heap());
         lists.add(new ch.fhnw.algd2.larskessler.Heap());
-		lists.add(new ch.fhnw.algd2.kevinwieser.Heap(500));
+        lists.add(new ch.fhnw.algd2.kevinwieser.Heap(500));
         lists.add(new ch.fhnw.algd2.yannickaugstburger.Heap());
         lists.add(new ch.fhnw.algd2.christianguedel.Heap());
+        lists.add(new ch.fhnw.algd2.romangribi.Heap(500));
 	}
 
 	@Test
