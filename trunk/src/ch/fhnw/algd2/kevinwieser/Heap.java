@@ -143,6 +143,7 @@ public class Heap implements IHeap {
 		String tmp = heap[pos1];
 		heap[pos1] = heap[pos2];
 		heap[pos2] = tmp;
+		
 	}
 	
 	private boolean checkIndexOutOfBound(int pos) {
