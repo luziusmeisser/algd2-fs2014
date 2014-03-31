@@ -87,7 +87,7 @@ public abstract class AbstractAVLNode implements IBinaryNode {
 					left.insert(value);
 					setLeft(left.ensureBalance()); 
 					assert left.getBalance() >= -1;
-					assert left.getBalance() <= 1;
+					assert left.getBalance() <= 1 : left.getClass().getName();
 				}
 			} else {
 				if (right == null) {

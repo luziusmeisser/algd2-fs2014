@@ -117,7 +117,6 @@ public class Heap implements IHeap {
 			// add last element to position 0 and remove last position
 			strings.add(0, strings.get(strings.size()-1));
 			strings.remove(strings.size()-1);
-			
 			// sift down new first
 			siftDown(0);
 		}
