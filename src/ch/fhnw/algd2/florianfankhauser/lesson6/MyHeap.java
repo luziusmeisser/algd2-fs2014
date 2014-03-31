@@ -62,7 +62,7 @@ public class MyHeap implements IHeap {
 	private void switchElements(int a, int b) {
 		String valA = heap[a];
 		heap[a] = heap[b];
-		heap[b] = heap[a];
+		heap[b] = valA;
 	}
 	
 	private void resizeHeap() {
