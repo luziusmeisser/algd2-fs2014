@@ -8,8 +8,8 @@ public class MyHashArrayTest {
 		String key1 = "1";
 		String value1 = "Eins";
 		
-		String key2 = "71443";
-		// String key2 = "7144453";
+		// String key2 = "71443";
+		String key2 = "7144453";
 		String value2 = "Zwei";
 		
 		String key3 = "2";
@@ -34,6 +34,17 @@ public class MyHashArrayTest {
 		System.out.println(key3.hashCode() % 1000);
 		String get3 = arr.get(key3);
 		System.out.println(get3);
+		
+		System.out.print("\n");
+		
+		// same key
+		String key4 = "1";
+		String value4 = "Nicht Eins";
+		
+		System.out.println(key4.hashCode() % 1000);
+		arr.put(key4, value4);
+		String get4 = arr.get(key4);
+		System.out.println(get4);
 	}
 
 }
