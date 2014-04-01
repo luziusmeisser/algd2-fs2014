@@ -41,7 +41,6 @@ public class HashMapTest {
 		
 		arr.put(keyWithNegHash, value);
 		assertTrue(arr.get(keyWithNegHash).equals(value));
-		
 	}
 
 }
