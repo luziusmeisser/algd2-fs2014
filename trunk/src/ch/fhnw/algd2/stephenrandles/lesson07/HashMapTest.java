@@ -28,8 +28,20 @@ public class HashMapTest {
 	
 	@Test
 	public void testNonexistantKey() {
-		String invalidKey = "BLABLABLA"; 
+		String invalidKey = "BLABLA";
 		assertTrue(arr.get(invalidKey) == null);
+	}
+	
+	@Test
+	public void testKeyWithNegativeHash() {
+		String keyWithNegHash = "BLABLABLA";
+		String value = "Scooby Dooby Doo";
+		
+		assertTrue(arr.get(keyWithNegHash) == null);
+		
+		arr.put(keyWithNegHash, value);
+		assertTrue(arr.get(keyWithNegHash).equals(value));
+		
 	}
 
 }
