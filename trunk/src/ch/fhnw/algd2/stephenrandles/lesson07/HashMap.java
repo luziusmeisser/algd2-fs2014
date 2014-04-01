@@ -25,9 +25,11 @@ public class HashMap implements IHashMap {
 				e = e.next;
 			}
 			
-			if (e.key != key) {
+			if (e.key == key) {
+				e.value = value;
+			} else {
 				e.next = new Element(key, value);
-			}			
+			}
 		}
 	}
 
