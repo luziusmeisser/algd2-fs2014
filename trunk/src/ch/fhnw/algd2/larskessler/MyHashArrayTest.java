@@ -1,7 +1,5 @@
 package ch.fhnw.algd2.larskessler;
 
-import ch.fhnw.algd2.larskessler.MyHashArray.MyHashArrayElement;
-
 public class MyHashArrayTest {
 
 	public static void main(String[] args) {
