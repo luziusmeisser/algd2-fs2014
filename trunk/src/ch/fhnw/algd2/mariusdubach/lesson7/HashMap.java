@@ -16,7 +16,7 @@ public class HashMap implements IHashMap{
 	@Override
 	public void put(String key, String value) {
 		int hash = key.hashCode();
-		int pos = hash%size;
+		int pos = Math.abs(hash%size);
 		Bucket target=new Bucket();
 		if(storage[pos] == null){
 			storage[pos] = target;			 
@@ -37,19 +37,21 @@ public class HashMap implements IHashMap{
 
 	@Override
 	public String get(String key) {
-		int pos = key.hashCode()%size;
+		int pos = Math.abs(key.hashCode()%size);
 		Bucket start = storage[pos];
-		if(start.key.equals(key)){
-			return start.value;
-		}else{
-			Bucket next = start.next;
-			do{
-				if(next.key.equals(key)){
-					return next.value;
-				}else{
-					next = next.next;
-				}
-			}while(next.next != null);
+		if(start != null){
+			if(start.key.equals(key)){
+				return start.value;
+			}else{
+				Bucket next = start.next;
+				do{
+					if(next.key.equals(key)){
+						return next.value;
+					}else{
+						next = next.next;
+					}
+				}while(next.next != null);
+			}
 		}
 		
 		return null;
