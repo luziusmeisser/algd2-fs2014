@@ -49,7 +49,7 @@ public class HashMap implements IHashMap {
 	}
 	
 	private int calcIndex(String key) {
-		return key.hashCode() % values.length;
+		return (key.hashCode() & 0x7FFFFFFF) % values.length;	// AND to ensure sign bit is low -> no negative key
 	}
 	
 	
