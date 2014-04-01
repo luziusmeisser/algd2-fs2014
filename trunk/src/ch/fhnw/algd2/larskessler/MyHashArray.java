@@ -7,15 +7,30 @@ public class MyHashArray<T> implements IHashMap {
 	private T[] m_HashTable;
 	private int m_m;
 	
+	public MyHashArray() {
+		m_m = 1000;
+	}
+	
 	public MyHashArray(int size) {
 		m_m = size;
 		m_HashTable = (T[])new Object[m_m];
 	}
+	
+	private int calcPos(String key) {
+		int hashCode = key.hashCode();
+		int pos = hashCode % m_m;
+		
+		// avoid negative array pos
+		if(pos < 0)  pos = pos * (-1);
+		
+		return pos;
+	}
 
 	@Override
 	public void put(String key, String value) {
-		int hashCode = key.hashCode();
-		int pos = hashCode % m_m;
+		// int hashCode = key.hashCode();
+		// int pos = hashCode % m_m;
+		int pos = calcPos(key);
 		MyHashArrayElement newItem = new MyHashArrayElement(key, (T) value);
 		
 		if(m_HashTable[pos] == null) {
@@ -46,7 +61,8 @@ public class MyHashArray<T> implements IHashMap {
 
 	@Override
 	public String get(String key) {
-		int pos = Integer.parseInt(key) % m_m;
+		// int pos = key.hashCode() % m_m;
+		int pos = calcPos(key);
 		
 		if(m_HashTable[pos] == null) {
 			return null;
