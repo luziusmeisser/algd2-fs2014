@@ -22,7 +22,7 @@ public class HashMap implements IHashMap {
 	@Override
 	public void put(String key, String value) {
 		
-		int hash = key.hashCode() % array.length; // %1000 bleibe im 1000er Bereich
+		int hash = Math.abs(key.hashCode() % array.length); // %1000 bleibe im 1000er Bereich
 		if (array[hash] == null) {
 			array[hash] = new ArrayList<Element>();
 			array[hash].add(new Element(key, value));
@@ -34,7 +34,7 @@ public class HashMap implements IHashMap {
 
 	@Override
 	public String get(String key) {
-		int hash = key.hashCode() % array.length; // %1000 bleibe im 1000er Bereich
+		int hash = Math.abs(key.hashCode() % array.length); // %1000 bleibe im 1000er Bereich
 		if (array[hash] != null) {
 			for (Element e: array[hash]) {
 				if (e.key.equals(key)) {
