@@ -15,9 +15,6 @@ public class HashMap implements IHashMap{
 
 	@Override
 	public void put(String key, String value) {
-		if(value.equals("-8344150496992527444")){
-			System.out.println("bp");
-		}
 		int hash = key.hashCode();
 		int pos = Math.abs(hash%size);
 		Bucket target=new Bucket();
@@ -42,9 +39,6 @@ public class HashMap implements IHashMap{
 
 	@Override
 	public String get(String key) {
-		if(key.equals("46049")){
-			System.out.println("bp");
-		}
 		int hash = key.hashCode();
 		int pos = Math.abs(hash%size);
 		Bucket start = storage[pos];
