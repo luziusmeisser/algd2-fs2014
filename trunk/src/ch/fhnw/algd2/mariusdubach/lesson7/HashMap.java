@@ -15,6 +15,9 @@ public class HashMap implements IHashMap{
 
 	@Override
 	public void put(String key, String value) {
+		if(value.equals("-8344150496992527444")){
+			System.out.println("bp");
+		}
 		int hash = key.hashCode();
 		int pos = Math.abs(hash%size);
 		Bucket target=new Bucket();
@@ -24,11 +27,11 @@ public class HashMap implements IHashMap{
 			if(storage[pos].next == null){
 				storage[pos].next = target;
 			}else{
-				Bucket next = storage[pos].next;
-				while(next != null){
-					next = next.next;
+				Bucket acc = storage[pos].next;
+				while(acc.next != null){
+					acc = acc.next;
 				}
-				next = target;
+				acc.next = target;
 			}
 		}
 		target.key = key;
@@ -37,20 +40,24 @@ public class HashMap implements IHashMap{
 
 	@Override
 	public String get(String key) {
-		int pos = Math.abs(key.hashCode()%size);
+		if(key.equals("46049")){
+			System.out.println("bp");
+		}
+		int hash = key.hashCode();
+		int pos = Math.abs(hash%size);
 		Bucket start = storage[pos];
 		if(start != null){
 			if(start.key.equals(key)){
 				return start.value;
 			}else{
-				Bucket next = start.next;
+				Bucket acc = start;
 				do{
-					if(next.key.equals(key)){
-						return next.value;
+					if(acc.next.key.equals(key)){
+						return acc.next.value;
 					}else{
-						next = next.next;
+						acc = acc.next;
 					}
-				}while(next.next != null);
+				}while( acc != null && acc.next != null);
 			}
 		}
 		
