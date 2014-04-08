@@ -21,16 +21,18 @@ public class HashMap implements IHashMap{
 		int hash = key.hashCode();
 		int pos = Math.abs(hash%size);
 		Bucket target=new Bucket();
+		target.key = key;
+		target.value = value;
 		if(storage[pos] == null){
 			storage[pos] = target;			 
 		}else{
-			if(storage[pos].next == null){
-				storage[pos].next = target;
+			Bucket acc = storage[pos];
+			while(acc.next != null && ! acc.key.equals(key)){
+				acc = acc.next;
+			}
+			if(acc.key.equals(key)){
+				acc.value = value;
 			}else{
-				Bucket acc = storage[pos].next;
-				while(acc.next != null){
-					acc = acc.next;
-				}
 				acc.next = target;
 			}
 		}
