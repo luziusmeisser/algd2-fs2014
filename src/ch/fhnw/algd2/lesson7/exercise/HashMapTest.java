@@ -24,6 +24,7 @@ public class HashMapTest {
 		lists.add(new ch.fhnw.algd2.mariusdubach.lesson7.HashMap());
 		lists.add(new ch.fhnw.algd2.florianfankhauser.lesson7.HashMap());
 		lists.add(new ch.fhnw.algd2.romangribi.HashMap());
+		lists.add(new ch.fhnw.algd2.stephanbrunner.HashMap());
 	}
 	
 	@Test
