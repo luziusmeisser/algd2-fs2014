@@ -35,13 +35,16 @@ public class HashMap implements IHashMap {
 		}
 		else {
 			Element head = storage[hash];
-			while(head.next != null){
+			
+			while(true){
 				if(head.key.equals(key)){
 					return head.val;
 				}
+				else if(head.next == null){
+					return null;
+				}
 				head = head.next;
 			}
-			return null;
 		}
 	}
 
