@@ -18,7 +18,8 @@ public class HashMap2Test {
 		lists = new ArrayList<>();
 
 		// add your own implementation here
-		lists.add(new ch.fhnw.algd2.luzius.HashMap2());
+//		lists.add(new ch.fhnw.algd2.luzius.HashMap2());
+		lists.add(new ch.fhnw.algd2.florianfankhauser.lesson8.HashMap());
 	}
 	
 	@Test
