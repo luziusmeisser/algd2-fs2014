@@ -20,6 +20,8 @@ public class HashMap2 implements IHashMap2{
 
 	@Override
 	public void put(String key, String value) {
+		++added;
+		resize();
 		int pos = getPosition(key);
 		Bucket tmp = new Bucket();
 		store[pos] = tmp;
@@ -71,6 +73,20 @@ public class HashMap2 implements IHashMap2{
 			}
 			pos++;
 			pos = pos % size;
+		}
+	}
+	
+	private void resize(){
+		if(((double) size / added) < 1.3){
+			HashMap2 tmp = new HashMap2(size * 2);
+			for(int i=0; i<size; ++i){
+				if(store[i] != null && !(store[i].deleted)){
+					tmp.put(store[i].key, store[i].value);
+				}
+			}
+			this.size = tmp.size;
+			this.added = tmp.added;
+			this.store = tmp.store;
 		}
 	}
 	
