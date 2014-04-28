@@ -17,6 +17,8 @@ import ch.fhnw.algd2.lesson7.exercise.IHashMap;
 
 public class HashMap implements IHashMap {
 	
+	
+	// Problem -> Bei Hash
 	private ArrayList<Element>[] array = new ArrayList[1000];
 
 	@Override
