@@ -9,7 +9,7 @@ public class HashMap2 implements IHashMap2 {
 	public static final int HASH_SIZE = 1000;
 	public Element[] storage;
 
-	public HashMap(){
+	public HashMap2(){
 		this.storage = new Element[HASH_SIZE];
 		
 	}
