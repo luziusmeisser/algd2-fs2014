@@ -28,6 +28,7 @@ public class HashMapTest {
 		lists.add(new ch.fhnw.algd2.martineberle.HashMap());
 		lists.add(new ch.fhnw.algd2.christianguedel.HashMap());
 		lists.add(new ch.fhnw.algd2.marcogaiffi.HashMap());
+		lists.add(new ch.fhnw.algd2.kevinwieser.HashMap());
 	}
 	
 	@Test
