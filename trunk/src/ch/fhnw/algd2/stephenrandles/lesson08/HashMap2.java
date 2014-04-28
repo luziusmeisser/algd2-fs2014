@@ -40,10 +40,18 @@ public class HashMap2 implements IHashMap2 {
 	}
 
 	@Override
-	public String get(String key) {		
+	public String get(String key) {	
+		Element e = findElement(key);
+		if (e != null) {
+			return e.value;
+		} else {
+			return null;
+		}		
+	}
+
+	private Element findElement(String key) {
 		int tries = 0;
 		int potentialIndex = calcIndex(key, tries);
-		String value = null;
 		
 		while (potentialIndex < values.length
 				&& values[potentialIndex] != null
@@ -53,19 +61,24 @@ public class HashMap2 implements IHashMap2 {
 			potentialIndex = calcIndex(key, tries);
 		}
 		
-		if (values[potentialIndex].key.equals(key)) {
-			value = values[potentialIndex].value;
+		if (values[potentialIndex] != null && values[potentialIndex].key.equals(key)) {
+			return values[potentialIndex];
+		} else {
+			return null;
 		}
-		
-		return value;
 	}
 
 	@Override
 	public String remove(String key) {
-		// TODO Auto-generated method stub
-		--fillState;
+		Element e = findElement(key);
 		
-		return null;
+		if (e != null) {
+			e.deleted = true;
+			--fillState;
+			return e.value;
+		} else {
+			return null;
+		}
 	}
 	
 	private int calcIndex(String key, int tries) {
