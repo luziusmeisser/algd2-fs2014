@@ -8,61 +8,73 @@ import ch.fhnw.algd2.lesson7.exercise.IHashMap;
 public class HashMap implements IHashMap {
 
     private final int MAP_SIZE = 1000;
-    private Element[] map;
+    private HashItem[] map;
 
     public HashMap() {
-        this.map = new Element[MAP_SIZE];
+        this.map = new HashItem[MAP_SIZE];
+    }
+    
+  //Copied from http://www.cs.princeton.edu/~rs/AlgsDS07/10Hashing.pdf
+    private int getHash(String value) {
+        return (value.hashCode() & 0x7fffffff) % this.map.length;
     }
 
     @Override
     public void put(String key, String value) {
-        int hc = this.generateHashCode(key);
+        int hc = this.getHash(key);
 
         if (this.map[hc] != null) {
-            Element e = this.map[hc];
-            while (!e.Key.equals(key) && e.next() != null)
+            HashItem e = this.map[hc];
+            
+            //Go through items
+            while (!e.Key.equals(key) && e.next() != null){
                 e = e.next;
+            }
 
-            if (e.Key.equals(key))
+            if (e.Key.equals(key)){
                 e.value = value;
-            else
-                e.next = new Element(key, value);
+            }
+            else{
+                e.next = new HashItem(key, value);
+            }
         } else {
-            this.map[hc] = new Element(key, value);
+            this.map[hc] = new HashItem(key, value);
         }
     }
 
     @Override
     public String get(String key) {
-        int hc = this.generateHashCode(key);
+        int hc = this.getHash(key);
 
         if (this.map[hc] == null)
             return null;
 
-        Element e = this.map[hc];
-        while (!e.Key.equals(key) && e.next() != null)
-            e = e.next;
+        HashItem item = this.map[hc];
+        
+        //Iterate through items
+        while (!item.Key.equals(key) && item.next() != null){
+            item = item.next;
+        }
 
-        return e.Key.equals(key) ? e.value : null;
+        if(item.Key.equals(key)){
+            return item.value;
+        }
+        
+        return null;
     }
 
-    private int generateHashCode(String value) {
-        // as per http://stackoverflow.com/a/20294714
-        return (value.hashCode() & 0x7fffffff) % this.map.length;
-    }
-
-    private class Element {
-        private Element next;
+    private class HashItem {
+        private HashItem next;
         private String value;
 
         public final String Key;
 
-        public Element(String key, String value) {
+        public HashItem(String key, String value) {
             this.Key = key;
             this.value = value;
         }
 
-        public Element next() {
+        public HashItem next() {
             return this.next;
         }
     }
