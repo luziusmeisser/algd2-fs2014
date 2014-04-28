@@ -8,10 +8,7 @@ package ch.fhnw.algd2.lesson8;
  * HashMap with rehashing.
  * 
  * Similar to exercise 7, we implement a hash map, but this time with re-hashing instead of
- * using linked lists. Also, we want to support removes this time.
- * 
- * Initialize the HashMap with a size of 1000. You can assume that this is enough and do
- * not need to implement resize.
+ * using linked lists. Also, we want to support removes as well as resize this time.
  * 
  * Visualization: http://www.cs.usfca.edu/~galles/visualization/ClosedHash.html
  * (Unlike this visualization, we do not allow multiple identical keys.)
