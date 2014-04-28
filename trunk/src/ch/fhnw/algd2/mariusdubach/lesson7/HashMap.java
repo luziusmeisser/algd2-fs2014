@@ -20,17 +20,17 @@ public class HashMap implements IHashMap{
 		Bucket target=new Bucket();
 		target.key = key;
 		target.value = value;
-		if(storage[pos] == null){
+		if(storage[pos] == null){ //noch kein Element hatte denselben Hash
 			storage[pos] = target;			 
 		}else{
 			Bucket acc = storage[pos];
-			while(acc.next != null && ! acc.key.equals(key)){
+			while(acc.next != null && ! acc.key.equals(key)){	//lineare Suche zum letzten Element dieser verketteten Liste
 				acc = acc.next;
 			}
-			if(acc.key.equals(key)){
+			if(acc.key.equals(key)){	//überschreiben falls schon gleicher Key vorhanden
 				acc.value = value;
 			}else{
-				acc.next = target;
+				acc.next = target;	//speichere
 			}
 		}
 		target.key = key;
@@ -45,7 +45,7 @@ public class HashMap implements IHashMap{
 		if(start != null){
 			if(start.key.equals(key)){
 				return start.value;
-			}else{
+			}else{	//lineare Suche
 				Bucket acc = start;
 				do{
 					if(acc.next.key.equals(key)){

@@ -11,7 +11,7 @@ public class Heap implements IHeap{
 
 	@Override
 	synchronized public void offer(String s) {
-		storage[elements] = s;
+		storage[elements] = s;	//füge s am Ende ein
 		siftUp(elements);
 		elements++;	
 	}
