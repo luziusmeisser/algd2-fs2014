@@ -18,7 +18,7 @@ public class HashMap2Test {
 		lists = new ArrayList<>();
 
 		// add your own implementation here
-//		lists.add(new ch.fhnw.algd2.luzius.HashMap());
+		lists.add(new ch.fhnw.algd2.luzius.HashMap2());
 	}
 	
 	@Test
@@ -27,13 +27,13 @@ public class HashMap2Test {
 			HashMap<String, String> control = new HashMap<>();
 			Random rand = new Random(12);
 			for(int i=0; i<500; i++){
-				String key = Integer.toString(rand.nextInt(100000));
+				String key = Integer.toString(rand.nextInt(100));
 				String val = Long.toString(rand.nextLong());
 				control.put(key, val);
 				map.put(key, val);
 			}
 			for(int i=0; i<500; i++){
-				String key = Integer.toString(rand.nextInt(100000));
+				String key = Integer.toString(rand.nextInt(100));
 				String val = Long.toString(rand.nextLong());
 				control.remove(key);
 				map.remove(key);
