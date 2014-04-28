@@ -1,0 +1,115 @@
+// Created by Stephen Randles 28.04.2014
+package ch.fhnw.algd2.stephenrandles.lesson08;
+import ch.fhnw.algd2.lesson8.IHashMap2;
+
+public class HashMap2 implements IHashMap2 {
+	private Element[] values;
+	private int fillState;
+	
+	private final int ARRAY_SIZE = 1000;
+	private final int REHASH_PERCENTAGE = 80;
+	private final double GROWTH_RATE = 2.0;
+
+	public HashMap2() {
+		values = new Element[ARRAY_SIZE];
+		fillState = 0;
+	}
+
+	@Override
+	public void put(String key, String value) {
+		rehashIfNecessary();
+		
+		int tries = 0;
+		int potentialIndex = calcIndex(key, tries);
+		
+		while (potentialIndex < values.length
+				&& values[potentialIndex] != null
+				&& !values[potentialIndex].key.equals(key) 
+				&& !values[potentialIndex].deleted)
+		{
+			++tries;
+			potentialIndex = calcIndex(key, tries);
+		}
+		
+		if (values[potentialIndex] == null) {
+			values[potentialIndex] = new Element();
+		}
+		
+		values[potentialIndex].set(key, value);
+		++fillState;
+	}
+
+	@Override
+	public String get(String key) {		
+		int tries = 0;
+		int potentialIndex = calcIndex(key, tries);
+		String value = null;
+		
+		while (potentialIndex < values.length
+				&& values[potentialIndex] != null
+				&& !values[potentialIndex].key.equals(key))
+		{
+			++tries;
+			potentialIndex = calcIndex(key, tries);
+		}
+		
+		if (values[potentialIndex].key.equals(key)) {
+			value = values[potentialIndex].value;
+		}
+		
+		return value;
+	}
+
+	@Override
+	public String remove(String key) {
+		// TODO Auto-generated method stub
+		--fillState;
+		
+		return null;
+	}
+	
+	private int calcIndex(String key, int tries) {
+		int index = (key.hashCode() & 0x7FFFFFFF) % values.length;	// AND to ensure sign bit is low -> no negative key
+		
+		// Probing-dependant implementation here:
+		index += tries;
+		
+		return index;
+	}
+	
+	private int arrayFillPercentage() {
+		return fillState / values.length;
+	}
+	
+	private void rehashIfNecessary() {
+		if (arrayFillPercentage() > REHASH_PERCENTAGE) {
+			Element[] old = values;
+			int newSize = (int) (values.length * GROWTH_RATE);
+			values = new Element[newSize];
+			
+			for (Element e : old) {
+				if (!e.deleted)
+					put(e.key, e.value);
+			}
+			
+		}
+	}
+	
+	class Element {
+		String key;
+		String value;
+		boolean deleted;
+		
+		public Element() {};
+		
+		public Element(String key, String value) {
+			this.set(key,value);
+		}
+		
+		void set(String key, String contents) {
+			this.key = key;
+			this.value = contents; 
+		}		
+	}
+
+}
