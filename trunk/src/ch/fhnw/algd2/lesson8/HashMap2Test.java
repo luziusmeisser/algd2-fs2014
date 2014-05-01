@@ -19,6 +19,7 @@ public class HashMap2Test {
 
 		// add your own implementation here
 		lists.add(new ch.fhnw.algd2.florianfankhauser.lesson8.HashMap());
+		lists.add(new ch.fhnw.algd2.larskessler.HashMap2());
 		lists.add(new ch.fhnw.algd2.mariusdubach.lesson8.HashMap2());
         lists.add(new ch.fhnw.algd2.stephanbrunner.HashMap2());
 	}
@@ -41,7 +42,7 @@ public class HashMap2Test {
 				control.remove(key);
 				map.remove(key);
 			}
-			for (String key: new ArrayList<String>(control.keySet())){
+			for (String key: new ArrayList<String>(control.keySet())){				
 				assert control.remove(key).equals(map.remove(key));
 			}
 			long t1 = System.nanoTime();
