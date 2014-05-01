@@ -5,47 +5,42 @@ package ch.fhnw.algd2.stephanbrunner;
 import ch.fhnw.algd2.lesson8.IHashMap2;
 
 public class HashMap2 implements IHashMap2 {
-    private static double MAX_LOAD_FACTOR = 0.7;
-    private static double MIN_LOAD_FACTOR = 0.3;
-    private static int DEFAULT_INITIAL_SIZE = 1000;
+    private static double MAX_LOAD_FACTOR = 0.6;
+    private static double MIN_LOAD_FACTOR = 0.25;
+    private static int DEFAULT_INITIAL_SIZE = 997;
 
     private Element[] elements = new Element[DEFAULT_INITIAL_SIZE];
-    private int loadInclDeleted = 0;
-    private int loadExclDeleted = 0;
+    private int countLoad = 0;
+    private int countDeleted = 0;
     
     @Override
     public void put(String key, String value) {
-        int position = getPositionToPutElement(key);
-//        System.out.println("putting " + key + " to position " + position);
-        if (elements[position] == null) {
-            loadInclDeleted++;
-            loadExclDeleted++;
-        }
+        int position = getPosition(key);
+        if (elements[position] == null) 
+            countLoad++;
         elements[position] = new Element(key, value);
         resizeIfNeeded();
     }
     
     @Override
     public String get(String key) {
-        int position = getPositionToGetElement(key);
-//      System.out.println("getting " + key + " from position " + position);
-        if (position == -1)
+        int position = getPosition(key);
+        if (position == -1 || elements[position] == null || elements[position].deleted)
             return null;
-        else if (elements[position] != null)
-            return elements[position].value;
+        if (elements[position].value == null)
+            return null;
         else 
-            return null;
+            return elements[position].value;
     }
 
     @Override
     public String remove(String key) {
-        int position = getPositionToGetElement(key);
-//        System.out.println("removing " + key + " from position " + position);
-        if (position == -1 || elements[position] == null)
+        int position = getPosition(key);
+        if (position == -1 || elements[position] == null || elements[position].deleted)
             return null;
         else { 
             elements[position].deleted = true;
-            loadExclDeleted--;
+            countDeleted++;
         }
         if (elements[position].value == null)
             return null;
@@ -53,48 +48,45 @@ public class HashMap2 implements IHashMap2 {
             return elements[position].value;
     }
     
-    private int getPositionToPutElement(String key) {
-        return (getPosition(key, elements, true));
-    }
-    
-    private int getPositionToGetElement(String key) {
-        return getPosition(key, elements, false);
-    }
-    
-    private int getPosition(String key, Element[] array, boolean checkDeletedFlag) {
-        int hash = Math.abs(key.hashCode()) % array.length;
-        int startingPoint = hash;
-        while (array[hash] != null && !(array[hash].deleted && checkDeletedFlag) && !array[hash].key.equals(key)) {
-            hash = (hash + 1) % array.length;
-            if (hash == startingPoint)
+    private int getPosition(String key) {
+        int position = Math.abs(key.hashCode()) % elements.length;
+        int startingPosition = position;
+        int i = 1;
+        while (!aGoodPlace(position, key)) {
+            position = (startingPosition + i*i) % elements.length;
+            i++;
+            if (position == startingPosition)
                 return -1;
         }
-//        System.out.print("is not null? " + (array[hash] != null));
-//        if (array[hash] != null) {
-//             System.out.println(", is not deleted? " + !(array[hash].deleted && checkDeletedFlag) + ", key is not equal? " + !array[hash].key.equals(key));
-//        } else 
-//            System.out.println();
-        return hash;
+        return position;
+    }
+    
+    private boolean aGoodPlace(int position, String key) {
+        if (elements[position] == null)
+            return true;
+        else if (elements[position].key.equals(key))
+            return true;
+        else 
+            return false;
     }
     
     private void resizeIfNeeded() {
-        if (((double)loadInclDeleted / elements.length) > MAX_LOAD_FACTOR)
-            resize(elements.length * 2);
-        if (((double)loadExclDeleted / elements.length) < MIN_LOAD_FACTOR && elements.length > DEFAULT_INITIAL_SIZE)
-            resize(elements.length / 2);
+        if (((double)countLoad / elements.length) > MAX_LOAD_FACTOR)
+            resize(elements.length * 2 + 1);
+        if (((double)(countLoad - countDeleted) / elements.length) < MIN_LOAD_FACTOR && elements.length > DEFAULT_INITIAL_SIZE)
+            resize((elements.length - 1) / 2);
     }
     
     private void resize(int newSize) {
-//        System.out.println("resizing: " + newSize + " " + (double)loadInclDeleted/elements.length);
-        Element[] newElements = new Element[newSize];
-        loadInclDeleted = 0;
-        for (Element e: elements) {
-            if (e != null && !e.deleted) {
-                newElements[getPosition(e.key, newElements, false)] = new Element(e.key, e.value);
-                loadInclDeleted++;
+        Element[] oldElements = elements;
+        elements = new Element[newSize];
+        countLoad = 0;
+        for (Element old: oldElements) {
+            if (old != null && !old.deleted) {
+                elements[getPosition(old.key)] = new Element(old.key, old.value);
+                countLoad++;
             }
         }
-        elements = newElements;
     }
     
     private class Element {
