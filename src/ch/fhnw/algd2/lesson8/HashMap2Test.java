@@ -20,6 +20,7 @@ public class HashMap2Test {
 		// add your own implementation here
 		lists.add(new ch.fhnw.algd2.florianfankhauser.lesson8.HashMap());
 		lists.add(new ch.fhnw.algd2.mariusdubach.lesson8.HashMap2());
+        lists.add(new ch.fhnw.algd2.stephanbrunner.HashMap2());
 	}
 	
 	@Test
