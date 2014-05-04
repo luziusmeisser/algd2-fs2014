@@ -25,7 +25,8 @@ public class HashMap2Test {
 		lists.add(new ch.fhnw.algd2.mariusdubach.lesson8.HashMap2());
         lists.add(new ch.fhnw.algd2.stephanbrunner.HashMap2());
         lists.add(new ch.fhnw.algd2.kevinwieser.HashMap2());
-                
+        lists.add(new ch.fhnw.algd2.romangribi.HashMap2());
+        
 	}
 	
 	@Test
