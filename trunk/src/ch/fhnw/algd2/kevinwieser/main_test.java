@@ -4,13 +4,9 @@ package ch.fhnw.algd2.kevinwieser;
 public class main_test {
 
 	public static void main(String[] args) {
-		SkipListe<Integer> s = new SkipListe<>();
-		s.add(7);
-		s.add(8);
-		int i = s.removeFirst();
-		System.out.println(i);
+		String a = "3434";
 
-		System.out.println(s.countStepsTo(7));
+		System.out.println(a.hashCode()%100);
 		
 		
 		
