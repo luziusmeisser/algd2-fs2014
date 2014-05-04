@@ -2,80 +2,117 @@
 
 package ch.fhnw.algd2.martineberle;
 
-import ch.fhnw.algd2.lesson7.exercise.IHashMap;
 import ch.fhnw.algd2.lesson8.IHashMap2;
 
 public class HashMap2 implements IHashMap2 {
-	public static final int HASH_SIZE = 1000;
+	public int hashSize;
+	public int size = 0;
 	public Element[] storage;
 
 	public HashMap2(){
-		this.storage = new Element[HASH_SIZE];
-		
+		this(1000);
 	}
+	public HashMap2(int hashSize){
+		this.hashSize = hashSize;
+		this.storage = new Element[hashSize];
+	}
+	
+	public void resize(){
+		if((double)size / (double)hashSize >= 0.75){
+			HashMap2 newMap = new HashMap2(hashSize*2);
+			for(int i = 0; i < hashSize; i++){
+				if(storage[i] != null && !storage[i].deleted){
+					newMap.put(storage[i].key, storage[i].val);
+				}
+			}
+			this.size = newMap.size;
+			this.hashSize = newMap.hashSize;
+			this.storage = newMap.storage;
+		}
+	}
+	
+	public int findPos(String key){
+		int hash = key.hashCode() % hashSize;
+		int i = hash;
+		while(true){
+			if(storage[i] == null){
+				return i;
+			}
+			if(storage[i].key.equals(key) && storage[i].deleted){
+				return i;
+			}
+			if(storage[i].key.equals(key)){
+				return i;
+			}
+			i++;
+			i = i % hashSize;
+		}
+	}
+	
 	@Override
 	public void put(String key, String value) {
-		int hash = (key.hashCode() % HASH_SIZE);
-		if(storage[hash] == null){
-			storage[hash] = new Element(key, value);
-		}
-		else {
-			Element newElement = new Element(storage[hash], key, value);
-			storage[hash] = newElement;
-			}
+		size++;
+		resize();
+		int position = findPos(key);
+		Element temp = new Element(key, value);
+		storage[position] = temp;
 	}
 
 	@Override
 	public String get(String key) {
-		int hash = (key.hashCode() % HASH_SIZE);
-		if(storage[hash] == null){
-			return null;
-		}
-		else if(storage[hash].next == null && storage[hash].key.equals(key)){
-			return storage[hash].val;
-		}
-		else {
-			Element head = storage[hash];
-			
-			while(true){
-				if(head.key.equals(key)){
-					return head.val;
+		int hash = (key.hashCode() % hashSize);
+		for(int i = hash; i < hashSize; i++){
+			if(storage[i] == null){
+				return null;
 				}
-				else if(head.next == null){
-					return null;
+			if(storage[i].key.equals(key) && !storage[i].deleted){
+				return storage[i].val;
 				}
-				head = head.next;
+			if(storage[i].key.equals(key) && storage[i].deleted){
+				return null;
 			}
+		}
+		throw new OutOfMemoryError();
+	}
+	
+	@Override
+	public String remove(String key) {
+		int hash = (key.hashCode() % hashSize);
+		int i = hash;
+		while(true){
+			if(storage[i] == null){
+				return null;
+				}
+			if(storage[i].key.equals(key) && !storage[i].deleted){
+				storage[i].deleted = true;
+				size--;
+				return storage[i].val;
+				}
+			if(storage[i].key.equals(key) && storage[i].deleted){
+				return null;
+			}
+			i++;
+			i = i % hashSize;
 		}
 	}
 
 	public class Element{
-		Element next;
+		boolean deleted;
 		String key;
 		String val;
-//		public Element(String val){
-//			this.val = val;
-//			this.next = null;
-//		}
-//		public Element(Element current, String val){
-//			this.next = current;
-//			this.val = val;
-//		}
+		
+		public Element(){
+			this.deleted = false;
+		}
+		
 		public Element(String key, String val){
-//			this.next = null;
+			this.deleted = false;
 			this.key = key;
 			this.val = val;
 		}
-		public Element(Element current, String newKey, String newVal){
-			this.next = current;
-			this.key = newKey;
-			this.val = newVal;
+		
+		public Element(boolean delete){
+			this.deleted = delete;
 		}
-	}
-
-	@Override
-	public String remove(String key) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
