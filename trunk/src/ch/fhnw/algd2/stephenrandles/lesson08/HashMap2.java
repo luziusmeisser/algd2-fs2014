@@ -7,7 +7,7 @@ public class HashMap2 implements IHashMap2 {
 	private int fillState;
 	
 	private final int ARRAY_SIZE = 1000;
-	private final int REHASH_PERCENTAGE = 80;
+	private final int REHASH_PERCENTAGE = 85;
 	private final double GROWTH_RATE = 2.0;
 
 	public HashMap2() {
@@ -16,9 +16,7 @@ public class HashMap2 implements IHashMap2 {
 	}
 
 	@Override
-	public void put(String key, String value) {
-		rehashIfNecessary();
-		
+	public void put(String key, String value) {		
 		int tries = 0;
 		int potentialIndex = calcIndex(key, tries);
 		
@@ -29,6 +27,10 @@ public class HashMap2 implements IHashMap2 {
 		{
 			++tries;
 			potentialIndex = calcIndex(key, tries);
+		}
+		
+		if (potentialIndex >= values.length || isResizeNecessary()) {
+			resize();
 		}
 		
 		if (values[potentialIndex] == null) {
@@ -91,20 +93,21 @@ public class HashMap2 implements IHashMap2 {
 	}
 	
 	private int arrayFillPercentage() {
-		return fillState / values.length;
+		return (fillState / values.length) * 100;
 	}
 	
-	private void rehashIfNecessary() {
-		if (arrayFillPercentage() > REHASH_PERCENTAGE) {
-			Element[] old = values;
-			int newSize = (int) (values.length * GROWTH_RATE);
-			values = new Element[newSize];
-			
-			for (Element e : old) {
-				if (!e.deleted)
-					put(e.key, e.value);
-			}
-			
+	private boolean isResizeNecessary() {
+		return arrayFillPercentage() > REHASH_PERCENTAGE;
+	}
+	
+	private void resize() {
+		Element[] old = values;
+		int newSize = (int) (values.length * GROWTH_RATE);
+		values = new Element[newSize];
+		
+		for (Element e : old) {
+			if (e != null && !e.deleted)
+				put(e.key, e.value);
 		}
 	}
 	
