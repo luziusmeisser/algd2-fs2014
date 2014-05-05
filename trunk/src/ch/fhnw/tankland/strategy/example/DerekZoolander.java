@@ -33,7 +33,7 @@ public class DerekZoolander implements IStrategy {
 			}
 		}
 		IField front = s.getNeighbor(s.getOrientation());
-		if (front.getTravelCost() >= 100) {
+		if (front.getTravelCost() > 100) {
 			return ETankAction.RIGHT;
 		} else if (step >= circle) {
 			circle++;

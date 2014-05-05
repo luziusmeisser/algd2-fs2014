@@ -20,6 +20,11 @@ public class Edge {
 	public Node getN2() {
 		return n2;
 	}
+	
+	public Node getOther(Node mine){
+		assert mine == n2 || mine == n1;
+		return n1 == mine ? n2 : n1;
+	}
 
 	public int getWeight() {
 		return weight;
