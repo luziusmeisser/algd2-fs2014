@@ -45,6 +45,7 @@ public class World {
 	
 	public World(int slowdown, int width, int height, int seed) {
 		this.round = 0;
+		this.envSlowDown = slowdown;
 		this.bounds = new Bounds(width, height, 32);
 		this.random = new Random(seed);
 		this.land = new Land(bounds);
@@ -58,6 +59,10 @@ public class World {
 		this.tanks = new ArrayList<>();
 		this.eternalMode = false;
 		this.addBonus();
+	}
+	
+	public void setEternal(boolean b) {
+		this.eternalMode = b;
 	}
 
 	public void plantRandomFlower() {
