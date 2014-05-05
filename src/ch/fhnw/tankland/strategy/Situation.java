@@ -32,6 +32,15 @@ public class Situation {
 		return l.getFieldsAround(pos);
 	}
 	
+	public EOrientation getDirection(IField neighbor){
+		for (EOrientation o: EOrientation.values()){
+			if (getNeighbor(o) == neighbor){
+				return o;
+			}
+		}
+		return null;
+	}
+	
 	public IField getNeighbor(EOrientation orientation) {
 		Position pos2 = pos.copy();
 		pos2.move(orientation);

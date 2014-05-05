@@ -64,7 +64,7 @@ public class Field implements IField {
 	}
 
 	public boolean canHaveMorePlants() {
-		return flowers < 5;
+		return flowers < 8;
 	}
 
 	public void notifyTankEntered(Tank tank) {

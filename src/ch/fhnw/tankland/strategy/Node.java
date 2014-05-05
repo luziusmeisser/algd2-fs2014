@@ -40,6 +40,10 @@ public class Node {
 			}
 		}
 	}
+	
+	public Edge[] getEdges(){
+		return neighbors;
+	}
 
 	public Edge getEdge(EOrientation o) {
 		return neighbors[o.ordinal()];

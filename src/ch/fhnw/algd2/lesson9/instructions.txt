@@ -1,0 +1,6 @@
+1. Get familiar with Dijkstra's path finding algorithm as explained in the lecture
+   Wikipedia: http://en.wikipedia.org/wiki/Dijkstra's_algorithm
+   Illustration: http://qiao.github.io/PathFinding.js/visual/
+2. Implement ch.fhnw.tankland.strategy.IStrategy . Start with a simple strategy (e.g. random movements).
+3. Let your tank use Dijkstra's algorithm to find a path to the cherry. You can ignore the costs of turning
+   for now.
