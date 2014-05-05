@@ -147,7 +147,7 @@ public class Field implements IField {
 	}
 
 	public boolean isGoodPlaceForNewTank() {
-		return !isFrozen() && !hasTank() && canTankSurvive();
+		return !hasTank() && canTankSurvive();
 	}
 
 	public boolean canTankSurvive() {
