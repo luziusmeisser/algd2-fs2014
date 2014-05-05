@@ -100,14 +100,14 @@ public class World {
 		for (int i = 0; i < rounds; i++) {
 			round++;
 			if (round % envSlowDown == 0) {
-				simulatEnvironment();
+				simulateEnvironment();
 			}
 			simulateTanks();
 		}
 	}
 
 	private void simulateTanks() throws WinnerFoundException {
-		assert tanks.size() > 0;
+		assert tanks.size() > 0 || eternalMode;
 		Iterator<Tank> iter = tanks.iterator();
 		while (iter.hasNext()) {
 			Tank n = iter.next();
@@ -123,7 +123,7 @@ public class World {
 		handleBonus();
 	}
 
-	public void simulatEnvironment() {
+	public void simulateEnvironment() {
 		sun.move();
 		sun.shine(land);
 		for (int c = 0; c < clouds.length; c++) {
@@ -171,7 +171,7 @@ public class World {
 	}
 
 	private void showWinner(Graphics2D g) {
-		if (tanks.size() == 1) {
+		if (tanks.size() == 1 && !eternalMode) {
 			Tank winner = tanks.get(0);
 			g.setFont(new Font("Arial", Font.BOLD, 36));
 			String s = winner.getName() + " wins!";
@@ -186,7 +186,7 @@ public class World {
 		try {
 			World world = new World(30, 20, 2);
 			for (int i = 0; i < 20000; i++) {
-				world.simulatEnvironment();
+				world.simulateEnvironment();
 			}
 			Window window = new Window(world);
 			for (int i = 0; i < 5; i++) {

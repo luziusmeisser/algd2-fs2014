@@ -38,4 +38,8 @@ public class Window {
 		frame.repaint();
 	}
 
+	public void dispose() {
+		frame.dispose();
+	}
+
 }
