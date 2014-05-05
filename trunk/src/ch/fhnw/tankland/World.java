@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
+import ch.fhnw.algd2.florianfankhauser.tankland.Funky;
 import ch.fhnw.tankland.fields.Field;
 import ch.fhnw.tankland.fields.Land;
 import ch.fhnw.tankland.geometry.Bounds;
@@ -195,6 +196,7 @@ public class World {
 			for (int i = 0; i < 3; i++) {
 				world.add(new DerekZoolander());
 			}
+			world.add(new Funky());
 			while (true) {
 				long t0 = System.nanoTime();
 				world.simulate(5);

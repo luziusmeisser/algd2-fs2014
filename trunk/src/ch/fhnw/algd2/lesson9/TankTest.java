@@ -23,6 +23,7 @@ public class TankTest {
 		lists = new ArrayList<>();
 
 		lists.add(new ch.fhnw.algd2.luzius.DijkstraStrategy());
+		lists.add(new ch.fhnw.algd2.florianfankhauser.tankland.Funky());
 		// add your own implementation here
 	}
 
