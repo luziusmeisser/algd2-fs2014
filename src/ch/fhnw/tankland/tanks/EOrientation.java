@@ -18,9 +18,9 @@ public enum EOrientation {
 		if (target == this){
 			return ETankAction.FORWARD;
 		} else if ((ordinal() + 1)%EOrientation.values().length == target.ordinal()){
-			return ETankAction.LEFT;
-		} else {
 			return ETankAction.RIGHT;
+		} else {
+			return ETankAction.LEFT;
 		}
 	}
 
