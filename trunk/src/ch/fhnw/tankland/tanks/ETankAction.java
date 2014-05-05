@@ -7,8 +7,10 @@ import ch.fhnw.tankland.strategy.Situation;
 
 
 public enum ETankAction {
-
+	
 	LEFT, RIGHT, FORWARD, SCAN, PAUSE;
+	
+	public static boolean FREE_TURNS = false;
 
 	public int calcWork(Situation s) {
 		switch (this){
