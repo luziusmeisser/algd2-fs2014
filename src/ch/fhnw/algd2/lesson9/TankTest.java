@@ -29,13 +29,13 @@ public class TankTest {
 	@Test
 	public void testTank() throws WinnerFoundException, InterruptedException {
 		int reference = -1;
-		int seed = (int) System.nanoTime();
+		int seed = 12; // (int) System.nanoTime();
 		ETankAction.FREE_TURNS = true;
 		for (IStrategy map : lists) {
 			// should always be the same world, as same seed
 			World world = new World(1000000, 30, 20, seed);
 			world.setEternal(true);
-			for (int i = 0; i < 10000; i++) {
+			for (int i = 0; i < 7000; i++) {
 				world.simulateEnvironment();
 			}
 			world.add(map);
@@ -57,6 +57,7 @@ public class TankTest {
 			}
 			if (reference == -1) {
 				reference = step;
+				System.out.println("Reference implementation has found cherry in  " + step + " steps");
 			} else if (step > reference) {
 				throw new RuntimeException(map.getName() + " is too slow");
 			}
