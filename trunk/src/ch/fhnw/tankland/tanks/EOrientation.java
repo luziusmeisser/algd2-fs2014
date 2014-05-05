@@ -13,6 +13,16 @@ public enum EOrientation {
 	public EOrientation right() {
 		return EOrientation.values()[(ordinal() + 1) % EOrientation.values().length];
 	}
+	
+	public ETankAction deriveTankAction(EOrientation target){
+		if (target == this){
+			return ETankAction.FORWARD;
+		} else if ((ordinal() + 1)%EOrientation.values().length == target.ordinal()){
+			return ETankAction.LEFT;
+		} else {
+			return ETankAction.RIGHT;
+		}
+	}
 
 	public String getFileName() {
 		return "data/tanks-" + name().toLowerCase() + ".png";
