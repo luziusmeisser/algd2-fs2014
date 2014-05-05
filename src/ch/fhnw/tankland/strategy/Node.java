@@ -44,6 +44,15 @@ public class Node {
 	public Edge[] getEdges(){
 		return neighbors;
 	}
+	
+	public EOrientation getDirection(Node next) {
+		for (EOrientation o: EOrientation.values()){
+			if (getEdge(o).getOther(this) == next){
+				return o;
+			}
+		}
+		return null;
+	}
 
 	public Edge getEdge(EOrientation o) {
 		return neighbors[o.ordinal()];
