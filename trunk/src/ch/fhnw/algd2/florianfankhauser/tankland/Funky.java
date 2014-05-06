@@ -61,9 +61,7 @@ public class Funky implements IStrategy {
 		node.setMarker(0);
 		unbesucht.add(new NodeWrapper(node, null));
 		NodeWrapper wrap = unbesucht.poll();
-		int counter = 0;
 		while (node != null && !found) {
-			System.out.println("Funky looking for cherry - Step: " + counter++);
 			for (Edge e : wrap.node.getEdges()) {
 				Node n = e.getOther(wrap.node);
 				if (n.hasBonus()) {
@@ -92,7 +90,6 @@ public class Funky implements IStrategy {
 	
 	private void calculateMoves(NodeWrapper node, EOrientation or) {
 		int counter = 0;
-		System.out.println("Calculating moves");
 		while (node.next != null) {
 			EOrientation orNext = node.node.getDirection(node.next.node);
 			while (orNext != or) {

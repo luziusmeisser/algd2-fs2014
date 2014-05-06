@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
-import ch.fhnw.algd2.larskessler.LarsKessler;
 import ch.fhnw.algd2.florianfankhauser.tankland.Funky;
 
 import ch.fhnw.tankland.fields.Field;
@@ -192,8 +191,6 @@ public class World {
 				world.simulateEnvironment();
 			}
 			Window window = new Window(world);
-			
-			world.add(new LarsKessler());
 			
 			for (int i = 0; i < 5; i++) {
 				world.add(new RandomStrategy());
