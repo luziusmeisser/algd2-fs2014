@@ -63,6 +63,7 @@ public class Marius implements IStrategy{
 		while(tmp != startNode){
 			wayPoints.add(tmp);
 			tmp = ((StepMarker)tmp.getMarker()).origin;
+			System.out.println(tmp.getPosition());
 		}
 		//wayPoints is now a list with the cherry at the beginning
 		turns = new LinkedList<>();
@@ -91,8 +92,11 @@ public class Marius implements IStrategy{
 			}
 			//First: Mark all surounding nodes and put them into my priority queue
 			for(Edge e : node.getEdges()){
-				if(e.getOther(node).getMarker() == null){
-					StepMarker tmp = new StepMarker(((StepMarker)node.getMarker()).costs + e.getWeight(), e.getOther(node), node);
+				StepMarker otherMarker = ((StepMarker) e.getOther(node).getMarker());
+				int costsToSet = ((StepMarker)node.getMarker()).costs + e.getWeight();
+				if(otherMarker == null || otherMarker.costs > costsToSet){
+					queue.remove(otherMarker);
+					StepMarker tmp = new StepMarker(costsToSet, e.getOther(node), node);
 					e.getOther(node).setMarker(tmp);
 					queue.add(tmp);
 				}
@@ -115,6 +119,9 @@ public class Marius implements IStrategy{
 
 		@Override
 		public int compareTo(StepMarker o) {
+			if(this.mine == o.mine){
+				return 0;
+			}
 			return this.costs - o.costs;
 		}
 		
