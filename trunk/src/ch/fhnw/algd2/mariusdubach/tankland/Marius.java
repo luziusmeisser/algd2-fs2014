@@ -63,7 +63,7 @@ public class Marius implements IStrategy{
 		while(tmp != startNode){
 			wayPoints.add(tmp);
 			tmp = ((StepMarker)tmp.getMarker()).origin;
-			System.out.println(tmp.getPosition());
+			System.out.println(tmp.getPosition() + "origin: " + ((StepMarker)tmp.getMarker()).origin.getPosition());
 		}
 		//wayPoints is now a list with the cherry at the beginning
 		turns = new LinkedList<>();
@@ -82,6 +82,37 @@ public class Marius implements IStrategy{
 		}
 	}
 	
+	private void findCherry2(Node node){
+		node.setMarker(new StepMarker(0, node, null));
+		PriorityQueue<StepMarker> queue = new PriorityQueue<>();
+		queue.add((StepMarker)node.getMarker());
+		
+		while(cherry == null){ //cherry not found
+			StepMarker markerNodeNow = queue.remove();
+			Node nodeNow = markerNodeNow.mine;
+			
+			if(nodeNow.hasBonus()){
+				cherry = nodeNow;
+				return;
+			}
+			
+			for(Edge e : nodeNow.getEdges()){
+				Node other = e.getOther(nodeNow);
+				int costsToSet = markerNodeNow.costs + e.getWeight();
+				if(( other.getMarker() == null || ( (StepMarker)other.getMarker()).costs >  costsToSet || ( (StepMarker)other.getMarker()).costs == 0) ){
+					if(other.getMarker() == null){
+						other.setMarker(new StepMarker(0, other, null));
+						queue.add((StepMarker)other.getMarker());
+					}
+					((StepMarker)other.getMarker()).costs = costsToSet;
+					((StepMarker)other.getMarker()).origin = nodeNow;
+				}
+			}		
+		}
+		
+		
+	}
+	
 	private void findCherry(Node node){
 		node.setMarker(new StepMarker(0, node, null));
 		PriorityQueue<StepMarker> queue = new PriorityQueue<>();
@@ -94,12 +125,18 @@ public class Marius implements IStrategy{
 			for(Edge e : node.getEdges()){
 				StepMarker otherMarker = ((StepMarker) e.getOther(node).getMarker());
 				int costsToSet = ((StepMarker)node.getMarker()).costs + e.getWeight();
-				if(otherMarker == null || otherMarker.costs > costsToSet){
-					queue.remove(otherMarker);
-					StepMarker tmp = new StepMarker(costsToSet, e.getOther(node), node);
-					e.getOther(node).setMarker(tmp);
-					queue.add(tmp);
+				if(otherMarker == null){
+					otherMarker = new StepMarker(1999, e.getOther(node), node);
+					e.getOther(node).setMarker(otherMarker);
 				}
+				queue.remove(otherMarker);
+				/*
+				StepMarker tmp = new StepMarker(costsToSet, e.getOther(node), node);
+				e.getOther(node).setMarker(tmp);
+				*/
+				otherMarker.updateCosts(costsToSet);
+				otherMarker.origin = node;
+				queue.add(otherMarker);
 			}
 			node = queue.remove().mine;
 		}
@@ -109,12 +146,18 @@ public class Marius implements IStrategy{
 		
 		public Node mine;
 		public Node origin;
-		public int costs;
+		public int costs=1999;
 		
 		public StepMarker(int costs, Node mine, Node origin){
 			this.costs = costs;
 			this.mine = mine;
 			this.origin = origin;
+		}
+		
+		public void updateCosts(int a){
+			if (a < this.costs){
+				this.costs = a;
+			}
 		}
 
 		@Override
