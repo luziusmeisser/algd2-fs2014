@@ -25,6 +25,7 @@ public class TankTest {
 		lists.add(new ch.fhnw.algd2.luzius.DijkstraStrategy());
 		lists.add(new ch.fhnw.algd2.florianfankhauser.tankland.Funky());
 		lists.add(new ch.fhnw.algd2.mariusdubach.tankland.Marius2());
+        lists.add(new ch.fhnw.algd2.stephanbrunner.Strategy());
 		// add your own implementation here
 	}
 
