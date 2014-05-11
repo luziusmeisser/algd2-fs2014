@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import ch.fhnw.algd2.florianfankhauser.tankland.Funky;
-
+import ch.fhnw.algd2.larskessler.LarsKessler;
 import ch.fhnw.tankland.fields.Field;
 import ch.fhnw.tankland.fields.Land;
 import ch.fhnw.tankland.geometry.Bounds;
@@ -199,7 +199,8 @@ public class World {
 				world.add(new DerekZoolander());
 			}
 			
-			world.add(new Funky());
+			world.add(new LarsKessler());
+			//world.add(new Funky());
 			
 			while (true) {
 				long t0 = System.nanoTime();
