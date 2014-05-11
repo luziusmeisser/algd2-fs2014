@@ -6,8 +6,6 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Stack;
 
-import ch.fhnw.tankland.fields.Field;
-import ch.fhnw.tankland.fields.Land;
 import ch.fhnw.tankland.strategy.Edge;
 import ch.fhnw.tankland.strategy.IStrategy;
 import ch.fhnw.tankland.strategy.Node;
@@ -36,12 +34,12 @@ public class ShortestPathStrategy implements IStrategy {
 
 	@Override
 	public ETankAction getNextAction(Situation situation) {
-		if (movesToCherry.isEmpty()) {
-			if (situation.getGraph() == null) {
-				return ETankAction.SCAN;
-			} else { 
-				movesToCherry = findShortestPathToCherry(situation);
-			}
+		if (situation.getGraph() == null) {
+			return ETankAction.SCAN;
+		}
+		
+		if (movesToCherry.isEmpty()) { 
+			movesToCherry = findShortestPathToCherry(situation);
 		}
 
 		if (!movesToCherry.isEmpty()) {
@@ -64,7 +62,7 @@ public class ShortestPathStrategy implements IStrategy {
 		visited.add(current);
 		
 		boolean foundCherry = false;
-		while (!foundCherry) {
+		while (!visited.isEmpty()) {
 						
 			for (Edge edge : current.getEdges()) {
 				Node neighbour = edge.getOther(current);
@@ -85,10 +83,10 @@ public class ShortestPathStrategy implements IStrategy {
 				if(neighbour.hasBonus()) foundCherry = true;
 			}
 			
-			current = visited.peek();			
+			current = visited.poll();			
 		}
 		
-		return deriveDirectionsFromPath(visited.peek());
+		return deriveDirectionsFromPath(current);
 	}
 	
 	
@@ -96,12 +94,12 @@ public class ShortestPathStrategy implements IStrategy {
 		Node previous;
 		Stack<EOrientation> moves = new Stack<>();
 
-		do {			
+		do {
 			previous = ((Marker)target.getMarker()).previous;
 			moves.add(previous.getDirection(target));
 			
 			target = previous;
-		} while ( target.getMarker() != null );
+		} while ( target.getMarker() != null && ((Marker)target.getMarker()).previous != null);
 		
 		
 		return moves;
