@@ -61,12 +61,12 @@ public class ShortestPathStrategy implements IStrategy {
 		current.setMarker(new Marker(null, 0));
 		visited.add(current);
 		
-		boolean foundCherry = false;
 		while (!visited.isEmpty()) {
+			if(current.hasBonus()) break;
 						
 			for (Edge edge : current.getEdges()) {
 				Node neighbour = edge.getOther(current);
-				int cost = ((Marker)current.getMarker()).cost + neighbour.getTravelCost();
+				int cost = ((Marker)current.getMarker()).cost + edge.getWeight();
 				
 				if (neighbour.getMarker() == null) {
 					neighbour.setMarker(new Marker(current, cost));
@@ -79,8 +79,6 @@ public class ShortestPathStrategy implements IStrategy {
 					neighbour.setMarker(new Marker(current, cost));
 					visited.add(neighbour);
 				}
-				
-				if(neighbour.hasBonus()) foundCherry = true;
 			}
 			
 			current = visited.poll();			
@@ -91,16 +89,17 @@ public class ShortestPathStrategy implements IStrategy {
 	
 	
 	private Stack<EOrientation> deriveDirectionsFromPath(Node target) {
-		Node previous;
 		Stack<EOrientation> moves = new Stack<>();
 
-		do {
-			previous = ((Marker)target.getMarker()).previous;
+		Node previous = ((Marker)target.getMarker()).previous;
+		while (previous != null) {	
 			moves.add(previous.getDirection(target));
 			
 			target = previous;
-		} while ( target.getMarker() != null && ((Marker)target.getMarker()).previous != null);
-		
+			if (target.getMarker() != null) {
+				previous = ((Marker)target.getMarker()).previous;
+			}
+		}
 		
 		return moves;
 	}
