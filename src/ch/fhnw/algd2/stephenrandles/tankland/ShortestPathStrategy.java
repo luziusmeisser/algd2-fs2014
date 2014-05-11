@@ -43,8 +43,13 @@ public class ShortestPathStrategy implements IStrategy {
 		}
 
 		if (!movesToCherry.isEmpty()) {
-			EOrientation whereToGo = movesToCherry.pop();
-			return situation.getOrientation().deriveTankAction(whereToGo);
+			EOrientation whereToGo = movesToCherry.peek();
+			ETankAction action = situation.getOrientation().deriveTankAction(whereToGo);
+			// Only remove step if we moved along (not if we turned!) 
+			if (action == ETankAction.FORWARD) movesToCherry.pop();
+			
+			return action;
+			
 		} else {
 			return ETankAction.PAUSE;
 		}
@@ -96,9 +101,7 @@ public class ShortestPathStrategy implements IStrategy {
 			moves.add(previous.getDirection(target));
 			
 			target = previous;
-			if (target.getMarker() != null) {
-				previous = ((Marker)target.getMarker()).previous;
-			}
+			previous = ((Marker)target.getMarker()).previous;
 		}
 		
 		return moves;
