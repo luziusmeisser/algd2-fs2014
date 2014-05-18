@@ -31,7 +31,9 @@ public class TankTest {
         lists.add(new ch.fhnw.algd2.stephenrandles.tankland.ShortestPathStrategy());
         lists.add(new ch.fhnw.algd2.kevinwieser.Strategy());
         lists.add(new ch.fhnw.algd2.romangribi.Tank());
+        lists.add(new ch.fhnw.algd2.lukasmusy.MyStrategy());
 		// add your own implementation here
+        
 	}
 
 	@Test
