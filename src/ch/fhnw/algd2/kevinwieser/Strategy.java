@@ -50,13 +50,22 @@ public class Strategy implements IStrategy {
 			// If there no graph then scan
 			return ETankAction.SCAN;
 		}
-		
+
 		if (cherryPath.isEmpty()) {
 			// evaluate the shortest way to the cherry
 			cherryPath = shortestWayToCherry(situation);
 		}
-		
-		return null;
+
+		if (!cherryPath.isEmpty()) {
+			ETankAction next = situation.getOrientation().deriveTankAction(
+					cherryPath.peek());
+
+			if (next == ETankAction.FORWARD) {
+				cherryPath.pop();
+			}
+			return next;
+		}
+		return ETankAction.FORWARD;
 	}
 
 	private Stack<EOrientation> shortestWayToCherry(Situation situation) {
