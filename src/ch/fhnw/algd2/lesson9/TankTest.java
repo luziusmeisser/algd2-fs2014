@@ -30,6 +30,7 @@ public class TankTest {
         lists.add(new ch.fhnw.algd2.larskessler.LarsKessler());
         lists.add(new ch.fhnw.algd2.stephenrandles.tankland.ShortestPathStrategy());
         lists.add(new ch.fhnw.algd2.kevinwieser.Strategy());
+        lists.add(new ch.fhnw.algd2.romangribi.Tank());
 		// add your own implementation here
 	}
 
