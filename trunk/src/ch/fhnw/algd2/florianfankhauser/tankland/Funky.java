@@ -1,15 +1,7 @@
 package ch.fhnw.algd2.florianfankhauser.tankland;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
-import java.util.Stack;
-
-import javax.swing.JEditorPane;
-
-import org.junit.runner.notification.StoppedByUserException;
-
-import ch.fhnw.algd2.marcogaiffi.stack;
 import ch.fhnw.tankland.strategy.Edge;
 import ch.fhnw.tankland.strategy.IStrategy;
 import ch.fhnw.tankland.strategy.Node;
