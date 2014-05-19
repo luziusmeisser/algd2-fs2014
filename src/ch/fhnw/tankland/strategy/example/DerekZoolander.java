@@ -14,7 +14,7 @@ public class DerekZoolander implements IStrategy {
 	private int circle = 1;
 
 	public int getColor() {
-		return 3;
+		return 7;
 	}
 
 	public String getComment() {

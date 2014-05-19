@@ -12,7 +12,7 @@ import ch.fhnw.tankland.strategy.Situation;
 import ch.fhnw.tankland.tanks.EOrientation;
 import ch.fhnw.tankland.tanks.ETankAction;
 
-public class DijkstraBot implements IStrategy {
+public class EdsgarBot implements IStrategy {
 
 	@Override
 	public int getColor() {
@@ -59,8 +59,8 @@ public class DijkstraBot implements IStrategy {
 	private ETankAction checkSurroundings(Situation s) {
 		for (EOrientation o : EOrientation.values()) {
 			IField f = s.getNeighbor(o);
-			if (f.hasBonus() || f.hasTank()) {
-				return s.getOrientation().deriveTankAction(o);
+			if (f.hasTank()) {
+				return ETankAction.FORWARD;
 			}
 		}
 		return null;

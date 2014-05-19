@@ -10,10 +10,14 @@ import ch.fhnw.tankland.tanks.ETankAction;
 
 public class RandomStrategy implements IStrategy {
 	
-	private Random rand = new Random();
+	private Random rand;
+	
+	public RandomStrategy(Random rand){
+		this.rand = rand;
+	}
 
 	public int getColor() {
-		return 0;
+		return 6;
 	}
 
 	public String getComment() {
