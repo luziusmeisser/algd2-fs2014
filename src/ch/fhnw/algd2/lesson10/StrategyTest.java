@@ -8,6 +8,7 @@ import java.util.Random;
 import org.junit.Before;
 import org.junit.Test;
 
+import ch.fhnw.algd2.florianfankhauser.tankland.Funky;
 import ch.fhnw.algd2.mariusdubach.tankland.Marius;
 import ch.fhnw.tankland.WinnerFoundException;
 import ch.fhnw.tankland.WinnerStats;
@@ -23,6 +24,7 @@ public class StrategyTest {
 	@Before
 	public void setUp() throws Exception {
 		strats = new ArrayList<>();
+		strats.add(new Funky());
 		strats.add(new Marius());
 		strats.add(new EdsgarBot());
 	}
