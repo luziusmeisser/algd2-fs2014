@@ -18,7 +18,7 @@ public class SurvivalStrategy implements IStrategy {
 	private Stack<EOrientation> movesToCherry = new Stack<>();
 	//private Stack<ETankAction> moves = new Stack<>();
 	
-	private final int maxStepsToGetCherry = 15;
+	private final int maxStepsToGetCherry = 20;
 	private final int stepsUntilScan = 10;
 	private int currentSteps = 0;
 	
@@ -29,7 +29,7 @@ public class SurvivalStrategy implements IStrategy {
 
 	@Override
 	public int getColor() {
-		return 1;
+		return 2;
 	}
 
 	@Override
@@ -53,13 +53,15 @@ public class SurvivalStrategy implements IStrategy {
 			currentSteps++;
 			return ETankAction.SCAN;
 			
-		} else if (movesToCherry.empty()) {
+		}
+		
+		if (movesToCherry.empty()) {
 			// Check how far away the cherry is
 			movesToCherry = findShortestPathToCherry(situation);
 		}
 		
 		// Follow cherry if nearby
-		if (movesToCherry.size() < maxStepsToGetCherry) {
+		if (!movesToCherry.empty() && movesToCherry.size() < maxStepsToGetCherry) {
 			EOrientation whereToGo = movesToCherry.peek();
 			action = situation.getOrientation().deriveTankAction(whereToGo);
 			
@@ -67,8 +69,15 @@ public class SurvivalStrategy implements IStrategy {
 			if (action == ETankAction.FORWARD) movesToCherry.pop();
 		} else {
 			// Otherwise just cruise around
-			ETankAction[] actions = ETankAction.values();
-			action = actions[(int)(Math.random() % 2)];
+			int rand = (int)(Math.random() * 10);
+			
+			if (rand % 2 == 0) {
+				action = ETankAction.FORWARD;
+			} else if (rand % 5 == 0) {
+				if (rand < 5) action = ETankAction.LEFT;
+				else action = ETankAction.RIGHT;				
+			}
+			
 		}
 		
 		currentSteps++;		
