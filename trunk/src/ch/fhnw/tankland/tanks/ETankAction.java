@@ -18,7 +18,7 @@ public enum ETankAction {
 		case PAUSE:
 			return 10;
 		case SCAN:
-			return s.applyBonus(200);
+			return s.applyBonus(100);
 		case LEFT:
 		case RIGHT:
 			return s.applyBonus(s.getCurrentField().getTravelCost());
