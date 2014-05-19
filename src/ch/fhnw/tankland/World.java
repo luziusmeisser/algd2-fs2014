@@ -10,6 +10,7 @@ import java.util.Random;
 import ch.fhnw.algd2.florianfankhauser.tankland.Funky;
 import ch.fhnw.algd2.kevinwieser.KevinStrategy;
 import ch.fhnw.algd2.mariusdubach.tankland.Marius;
+import ch.fhnw.algd2.stephenrandles.tankland.SurvivalStrategy;
 import ch.fhnw.tankland.fields.Field;
 import ch.fhnw.tankland.fields.Land;
 import ch.fhnw.tankland.geometry.Bounds;
