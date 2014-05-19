@@ -2,8 +2,6 @@
 
 package ch.fhnw.algd2.stephenrandles.tankland;
 
-import java.lang.reflect.Array;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Stack;
@@ -45,7 +43,7 @@ public class SurvivalStrategy implements IStrategy {
 		EOrientation target;
 		
 		do {
-			target = tankFreeFields[(int) ((Math.random() * 10) % 4)];
+			target = tankFreeFields[(int) ((Math.random() * 10) % 3)];
 		} while (target == null);
 		
 		return situation.getOrientation().deriveTankAction(target);
