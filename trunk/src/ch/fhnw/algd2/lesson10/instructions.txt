@@ -1,0 +1,8 @@
+Part 1:
+Get familiar with the concept of minimal spanning trees (minimale Spannbaeume).
+Understand the algorithm of Kruskal (http://de.wikipedia.org/wiki/Algorithmus_von_Kruskal).
+
+Part 2:
+Create an implementation of IStrategy that wins against 4 random bots at least 30% of the time
+(i.e. score 15 wins out of 50 rounds in the test).
+Your strategy must have a constructor without arguments.
