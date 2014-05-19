@@ -47,7 +47,7 @@ public class KevinStrategy implements IStrategy {
 
 	@Override
 	public ETankAction getNextAction(Situation situation) {
-		if (counter < 50) {
+		if (counter < 20) {
 			counter++;
 			
 			if (situation.getGraph() == null) {
@@ -75,7 +75,7 @@ public class KevinStrategy implements IStrategy {
 		
 		cherryPath = new Stack<>();
 		counter = 0;
-		System.out.println("bin darussen");
+
 		return ETankAction.RIGHT;
 	}
 
