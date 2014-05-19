@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
-import ch.fhnw.algd2.florianfankhauser.tankland.Funky;
-import ch.fhnw.algd2.larskessler.LarsKessler;
 import ch.fhnw.tankland.fields.Field;
 import ch.fhnw.tankland.fields.Land;
 import ch.fhnw.tankland.geometry.Bounds;
@@ -17,6 +15,7 @@ import ch.fhnw.tankland.plants.Flora;
 import ch.fhnw.tankland.plants.Flower;
 import ch.fhnw.tankland.strategy.IStrategy;
 import ch.fhnw.tankland.strategy.example.DerekZoolander;
+import ch.fhnw.tankland.strategy.example.DijkstraBot;
 import ch.fhnw.tankland.strategy.example.RandomStrategy;
 import ch.fhnw.tankland.tanks.Bonus;
 import ch.fhnw.tankland.tanks.Tank;
@@ -30,7 +29,7 @@ public class World {
 	private Random random;
 	private int round;
 	private int envSlowDown;
-	
+
 	private Land land;
 	private Sun sun;
 	private Cloud[] clouds;
@@ -38,13 +37,13 @@ public class World {
 	private ArrayList<Tank> tanks;
 	private Bonus bonus;
 	private boolean eternalMode;
-	
+
 	private static final int DEFAULT_ENVIRONMENT_SLOWDOWN = 10;
 
 	public World(int width, int height, int seed) {
 		this(DEFAULT_ENVIRONMENT_SLOWDOWN, width, height, seed);
 	}
-	
+
 	public World(int slowdown, int width, int height, int seed) {
 		this.round = 0;
 		this.envSlowDown = slowdown;
@@ -62,7 +61,7 @@ public class World {
 		this.eternalMode = false;
 		this.addBonus();
 	}
-	
+
 	public void setEternal(boolean b) {
 		this.eternalMode = b;
 	}
@@ -95,8 +94,6 @@ public class World {
 			}
 		}
 	}
-
-
 
 	public void simulate(int rounds) throws WinnerFoundException {
 		for (int i = 0; i < rounds; i++) {
@@ -138,8 +135,8 @@ public class World {
 			plantRandomFlower();
 		}
 	}
-	
-	public Bonus getBonus(){
+
+	public Bonus getBonus() {
 		return bonus;
 	}
 
@@ -158,7 +155,7 @@ public class World {
 		land.getFieldAt(bonus.getPosition()).setBonus(bonus);
 	}
 
-	public void draw(Graphics2D g) {
+	public void draw(Graphics2D g) { // TODO: make drawing thread safe
 		g.fillRect(0, 0, bounds.getPixelWidth(), bounds.getPixelHeight());
 		land.draw(g);
 		flowers.draw(g);
@@ -186,22 +183,18 @@ public class World {
 
 	public static void main(String[] args) throws InterruptedException {
 		try {
-			World world = new World(30, 20, 2);
+			World world = new World(30, 20, 16);
 			for (int i = 0; i < 20000; i++) {
 				world.simulateEnvironment();
 			}
 			Window window = new Window(world);
-			
 			for (int i = 0; i < 5; i++) {
 				world.add(new RandomStrategy());
 			}
 			for (int i = 0; i < 3; i++) {
 				world.add(new DerekZoolander());
 			}
-			
-			world.add(new LarsKessler());
-			//world.add(new Funky());
-			
+			world.add(new DijkstraBot());
 			while (true) {
 				long t0 = System.nanoTime();
 				world.simulate(5);
