@@ -16,6 +16,15 @@ import ch.fhnw.tankland.tanks.ETankAction;
 
 public class SurvivalStrategy implements IStrategy {
 	private Stack<EOrientation> movesToCherry = new Stack<>();
+	//private Stack<ETankAction> moves = new Stack<>();
+	
+	private final int maxStepsToGetCherry = 15;
+	private final int stepsUntilScan = 10;
+	private int currentSteps = 0;
+	
+	public SurvivalStrategy() {
+		
+	}
 	
 
 	@Override
@@ -35,39 +44,32 @@ public class SurvivalStrategy implements IStrategy {
 
 	@Override
 	public ETankAction getNextAction(Situation situation) {
-		if (situation.getGraph() == null) {
-			return ETankAction.SCAN;
-		}
+		ETankAction action = ETankAction.PAUSE;
 		
-		EOrientation[] tankFreeFields = tankFreeFields(situation);
-		EOrientation target;
-		
-		do {
-			target = tankFreeFields[(int) ((Math.random() * 10) % 3)];
-		} while (target == null);
-		
-		return situation.getOrientation().deriveTankAction(target);
-		
-		
-		/*
-		
-		
-		if (movesToCherry.isEmpty()) { 
+		if (situation.getGraph() == null || currentSteps % stepsUntilScan == 0) {
+			currentSteps = 0;
+			movesToCherry.clear();
+			
+			action = ETankAction.SCAN;
+			
+		} else if (movesToCherry.empty()) {
+			// Check how far away the cherry is
 			movesToCherry = findShortestPathToCherry(situation);
-		}
-
-		if (!movesToCherry.isEmpty()) {
+			
+		} else if (movesToCherry.size() < maxStepsToGetCherry) {
 			EOrientation whereToGo = movesToCherry.peek();
-			ETankAction action = situation.getOrientation().deriveTankAction(whereToGo);
+			action = situation.getOrientation().deriveTankAction(whereToGo);
+			
 			// Only remove step if we moved along (not if we turned!) 
 			if (action == ETankAction.FORWARD) movesToCherry.pop();
 			
-			return action;
-			
 		} else {
-			return ETankAction.PAUSE;
+			ETankAction[] actions = ETankAction.values();
+			action = actions[(int)(Math.random() % 2)];
 		}
-		*/
+		
+		currentSteps++;		
+		return action;
 	}
 	
 	private EOrientation[] tankFreeFields(Situation s) {
@@ -82,7 +84,7 @@ public class SurvivalStrategy implements IStrategy {
 		
 		return tankFreeFields;
 	}
-
+	
 	private Stack<EOrientation> findShortestPathToCherry(Situation situation) {
 		PriorityQueue<Node> visited = new PriorityQueue<>(5, new Comparator<Node>() {
 			public int compare (Node a, Node b) {
@@ -133,7 +135,7 @@ public class SurvivalStrategy implements IStrategy {
 		}
 		
 		return moves;
-	}
+	}	
 
 
 	class Marker implements Comparable<Marker> {
