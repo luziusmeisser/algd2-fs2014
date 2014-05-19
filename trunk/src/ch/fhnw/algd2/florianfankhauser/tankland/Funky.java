@@ -24,7 +24,7 @@ public class Funky implements IStrategy {
 
 	@Override
 	public int getColor() {
-		return 1;
+		return 6;
 	}
 
 	@Override
@@ -39,12 +39,33 @@ public class Funky implements IStrategy {
 
 	@Override
 	public ETankAction getNextAction(Situation situation) {
+		// CHECK NEIGHBOURS
+		EOrientation dir = null;
+		situation.getCurrentField();
+		if (situation.getNeighbor(EOrientation.NORTH).hasTank()) {
+			dir = EOrientation.NORTH;
+		} else if (situation.getNeighbor(EOrientation.EAST).hasTank()) {
+			dir = EOrientation.EAST;
+		} else if (situation.getNeighbor(EOrientation.SOUTH).hasTank()) {
+			dir = EOrientation.SOUTH;
+		} else if (situation.getNeighbor(EOrientation.WEST).hasTank()) {
+			dir = EOrientation.WEST;
+		}
+		if (dir != null) {
+			scanned = false;
+			found = false;
+			return situation.getOrientation().deriveTankAction(dir);
+		}
+		// LOOK FOR CHERRY
 		if (!scanned) {
 			scanned = true;
 			return ETankAction.SCAN;
 		}
 		if (!found) {
-			NodeWrapper cherry = calculateCherryPath(situation.getGraph());
+			NodeWrapper cherry = null;
+			try {
+				cherry = calculateCherryPath(situation.getGraph());
+			} catch (NullPointerException e) {}
 			if (cherry != null) {
 				found = true;
 				calculateMoves(cherry, situation.getOrientation());
@@ -53,7 +74,9 @@ public class Funky implements IStrategy {
 		if (moves.size() > 0) {
 			return moves.removeFirst();
 		}
-		return ETankAction.FORWARD;
+		scanned = false;
+		found = false;
+		return ETankAction.PAUSE;
 	}
 
 	private NodeWrapper calculateCherryPath(Node node) {
@@ -61,6 +84,7 @@ public class Funky implements IStrategy {
 		node.setMarker(0);
 		unbesucht.add(new NodeWrapper(node, null));
 		NodeWrapper wrap = unbesucht.poll();
+		int counter = 0;
 		while (node != null && !found) {
 			for (Edge e : wrap.node.getEdges()) {
 				Node n = e.getOther(wrap.node);
