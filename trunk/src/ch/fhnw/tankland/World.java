@@ -198,7 +198,7 @@ public class World {
 		world.add(new EdsgarBot());
 		world.add(new RaegarBot());
 		world.add(new Funky());
-//		world.add(new SurvivalStrategy());
+		world.add(new SurvivalStrategy());
 		try {
 			while (true) {
 				long t0 = System.nanoTime();
