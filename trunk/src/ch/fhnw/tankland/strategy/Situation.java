@@ -28,8 +28,8 @@ public class Situation {
 		return cost * 100 / speed;
 	}
 	
-	public IField[] getNeibhborhood() {
-		return l.getFieldsAround(pos);
+	public IField[] getNeighborhood() {
+		return l.getFieldsAround(pos, false);
 	}
 	
 	public EOrientation getDirection(IField neighbor){
@@ -37,6 +37,15 @@ public class Situation {
 			if (getNeighbor(o) == neighbor){
 				return o;
 			}
+		}
+		if (getDiagonal(EOrientation.NORTH, EOrientation.EAST) == neighbor){
+			return EOrientation.NORTH;
+		} else  if (getDiagonal(EOrientation.EAST, EOrientation.SOUTH) == neighbor){
+			return EOrientation.EAST;
+		} else  if (getDiagonal(EOrientation.SOUTH, EOrientation.WEST) == neighbor){
+			return EOrientation.SOUTH;
+		} else if (getDiagonal(EOrientation.WEST, EOrientation.NORTH) == neighbor){
+			return EOrientation.WEST;
 		}
 		return null;
 	}
@@ -69,6 +78,10 @@ public class Situation {
 
 	public IField getCurrentField() {
 		return l.getFieldAt(pos);
+	}
+
+	public int getSpeed() {
+		return speed;
 	}
 
 }
