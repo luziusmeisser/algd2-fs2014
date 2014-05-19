@@ -12,7 +12,7 @@ import ch.fhnw.tankland.tanks.ETankAction;
 public class Funky implements IStrategy {
 	boolean scanned = false;
 	boolean found = false;
-	private LinkedList<ETankAction> moves;
+	private LinkedList<ETankAction> moves = new LinkedList<>();
 
 	@Override
 	public int getColor() {
