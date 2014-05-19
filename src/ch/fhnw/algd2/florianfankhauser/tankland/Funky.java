@@ -12,7 +12,7 @@ import ch.fhnw.tankland.tanks.ETankAction;
 public class Funky implements IStrategy {
 	boolean scanned = false;
 	boolean found = false;
-	private LinkedList<ETankAction> moves = new LinkedList<>();
+	private LinkedList<ETankAction> moves;
 
 	@Override
 	public int getColor() {
@@ -32,22 +32,28 @@ public class Funky implements IStrategy {
 	@Override
 	public ETankAction getNextAction(Situation situation) {
 		// CHECK NEIGHBOURS
+		boolean watchout = false;
 		EOrientation dir = null;
 		situation.getCurrentField();
 		if (situation.getNeighbor(EOrientation.NORTH).hasTank()) {
+			watchout = true;
 			dir = EOrientation.NORTH;
 		} else if (situation.getNeighbor(EOrientation.EAST).hasTank()) {
+			watchout = true;
 			dir = EOrientation.EAST;
 		} else if (situation.getNeighbor(EOrientation.SOUTH).hasTank()) {
+			watchout = true;
 			dir = EOrientation.SOUTH;
 		} else if (situation.getNeighbor(EOrientation.WEST).hasTank()) {
+			watchout = true;
 			dir = EOrientation.WEST;
 		}
-		if (dir != null) {
+		if (watchout) {
 			scanned = false;
 			found = false;
 			return situation.getOrientation().deriveTankAction(dir);
 		}
+		
 		// LOOK FOR CHERRY
 		if (!scanned) {
 			scanned = true;
@@ -57,11 +63,11 @@ public class Funky implements IStrategy {
 			NodeWrapper cherry = null;
 			try {
 				cherry = calculateCherryPath(situation.getGraph());
+				if (cherry != null) {
+					found = true;
+					moves = calculateMoves(cherry, situation.getOrientation());
+				}
 			} catch (NullPointerException e) {}
-			if (cherry != null) {
-				found = true;
-				calculateMoves(cherry, situation.getOrientation());
-			}
 		}
 		if (moves.size() > 0) {
 			return moves.removeFirst();
@@ -104,7 +110,8 @@ public class Funky implements IStrategy {
 		return null;
 	}
 	
-	private void calculateMoves(NodeWrapper node, EOrientation or) {
+	private LinkedList<ETankAction> calculateMoves(NodeWrapper node, EOrientation or) {
+		LinkedList<ETankAction> moves = new LinkedList<>();
 		int counter = 0;
 		while (node.next != null) {
 			EOrientation orNext = node.node.getDirection(node.next.node);
@@ -122,6 +129,7 @@ public class Funky implements IStrategy {
 			}
 			node = node.next;
 		}
+		return moves;
 	}
 	
 	private class NodeWrapper implements Comparable {
