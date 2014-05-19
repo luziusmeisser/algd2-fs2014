@@ -34,26 +34,29 @@ public class Land {
 	}
 
 	// Returns the 9 fields around the given position
-	public Field[] getFieldsAround(Position posOrig) {
+	public Field[] getFieldsAround(Position posOrig, boolean includeOwn) {
 		Position pos = posOrig.copy();
-		Field[] fields = new Field[9];
-		fields[0] = getFieldAt(pos);
+		Field[] fields = new Field[includeOwn ? 9 : 8];
+		int i = 0;
+		if (includeOwn){
+			fields[i++] = getFieldAt(pos);
+		}
 		pos.moveUp();
-		fields[1] = getFieldAt(pos);
+		fields[i++] = getFieldAt(pos);
 		pos.moveRight();
-		fields[2] = getFieldAt(pos);
+		fields[i++] = getFieldAt(pos);
 		pos.moveDown();
-		fields[3] = getFieldAt(pos);
+		fields[i++] = getFieldAt(pos);
 		pos.moveDown();
-		fields[4] = getFieldAt(pos);
+		fields[i++] = getFieldAt(pos);
 		pos.moveLeft();
-		fields[5] = getFieldAt(pos);
+		fields[i++] = getFieldAt(pos);
 		pos.moveLeft();
-		fields[6] = getFieldAt(pos);
+		fields[i++] = getFieldAt(pos);
 		pos.moveUp();
-		fields[7] = getFieldAt(pos);
+		fields[i++] = getFieldAt(pos);
 		pos.moveUp();
-		fields[8] = getFieldAt(pos);
+		fields[i++] = getFieldAt(pos);
 		return fields;
 	}
 
