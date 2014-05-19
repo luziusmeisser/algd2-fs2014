@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import ch.fhnw.algd2.florianfankhauser.tankland.Funky;
 import ch.fhnw.algd2.kevinwieser.KevinStrategy;
 import ch.fhnw.algd2.mariusdubach.tankland.Marius;
+import ch.fhnw.algd2.stephenrandles.tankland.SurvivalStrategy;
 import ch.fhnw.tankland.strategy.example.DerekZoolander;
 import ch.fhnw.tankland.strategy.example.EdsgarBot;
 import ch.fhnw.tankland.strategy.example.RaegarBot;
@@ -33,6 +34,7 @@ public class WinnerStats {
 				world.add(new EdsgarBot());
 				world.add(new RaegarBot());
 				world.add(new Funky());
+				world.add(new SurvivalStrategy());
 				while (true){
 					world.simulate(100);
 				}
