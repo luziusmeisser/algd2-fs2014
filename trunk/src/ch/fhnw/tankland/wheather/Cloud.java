@@ -9,7 +9,6 @@ import ch.fhnw.tankland.fields.Land;
 import ch.fhnw.tankland.geometry.Position;
 import ch.fhnw.tankland.geometry.Positionable;
 import ch.fhnw.tankland.geometry.Vector;
-import ch.fhnw.tankland.strategy.IField;
 
 public class Cloud extends Positionable {
 	
@@ -25,14 +24,14 @@ public class Cloud extends Positionable {
 	}
 
 	public void rain(Land area) {
-		Field[] around = area.getFieldsAround(getPosition());
+		Field[] around = area.getFieldsAround(getPosition(), true);
 		for (int i=0; i<around.length; i++){
 			around[i].receiveRain(0.2);
 		}
 	}
 	
 	public void move(Random rand, Land area) {
-		Field[] fields = area.getFieldsAround(getPosition());
+		Field[] fields = area.getFieldsAround(getPosition(), true);
 		Field attracted = findMaxEvaporation(fields);
 		Vector target = getPosition().getDistanceVector(attracted.getPosition());
 		target = target.getScaledCopy(0.02);
