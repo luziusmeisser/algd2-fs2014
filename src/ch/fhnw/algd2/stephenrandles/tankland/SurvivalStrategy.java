@@ -50,20 +50,23 @@ public class SurvivalStrategy implements IStrategy {
 			currentSteps = 0;
 			movesToCherry.clear();
 			
-			action = ETankAction.SCAN;
+			currentSteps++;
+			return ETankAction.SCAN;
 			
 		} else if (movesToCherry.empty()) {
 			// Check how far away the cherry is
 			movesToCherry = findShortestPathToCherry(situation);
-			
-		} else if (movesToCherry.size() < maxStepsToGetCherry) {
+		}
+		
+		// Follow cherry if nearby
+		if (movesToCherry.size() < maxStepsToGetCherry) {
 			EOrientation whereToGo = movesToCherry.peek();
 			action = situation.getOrientation().deriveTankAction(whereToGo);
 			
 			// Only remove step if we moved along (not if we turned!) 
 			if (action == ETankAction.FORWARD) movesToCherry.pop();
-			
 		} else {
+			// Otherwise just cruise around
 			ETankAction[] actions = ETankAction.values();
 			action = actions[(int)(Math.random() % 2)];
 		}
