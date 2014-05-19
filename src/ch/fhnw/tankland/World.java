@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
+import ch.fhnw.algd2.florianfankhauser.tankland.Funky;
+import ch.fhnw.algd2.kevinwieser.KevinStrategy;
+import ch.fhnw.algd2.mariusdubach.tankland.Marius;
 import ch.fhnw.tankland.fields.Field;
 import ch.fhnw.tankland.fields.Land;
 import ch.fhnw.tankland.geometry.Bounds;
@@ -15,7 +18,8 @@ import ch.fhnw.tankland.plants.Flora;
 import ch.fhnw.tankland.plants.Flower;
 import ch.fhnw.tankland.strategy.IStrategy;
 import ch.fhnw.tankland.strategy.example.DerekZoolander;
-import ch.fhnw.tankland.strategy.example.DijkstraBot;
+import ch.fhnw.tankland.strategy.example.EdsgarBot;
+import ch.fhnw.tankland.strategy.example.RaegarBot;
 import ch.fhnw.tankland.strategy.example.RandomStrategy;
 import ch.fhnw.tankland.tanks.Bonus;
 import ch.fhnw.tankland.tanks.Tank;
@@ -182,22 +186,23 @@ public class World {
 	}
 
 	public static void main(String[] args) throws InterruptedException {
+		World world = new World(30, 18, 403);
+		for (int i = 0; i < 20000; i++) {
+			world.simulateEnvironment();
+		}
+		Window window = new Window(world);
+		world.add(new KevinStrategy());
+		world.add(new Marius());
+		world.add(new RandomStrategy(world.random));
+		world.add(new DerekZoolander());
+		world.add(new EdsgarBot());
+		world.add(new RaegarBot());
+		world.add(new Funky());
+//		world.add(new SurvivalStrategy());
 		try {
-			World world = new World(30, 20, 16);
-			for (int i = 0; i < 20000; i++) {
-				world.simulateEnvironment();
-			}
-			Window window = new Window(world);
-			for (int i = 0; i < 5; i++) {
-				world.add(new RandomStrategy());
-			}
-			for (int i = 0; i < 3; i++) {
-				world.add(new DerekZoolander());
-			}
-			world.add(new DijkstraBot());
 			while (true) {
 				long t0 = System.nanoTime();
-				world.simulate(5);
+				world.simulate(80 / world.tanks.size());
 				window.repaint();
 				long t1 = System.nanoTime();
 				long millisPassed = (t1 - t0) / 1000000;
@@ -207,6 +212,7 @@ public class World {
 				}
 			}
 		} catch (WinnerFoundException e) {
+			window.repaint();
 			System.out.println(e.getMessage());
 		}
 	}

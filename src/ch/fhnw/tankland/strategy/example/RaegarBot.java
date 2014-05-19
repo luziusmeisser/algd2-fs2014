@@ -12,7 +12,7 @@ import ch.fhnw.tankland.strategy.Situation;
 import ch.fhnw.tankland.tanks.EOrientation;
 import ch.fhnw.tankland.tanks.ETankAction;
 
-public class EdsgarBot implements IStrategy {
+public class RaegarBot implements IStrategy {
 
 	@Override
 	public int getColor() {
@@ -26,16 +26,20 @@ public class EdsgarBot implements IStrategy {
 
 	@Override
 	public String getName() {
-		return "Edsgar";
+		return "Raegar";
 	}
 
 	int forwards = 0;
+	int panic = 0;
 
 	@Override
 	public ETankAction getNextAction(Situation s) {
 		ETankAction a1 = checkSurroundings(s);
 		if (a1 != null) {
 			return a1;
+		} else if (panic > 0) {
+			panic--;
+			return ETankAction.FORWARD;
 		} else if (s.getGraph() == null) {
 			return ETankAction.SCAN;
 		} else {
@@ -60,6 +64,7 @@ public class EdsgarBot implements IStrategy {
 		for (EOrientation o : EOrientation.values()) {
 			IField f = s.getNeighbor(o);
 			if (f.hasTank()) {
+				panic = 5;
 				return ETankAction.FORWARD;
 			}
 		}
