@@ -18,6 +18,7 @@ public class KevinStrategy implements IStrategy {
 		// This class stores all relevant information for a single node
 		private Node before;
 		private int cost;
+	
 		
 		NodeMarker(Node before, int cost) {
 			this.before = before;
@@ -27,7 +28,7 @@ public class KevinStrategy implements IStrategy {
 	
 	// Contains all nodes, which represent the shortest way to the cherry
 	private Stack<EOrientation> cherryPath = new Stack<>();
-	
+	int counter = 0;
 
 	@Override
 	public int getColor() {
@@ -46,29 +47,36 @@ public class KevinStrategy implements IStrategy {
 
 	@Override
 	public ETankAction getNextAction(Situation situation) {
-		while(true) {
-		if (situation.getGraph() == null) {
-			// If there no graph then scan
-			return ETankAction.SCAN;
-		}
-
-		if (cherryPath.isEmpty()) {
-			// evaluate the shortest way to the cherry
-			cherryPath = shortestWayToCherry(situation);
-		}
-
-		if (!cherryPath.isEmpty()) {
-			ETankAction next = situation.getOrientation().deriveTankAction(
-					cherryPath.peek());
-
-			if (next == ETankAction.FORWARD) {
-				cherryPath.pop();
+		if (counter < 50) {
+			counter++;
+			
+			if (situation.getGraph() == null) {
+				// If there no graph then scan
+				return ETankAction.SCAN;
 			}
-			return next;
+
+			if (cherryPath.isEmpty()) {
+				// evaluate the shortest way to the cherry
+				cherryPath = shortestWayToCherry(situation);
+			}
+
+			if (!cherryPath.isEmpty()) {
+				ETankAction next = situation.getOrientation().deriveTankAction(
+						cherryPath.peek());
+
+				if (next == ETankAction.FORWARD) {
+					cherryPath.pop();
+				}
+				return next;
+			}
+			
+			return ETankAction.FORWARD;
 		}
-		return ETankAction.FORWARD;
 		
-		}
+		cherryPath = new Stack<>();
+		counter = 0;
+		System.out.println("bin darussen");
+		return ETankAction.RIGHT;
 	}
 
 	private Stack<EOrientation> shortestWayToCherry(Situation situation) {
