@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import ch.fhnw.algd2.florianfankhauser.tankland.Funky;
 import ch.fhnw.algd2.mariusdubach.tankland.Marius;
+import ch.fhnw.algd2.stephenrandles.tankland.SurvivalStrategy;
 import ch.fhnw.tankland.WinnerFoundException;
 import ch.fhnw.tankland.WinnerStats;
 import ch.fhnw.tankland.World;
@@ -27,6 +28,7 @@ public class StrategyTest {
 		strats.add(new Funky());
 		strats.add(new Marius());
 		strats.add(new EdsgarBot());
+		strats.add(new SurvivalStrategy());
 	}
 	
 	@Test
