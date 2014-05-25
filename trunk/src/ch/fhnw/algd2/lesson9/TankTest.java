@@ -22,14 +22,15 @@ public class TankTest {
 	public void setUp() throws Exception {
 		lists = new ArrayList<>();
 
-		lists.add(new ch.fhnw.algd2.luzius.DijkstraStrategy());
+		/*lists.add(new ch.fhnw.algd2.luzius.DijkstraStrategy());
 		lists.add(new ch.fhnw.algd2.florianfankhauser.tankland.Funky());
 		lists.add(new ch.fhnw.algd2.christianguedel.TankStrategy());
 		lists.add(new ch.fhnw.algd2.mariusdubach.tankland.Marius2());
         lists.add(new ch.fhnw.algd2.stephanbrunner.PureDijkstraStrategy());
         lists.add(new ch.fhnw.algd2.larskessler.LarsKessler());
-        lists.add(new ch.fhnw.algd2.stephenrandles.tankland.ShortestPathStrategy());
-        lists.add(new ch.fhnw.algd2.kevinwieser.Strategy());
+        lists.add(new ch.fhnw.algd2.stephenrandles.tankland.ShortestPathStrategy());*/
+        //lists.add(new ch.fhnw.algd2.kevinwieser.Strategy());
+        lists.add(new ch.fhnw.algd2.emanuelmistretta.AlgGame2());
         lists.add(new ch.fhnw.algd2.romangribi.Tank());
         lists.add(new ch.fhnw.algd2.lukasmusy.MyStrategy());
         lists.add(new ch.fhnw.algd2.martineberle.Strategy());
