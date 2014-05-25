@@ -2,6 +2,7 @@
 package ch.fhnw.algd2.kevinwieser;
 
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Stack;
 
@@ -13,6 +14,10 @@ import ch.fhnw.tankland.tanks.EOrientation;
 import ch.fhnw.tankland.tanks.ETankAction;
 
 public class Strategy implements IStrategy {
+	
+	
+	private int counter = 0;
+	LinkedList<ETankAction> stack = new LinkedList<>();
 	
 	private class NodeMarker {
 		// This class stores all relevant information for a single node
@@ -43,17 +48,27 @@ public class Strategy implements IStrategy {
 	public String getName() {
 		return "Kevin";
 	}
+	
+	private Boolean scanned = false;
 
 	@Override
 	public ETankAction getNextAction(Situation situation) {
 		if (situation.getGraph() == null) {
 			// If there no graph then scan
+			System.out.println("bin im scan");
+			scanned = true;
 			return ETankAction.SCAN;
 		}
 
 		if (cherryPath.isEmpty()) {
-			// evaluate the shortest way to the cherry
-			cherryPath = shortestWayToCherry(situation);
+			if (scanned) {
+				cherryPath = shortestWayToCherry(situation);
+				scanned = false;
+			} else {
+				scanned = true;
+				counter++;
+				return ETankAction.SCAN;
+			}
 		}
 
 		if (!cherryPath.isEmpty()) {
@@ -65,6 +80,7 @@ public class Strategy implements IStrategy {
 			}
 			return next;
 		}
+		
 		return ETankAction.FORWARD;
 	}
 
