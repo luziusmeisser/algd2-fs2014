@@ -55,7 +55,6 @@ public class CherryStrategyKevin implements IStrategy {
 	public ETankAction getNextAction(Situation situation) {
 		if (situation.getGraph() == null) {
 			// If there no graph then scan
-			System.out.println("bin im scan");
 			scanned = true;
 			return ETankAction.SCAN;
 		}
