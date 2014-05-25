@@ -8,6 +8,7 @@ import java.util.Random;
 import org.junit.Before;
 import org.junit.Test;
 
+import ch.fhnw.algd2.christianguedel.TankStrategy;
 import ch.fhnw.algd2.florianfankhauser.tankland.Funky;
 import ch.fhnw.algd2.mariusdubach.tankland.Marius;
 import ch.fhnw.algd2.stephenrandles.tankland.SurvivalStrategy;
@@ -29,6 +30,7 @@ public class StrategyTest {
 		strats.add(new Marius());
 		strats.add(new EdsgarBot());
 		strats.add(new SurvivalStrategy());
+		strats.add(new TankStrategy());
 	}
 	
 	@Test

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
+import ch.fhnw.algd2.christianguedel.TankStrategy;
 import ch.fhnw.algd2.florianfankhauser.tankland.Funky;
 import ch.fhnw.algd2.kevinwieser.KevinStrategy;
 import ch.fhnw.algd2.mariusdubach.tankland.Marius;
@@ -200,6 +201,7 @@ public class World {
 		world.add(new RaegarBot());
 		world.add(new Funky());
 		world.add(new SurvivalStrategy());
+		world.add(new TankStrategy());
 		try {
 			while (true) {
 				long t0 = System.nanoTime();

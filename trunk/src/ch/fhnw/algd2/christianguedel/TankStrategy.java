@@ -18,7 +18,7 @@ public class TankStrategy implements IStrategy {
 
 	@Override
 	public int getColor() {
-		return 0;
+		return 6;
 	}
 
 	@Override
@@ -31,8 +31,21 @@ public class TankStrategy implements IStrategy {
 		return "Christian Güdel's Strategy";
 	}
 
+	// note: currently the strategy only goes for the cherry and
+	// looks for tanks in a nearby field. Could be extended to go
+	// after any tank on the battlefield if the speed is high enough
+	// or to avoid fields with a very high travel cost etc.
 	@Override
 	public ETankAction getNextAction(Situation situation) {
+		// destroy any nearby tanks
+		for (EOrientation e : EOrientation.values())
+		{
+			if (situation.getNeighbor(e).hasTank())
+			{
+				return situation.getOrientation().deriveTankAction(e);
+			}
+		}
+		
 		if (!this.hasScanned) {
 			this.hasScanned = true;
 			return ETankAction.SCAN;
@@ -40,6 +53,7 @@ public class TankStrategy implements IStrategy {
 
 		if (this.path == null)
 			this.path = this.findPathToBonusField(situation);
+		
 		if (!this.path.isEmpty()) {
 			ETankAction next = situation.getOrientation().deriveTankAction(
 					this.path.peek());
@@ -48,6 +62,10 @@ public class TankStrategy implements IStrategy {
 				this.path.pop();
 
 			return next;
+		// find the next cherry if the path is empty on the next turn
+		} else {
+			this.path = null;
+			this.hasScanned = false;
 		}
 
 		return ETankAction.FORWARD;
