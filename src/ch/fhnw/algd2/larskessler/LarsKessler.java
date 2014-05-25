@@ -13,12 +13,13 @@ import ch.fhnw.tankland.tanks.ETankAction;
 public class LarsKessler implements IStrategy {
 	private boolean scanned;
 	private boolean cherry;
+	private int count = 0;
 	private PriorityQueue<StepMarker> toVisit = new PriorityQueue<StepMarker>();
 	private LinkedList<ETankAction> cherryPath = new LinkedList<>();
 	
 	@Override
 	public int getColor() {
-		return 1;
+		return 5;
 	}
 
 	@Override
@@ -33,21 +34,54 @@ public class LarsKessler implements IStrategy {
 
 	@Override
 	public ETankAction getNextAction(Situation situation) {
-		if(!scanned) {
-			scanned = true;
-			return ETankAction.SCAN;
-		} 
-		if(!cherry) {
-			StepMarker start = findBonus(situation.getGraph());
-			if(start != null) {
-				cherry = true;
-				//System.out.println("found cherry");
-				calcSteps(start, situation.getOrientation());
+		if(count % 15 == 0) {
+			if(!scanned) {
+				scanned = true;
+				return ETankAction.SCAN;
+			}
+			if(!cherry) {
+				StepMarker start = findBonus(situation.getGraph());
+				if(start != null) {
+					cherry = true;
+					//System.out.println("found cherry");
+					calcSteps(start, situation.getOrientation());
+				}
 			}
 		}
-		if(cherryPath.size() > 0) {
-			return cherryPath.removeFirst();
+		
+		if(cherryPath.size() > 20) {
+			// drop cherry path and do something else
+			
+			if(situation.getNeighbor(EOrientation.NORTH).hasTank()) {
+				return situation.getOrientation().deriveTankAction(EOrientation.NORTH);
+			} else if(situation.getNeighbor(EOrientation.WEST).hasTank()) {
+				return situation.getOrientation().deriveTankAction(EOrientation.WEST);
+			} else if(situation.getNeighbor(EOrientation.EAST).hasTank()) {
+				return situation.getOrientation().deriveTankAction(EOrientation.EAST);
+			} else if(situation.getNeighbor(EOrientation.SOUTH).hasTank()) {
+				return situation.getOrientation().deriveTankAction(EOrientation.SOUTH);
+			}
+			
+			
+			/*
+			this.cherryPath = null;
+			for(int i = 0; i<20; i++) {
+				Node currentNode = situation.getGraph();
+				for(Edge e : currentNode.getEdges()) {
+					Node neighbor = e.getOther(currentNode);
+					if(neighbor.hasTank()) {
+						situation.getOrientation().deriveTankAction(currentNode.getDirection(neighbor));
+					}
+				}
+			}
+			*/
+		} else {
+			if(cherryPath.size() > 0) {
+				return cherryPath.removeFirst();
+			}
 		}
+	
+		count++;	
 		return ETankAction.FORWARD;
 	}
 	
@@ -117,6 +151,9 @@ public class LarsKessler implements IStrategy {
 			cherryPath.add(ETankAction.FORWARD);
 			start = start.next;
 		}
+		
+		cherry = false;
+		scanned = false;
 	}
 	
 	@SuppressWarnings("rawtypes")
