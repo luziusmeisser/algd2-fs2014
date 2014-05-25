@@ -10,6 +10,8 @@ import org.junit.Test;
 
 import ch.fhnw.algd2.christianguedel.TankStrategy;
 import ch.fhnw.algd2.florianfankhauser.tankland.Funky;
+import ch.fhnw.algd2.kevinwieser.CherryStrategyKevin;
+import ch.fhnw.algd2.kevinwieser.Strategy;
 import ch.fhnw.algd2.larskessler.LarsKessler;
 import ch.fhnw.algd2.mariusdubach.tankland.Marius;
 import ch.fhnw.algd2.stephenrandles.tankland.SurvivalStrategy;
@@ -33,6 +35,7 @@ public class StrategyTest {
 		strats.add(new SurvivalStrategy());
 		strats.add(new TankStrategy());
 		strats.add(new LarsKessler());
+		strats.add(new CherryStrategyKevin());
 	}
 	
 	@Test
