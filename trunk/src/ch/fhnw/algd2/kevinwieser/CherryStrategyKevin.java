@@ -46,7 +46,7 @@ public class CherryStrategyKevin implements IStrategy {
 
 	@Override
 	public String getName() {
-		return "Kevin";
+		return "Kevin's Cherry Bomber";
 	}
 	
 	private Boolean scanned = false;
