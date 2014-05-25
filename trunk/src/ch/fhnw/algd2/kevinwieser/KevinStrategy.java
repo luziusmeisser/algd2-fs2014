@@ -47,7 +47,7 @@ public class KevinStrategy implements IStrategy {
 
 	@Override
 	public ETankAction getNextAction(Situation situation) {
-		if (counter < 20) {
+		if (counter < 10) {
 			counter++;
 			
 			if (situation.getGraph() == null) {
