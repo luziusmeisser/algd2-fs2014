@@ -1,7 +1,9 @@
 // Created by Kevin Wieser on 05.05.2014
 package ch.fhnw.algd2.kevinwieser;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Stack;
 
@@ -13,6 +15,9 @@ import ch.fhnw.tankland.tanks.EOrientation;
 import ch.fhnw.tankland.tanks.ETankAction;
 
 public class KevinStrategy implements IStrategy {
+	
+	
+	
 	
 	private class NodeMarker {
 		// This class stores all relevant information for a single node
@@ -47,38 +52,103 @@ public class KevinStrategy implements IStrategy {
 
 	@Override
 	public ETankAction getNextAction(Situation situation) {
-		if (counter < 10) {
+	
+		LinkedList<ETankAction> stack = new LinkedList<>();
+
+		stack.add(ETankAction.FORWARD);
+
+		if (situation.getNeighbor(EOrientation.EAST).hasTank()) {
+			stack.add(situation.getOrientation().deriveTankAction(
+					EOrientation.EAST));
+		} else if (situation.getNeighbor(EOrientation.NORTH).hasTank()) {
+			stack.add(situation.getOrientation().deriveTankAction(
+					EOrientation.NORTH));
+		} else if (situation.getNeighbor(EOrientation.WEST).hasTank()) {
+			stack.add(situation.getOrientation().deriveTankAction(
+					EOrientation.WEST));
+		} else if (situation.getNeighbor(EOrientation.SOUTH).hasTank()) {
+			stack.add(situation.getOrientation().deriveTankAction(
+					EOrientation.SOUTH));
+		}
+
+		return stack.pop();
+		
+//	turns.add(ETankAction.FORWARD);
+		
+//		if(situation.getNeighbor(EOrientation.EAST).hasTank()){
+//			turns.add(situation.getOrientation().deriveTankAction(EOrientation.EAST));
+//		}else if(situation.getNeighbor(EOrientation.NORTH).hasTank()){
+//			turns.add(situation.getOrientation().deriveTankAction(EOrientation.NORTH));
+//		}else if(situation.getNeighbor(EOrientation.WEST).hasTank()){
+//			turns.add(situation.getOrientation().deriveTankAction(EOrientation.WEST));
+//		}else if(situation.getNeighbor(EOrientation.SOUTH).hasTank()){
+//			turns.add(situation.getOrientation().deriveTankAction(EOrientation.SOUTH));
+//		}
+//		
+//		
+//		return turns.pop();
+		
+		
+		
+//		if (counter < 10) {
+//			counter++;
+//			
+//			if (situation.getGraph() == null) {
+//				// If there no graph then scan
+//				return ETankAction.SCAN;
+//			}
+//
+//			if (cherryPath.isEmpty()) {
+//				// evaluate the shortest way to the cherry
+//				cherryPath = shortestWayToCherry(situation);
+//			}
+//
+//			if (!cherryPath.isEmpty()) {
+//				ETankAction next = situation.getOrientation().deriveTankAction(
+//						cherryPath.peek());
+//
+//				if (next == ETankAction.FORWARD) {
+//					cherryPath.pop();
+//				}
+//				return next;
+//			}
+//			
+//			return ETankAction.FORWARD;
+//		}
+//		
+//		cherryPath = new Stack<>();
+//		counter = 0;
+//
+//		return ETankAction.RIGHT;
+	}
+
+	
+	
+	private ETankAction randomAction(){
+		int zahl = (int)((Math.random()) * 4 + 1);
+		
+		int counter = 0;
+		
+		if (counter % 10 == 0) {
 			counter++;
-			
-			if (situation.getGraph() == null) {
-				// If there no graph then scan
-				return ETankAction.SCAN;
-			}
-
-			if (cherryPath.isEmpty()) {
-				// evaluate the shortest way to the cherry
-				cherryPath = shortestWayToCherry(situation);
-			}
-
-			if (!cherryPath.isEmpty()) {
-				ETankAction next = situation.getOrientation().deriveTankAction(
-						cherryPath.peek());
-
-				if (next == ETankAction.FORWARD) {
-					cherryPath.pop();
-				}
-				return next;
-			}
-			
+			return ETankAction.RIGHT;
+		} else {
+			counter++;
 			return ETankAction.FORWARD;
 		}
 		
-		cherryPath = new Stack<>();
-		counter = 0;
-
-		return ETankAction.RIGHT;
+//		switch(zahl) {
+//		case 1 : return ETankAction.FORWARD; 
+//		case 2: return ETankAction.LEFT;
+//		case 3: return ETankAction.RIGHT;
+//		case 4: return ETankAction.PAUSE;
+//		}
+//		
+//		return ETankAction.FORWARD;
 	}
-
+	
+	
+	
 	private Stack<EOrientation> shortestWayToCherry(Situation situation) {
 		// this function returns a stack, which contains a list of moves to perform the shortest way to the cherry  
 		PriorityQueue<Node> moves = new PriorityQueue<>(50, new Comparator<Node>() {
