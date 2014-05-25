@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import ch.fhnw.algd2.christianguedel.TankStrategy;
 import ch.fhnw.algd2.florianfankhauser.tankland.Funky;
+import ch.fhnw.algd2.larskessler.LarsKessler;
 import ch.fhnw.algd2.mariusdubach.tankland.Marius;
 import ch.fhnw.algd2.stephenrandles.tankland.SurvivalStrategy;
 import ch.fhnw.tankland.WinnerFoundException;
@@ -31,6 +32,7 @@ public class StrategyTest {
 		strats.add(new EdsgarBot());
 		strats.add(new SurvivalStrategy());
 		strats.add(new TankStrategy());
+		strats.add(new LarsKessler());
 	}
 	
 	@Test
