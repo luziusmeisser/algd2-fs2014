@@ -17,6 +17,7 @@ public class BattleStrategy implements IStrategy {
 	public LinkedList<WayPoint> stepsToCherry;
 	public LinkedList<ETankAction> way = new LinkedList<>();
 	public boolean cherry = false;
+	public int steps = 10;
 
 	@Override
 	public int getColor() {
@@ -35,7 +36,7 @@ public class BattleStrategy implements IStrategy {
 
 	@Override
 	public ETankAction getNextAction(Situation situation) {
-		if (situation.getGraph() == null){
+		if (situation.getGraph() == null || steps == 0){
 			return ETankAction.SCAN;
 		}
 			Node current = situation.getGraph();
@@ -65,7 +66,7 @@ public class BattleStrategy implements IStrategy {
 		}else if(situation.getNeighbor(EOrientation.SOUTH).hasTank()){
 			way.add(situation.getOrientation().deriveTankAction(EOrientation.SOUTH));
 		}
-		
+		steps--;
 		
 		return way.removeFirst();
 	}
