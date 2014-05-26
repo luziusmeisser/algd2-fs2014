@@ -2,7 +2,6 @@
 
 package ch.fhnw.algd2.romangribi;
 
-import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Stack;
 
@@ -66,12 +65,6 @@ public class Tank implements IStrategy {
     }
 
     private Stack<EOrientation> findPath(Situation situation) {
-        // PriorityQueue<Node> queue = new PriorityQueue<>(50, new Comparator<Node>() {
-        // @Override
-        // public int compare(Node o1, Node o2) {
-        // return ((Marker) o1.getMarker()).compareTo((Marker) o2.getMarker());
-        // }
-        // });
         PriorityQueue<Marker> markers = new PriorityQueue<>();
         markers.add(new Marker(situation.getGraph()));
 
@@ -107,33 +100,10 @@ public class Tank implements IStrategy {
         return path;
     }
 
-    private void findPath(PriorityQueue<Marker> markers) {
-        while (markers.size() > 0) {
-            Marker optimal = markers.poll();
-            if (optimal == optimal.node.getMarker()) {
-                Node current = optimal.node;
-                if (current.hasBonus()) {
-                    optimal.setPath();
-                    return;
-                } else {
-                    for (Edge edge : current.getEdges()) {
-                        int weight = optimal.weight + edge.getWeight();
-                        Node next = edge.getOther(current);
-                        Marker nextMarker = (Marker) next.getMarker();
-                        if (nextMarker == null || nextMarker.weight > weight) {
-                            markers.add(new Marker(next, current, weight));
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     private class Marker implements Comparable<Marker> {
 
         private Node node;
         private Node prev;
-        private Node next;
         private int weight;
 
         public Marker(Node node) {
@@ -147,10 +117,6 @@ public class Tank implements IStrategy {
             this.node.setMarker(this);
         }
 
-        private boolean isFirst() {
-            return prev == null;
-        }
-
         public boolean hasBonus() {
             return this.node.hasBonus();
         }
@@ -159,21 +125,9 @@ public class Tank implements IStrategy {
             return this.node.getEdges();
         }
 
-        private void setPath() {
-            if (!isFirst()) {
-                Marker prev = (Marker) this.prev.getMarker();
-                prev.next = this.node;
-                prev.setPath();
-            }
-        }
-
         @Override
         public int compareTo(Marker other) {
             return Integer.compare(weight, other.weight);
-        }
-
-        public EOrientation action() {
-            return node.getDirection(next);
         }
 
     }
