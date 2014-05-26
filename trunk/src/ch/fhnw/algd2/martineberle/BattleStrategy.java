@@ -30,7 +30,7 @@ public class BattleStrategy implements IStrategy {
 
 	@Override
 	public String getName() {
-		return "Martin";
+		return "Cherminator";
 	}
 
 	@Override
