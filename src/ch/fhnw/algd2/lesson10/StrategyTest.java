@@ -36,6 +36,7 @@ public class StrategyTest {
 		strats.add(new TankStrategy());
 		strats.add(new LarsKessler());
 		strats.add(new CherryStrategyKevin());
+		strats.add(new ch.fhnw.algd2.romangribi.Tank());
 	}
 	
 	@Test
