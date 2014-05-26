@@ -2,12 +2,8 @@
 
 package ch.fhnw.algd2.martineberle;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
-import java.util.Stack;
-
-import ch.fhnw.algd2.martineberle.dijkstra2.WayPoint;
 import ch.fhnw.tankland.strategy.Edge;
 import ch.fhnw.tankland.strategy.IStrategy;
 import ch.fhnw.tankland.strategy.Situation;
@@ -16,7 +12,8 @@ import ch.fhnw.tankland.tanks.ETankAction;
 import ch.fhnw.tankland.strategy.Node;
 
 public class dijkstra2 implements IStrategy {
-	public ArrayList<WayPoint> stepsToCherry;
+	public LinkedList<WayPoint> stepsToCherry;
+	public LinkedList<ETankAction> way = new LinkedList<>();
 
 	@Override
 	public int getColor() {
@@ -49,16 +46,24 @@ public class dijkstra2 implements IStrategy {
 				current.setMarker(first);
 				
 				calculateNeighbours(new WayPoint(0, situation.getGraph()));
+				convertStepsToWay(stepsToCherry, way, situation.getOrientation());
 			}
 		}
-		if(stepsToCherry.get(stepsToCherry.size()-2) != null){
+		
+		//while(stepsToCherry.getFirst().distance > 0){
 			//Node current = situation.getGraph();
-			EOrientation o = stepsToCherry.remove(stepsToCherry.size()-2).dest;//.opposite();
-			return situation.getOrientation().deriveTankAction(o);
-		}
-			else {
-				return ETankAction.FORWARD;
-			}
+//			EOrientation o = stepsToCherry.removeFirst().dest;//.opposite();
+//			System.out.println(o.toString());
+//			if(situation.getOrientation().equals(o)){
+				return way.removeFirst();
+//			}
+//			else{
+//				return situation.getOrientation().deriveTankAction(o);
+//			}
+		//}
+//			else {
+//				return ETankAction.FORWARD;
+//			}
 				//put First Waypoint into List(Hash!)
 				//mark first Waypoint as First
 				//get all neighbours
@@ -67,6 +72,31 @@ public class dijkstra2 implements IStrategy {
 						//if distance smaller or neighbor null, update
 				//mark current as visited
 	}
+	private void convertStepsToWay(LinkedList<WayPoint> stepsToCherry,
+			LinkedList<ETankAction> way2, EOrientation or) {
+		
+		WayPoint from = stepsToCherry.getLast();
+		WayPoint to = from.target;
+		//EOrientation orNext = from.node.getDirection(to.node);
+		while (to != null) {
+			EOrientation orNext = from.node.getDirection(to.node);
+			while (orNext != or) {
+				if (or.ordinal() - orNext.ordinal() > 0) {
+					way.add(ETankAction.LEFT);
+					or = or.left();
+				} else {
+					way.add(ETankAction.RIGHT);
+					or = or.right();
+				}
+			}
+			if (orNext == or) {
+				way.add(ETankAction.FORWARD);
+			}
+			from = to;
+			to = to.target;
+		}
+	}
+
 	public void calculateNeighbours(WayPoint n){
 		//find all neighbours and create WayPoints
 		if (!n.finalized){
@@ -105,14 +135,18 @@ public class dijkstra2 implements IStrategy {
 	
 	public synchronized void buildPath(WayPoint n){
 		
-		ArrayList<WayPoint> path = new ArrayList<>();
+		LinkedList<WayPoint> path = new LinkedList<>();
 		WayPoint current = n;
+		n.target = null;
+		n.origin.target = n;
 		path.add(n);
-		while(!current.node.hasTank() && current.origin != null){
+		while(!current.node.hasTank() /*&& current.origin != null*/){
+			current.origin.target = current;
 			current = current.origin;
 			path.add(current);
 		}
-		if(stepsToCherry == null || path.get(0).distance < stepsToCherry.get(0).distance){
+		//if(stepsToCherry != null)System.out.println(path.getFirst().distance+" "+stepsToCherry.getFirst().distance);
+		if(stepsToCherry == null || path.getFirst().distance < stepsToCherry.getFirst().distance){
 			//stepsToCherry = new Stack<WayPoint>();
 			stepsToCherry = path;
 			return;
@@ -125,6 +159,7 @@ public class dijkstra2 implements IStrategy {
 		EOrientation dest;
 		Node node;
 		WayPoint origin;
+		WayPoint target;
 		PriorityQueue<WayPoint> neighbours = new PriorityQueue<>();
 		boolean finalized = false;
 		
