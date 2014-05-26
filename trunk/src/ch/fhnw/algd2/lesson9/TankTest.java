@@ -33,7 +33,7 @@ public class TankTest {
         lists.add(new ch.fhnw.algd2.emanuelmistretta.AlgGame2());
         lists.add(new ch.fhnw.algd2.romangribi.Tank());
         lists.add(new ch.fhnw.algd2.lukasmusy.MyStrategy());
-        lists.add(new ch.fhnw.algd2.martineberle.Strategy());
+        lists.add(new ch.fhnw.algd2.martineberle.dijkstra2());
 		// add your own implementation here
         
 	}
