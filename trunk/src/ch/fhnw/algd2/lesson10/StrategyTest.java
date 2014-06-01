@@ -13,6 +13,7 @@ import ch.fhnw.algd2.florianfankhauser.tankland.Funky;
 import ch.fhnw.algd2.kevinwieser.CherryStrategyKevin;
 import ch.fhnw.algd2.kevinwieser.Strategy;
 import ch.fhnw.algd2.larskessler.LarsKessler;
+import ch.fhnw.algd2.lukasmusy.MyStrategy;
 import ch.fhnw.algd2.mariusdubach.tankland.Marius;
 import ch.fhnw.algd2.stephenrandles.tankland.SurvivalStrategy;
 import ch.fhnw.tankland.WinnerFoundException;
@@ -37,6 +38,7 @@ public class StrategyTest {
 		strats.add(new LarsKessler());
 		strats.add(new CherryStrategyKevin());
 		strats.add(new ch.fhnw.algd2.romangribi.Tank());
+		strats.add(new ch.fhnw.algd2.lukasmusy.MyStrategy());
 	}
 	
 	@Test
