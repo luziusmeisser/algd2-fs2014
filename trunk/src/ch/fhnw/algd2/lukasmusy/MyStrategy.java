@@ -7,6 +7,7 @@ import java.util.PriorityQueue;
 import java.util.Stack;
 
 import ch.fhnw.tankland.strategy.Edge;
+import ch.fhnw.tankland.strategy.IField;
 import ch.fhnw.tankland.strategy.IStrategy;
 import ch.fhnw.tankland.strategy.Node;
 import ch.fhnw.tankland.strategy.Situation;
@@ -16,7 +17,10 @@ import ch.fhnw.tankland.tanks.ETankAction;
 public class MyStrategy implements IStrategy{
 
 private Stack<EOrientation> movesToCherry = new Stack<>();
-	
+
+	private final int maxWay = 20;
+	private final int stepsUntilScan = 10;
+	private int currentSteps = 0;
 
 	@Override
 	public int getColor() {
@@ -35,25 +39,42 @@ private Stack<EOrientation> movesToCherry = new Stack<>();
 
 	@Override
 	public ETankAction getNextAction(Situation situation) {
-		if (situation.getGraph() == null) {
+		ETankAction action = ETankAction.PAUSE;
+		
+		if (situation.getGraph() == null || currentSteps % stepsUntilScan == 0) {
+			currentSteps = 0;
+			movesToCherry.clear();
+			
+			currentSteps++;
 			return ETankAction.SCAN;
+			
 		}
 		
-		if (movesToCherry.isEmpty()) { 
+		if (movesToCherry.empty()) {
 			movesToCherry = findShortestPath(situation);
 		}
-
-		if (!movesToCherry.isEmpty()) {
+		
+		if (!movesToCherry.empty() && movesToCherry.size() < maxWay) {
 			EOrientation whereToGo = movesToCherry.peek();
-			ETankAction action = situation.getOrientation().deriveTankAction(whereToGo);
+			action = situation.getOrientation().deriveTankAction(whereToGo);
 			
-			if (action == ETankAction.FORWARD) movesToCherry.pop();		
-			return action;
-			
+			if (action == ETankAction.FORWARD) movesToCherry.pop();
 		} else {
-			return ETankAction.PAUSE;
+			int rand = (int)(Math.random() * 10);
+			
+			if (rand % 2 == 0) {
+				action = ETankAction.FORWARD;
+			} else if (rand % 5 == 0) {
+				if (rand < 5) action = ETankAction.LEFT;
+				else action = ETankAction.RIGHT;				
+			}
+			
 		}
+		
+		currentSteps++;		
+		return action;
 	}
+	
 	
 	private Stack<EOrientation> findShortestPath(Situation situation) {
 		PriorityQueue<Node> visited = new PriorityQueue<>(5, new Comparator<Node>() {
